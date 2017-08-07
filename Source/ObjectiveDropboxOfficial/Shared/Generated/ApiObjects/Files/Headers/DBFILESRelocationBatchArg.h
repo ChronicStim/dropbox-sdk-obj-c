@@ -39,32 +39,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// autorename that file to avoid the conflict.
 @property (nonatomic, readonly) NSNumber *autorename;
 
+/// Allow moves by owner even if it would result in an ownership transfer for
+/// the content being moved. This does not apply to copies.
+@property (nonatomic, readonly) NSNumber *allowOwnershipTransfer;
+
 #pragma mark - Constructors
-
-///
-/// Convenience constructor.
-///
-/// @param entries List of entries to be moved or copied. Each entry is
-/// RelocationPath.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithEntries:(NSArray<DBFILESRelocationPath *> *)entries;
-
-///
-/// Convenience constructor.
-///
-/// @param entries List of entries to be moved or copied. Each entry is
-/// RelocationPath.
-/// @param allowSharedFolder If true, `dCopyBatch` will copy contents in shared
-/// folder, otherwise `cantCopySharedFolder` in `DBFILESRelocationError` will be
-/// returned if `fromPath` in `DBFILESRelocationPath` contains shared folder.
-/// This field is always true for `moveBatch`.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithEntries:(NSArray<DBFILESRelocationPath *> *)entries
-              allowSharedFolder:(nullable NSNumber *)allowSharedFolder;
 
 ///
 /// Full constructor for the struct (exposes all instance variables).
@@ -77,12 +56,27 @@ NS_ASSUME_NONNULL_BEGIN
 /// This field is always true for `moveBatch`.
 /// @param autorename If there's a conflict with any file, have the Dropbox
 /// server try to autorename that file to avoid the conflict.
+/// @param allowOwnershipTransfer Allow moves by owner even if it would result
+/// in an ownership transfer for the content being moved. This does not apply to
+/// copies.
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithEntries:(NSArray<DBFILESRelocationPath *> *)entries
               allowSharedFolder:(nullable NSNumber *)allowSharedFolder
-                     autorename:(nullable NSNumber *)autorename;
+                     autorename:(nullable NSNumber *)autorename
+         allowOwnershipTransfer:(nullable NSNumber *)allowOwnershipTransfer;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param entries List of entries to be moved or copied. Each entry is
+/// RelocationPath.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithEntries:(NSArray<DBFILESRelocationPath *> *)entries;
 
 - (instancetype)init NS_UNAVAILABLE;
 

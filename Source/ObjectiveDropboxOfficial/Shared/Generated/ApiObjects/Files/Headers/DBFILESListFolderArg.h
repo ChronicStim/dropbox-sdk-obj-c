@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Instance fields
 
-/// The path to the folder you want to see the contents of.
+/// A unique identifier for the file.
 @property (nonatomic, readonly, copy) NSString *path;
 
 /// If true, the list folder operation will be applied recursively to all
@@ -46,65 +46,9 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param path The path to the folder you want to see the contents of.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPath:(NSString *)path;
-
-///
-/// Convenience constructor.
-///
-/// @param path The path to the folder you want to see the contents of.
-/// @param recursive If true, the list folder operation will be applied
-/// recursively to all subfolders and the response will contain contents of all
-/// subfolders.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPath:(NSString *)path recursive:(nullable NSNumber *)recursive;
-
-///
-/// Convenience constructor.
-///
-/// @param path The path to the folder you want to see the contents of.
-/// @param recursive If true, the list folder operation will be applied
-/// recursively to all subfolders and the response will contain contents of all
-/// subfolders.
-/// @param includeMediaInfo If true, `mediaInfo` in `DBFILESFileMetadata` is set
-/// for photo and video.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPath:(NSString *)path
-                   recursive:(nullable NSNumber *)recursive
-            includeMediaInfo:(nullable NSNumber *)includeMediaInfo;
-
-///
-/// Convenience constructor.
-///
-/// @param path The path to the folder you want to see the contents of.
-/// @param recursive If true, the list folder operation will be applied
-/// recursively to all subfolders and the response will contain contents of all
-/// subfolders.
-/// @param includeMediaInfo If true, `mediaInfo` in `DBFILESFileMetadata` is set
-/// for photo and video.
-/// @param includeDeleted If true, the results will include entries for files
-/// and folders that used to exist but were deleted.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPath:(NSString *)path
-                   recursive:(nullable NSNumber *)recursive
-            includeMediaInfo:(nullable NSNumber *)includeMediaInfo
-              includeDeleted:(nullable NSNumber *)includeDeleted;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
-/// @param path The path to the folder you want to see the contents of.
+/// @param path A unique identifier for the file.
 /// @param recursive If true, the list folder operation will be applied
 /// recursively to all subfolders and the response will contain contents of all
 /// subfolders.
@@ -123,6 +67,16 @@ NS_ASSUME_NONNULL_BEGIN
                    includeMediaInfo:(nullable NSNumber *)includeMediaInfo
                      includeDeleted:(nullable NSNumber *)includeDeleted
     includeHasExplicitSharedMembers:(nullable NSNumber *)includeHasExplicitSharedMembers;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param path A unique identifier for the file.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithPath:(NSString *)path;
 
 - (instancetype)init NS_UNAVAILABLE;
 

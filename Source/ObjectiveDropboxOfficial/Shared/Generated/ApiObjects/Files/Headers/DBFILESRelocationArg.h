@@ -35,33 +35,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// avoid the conflict.
 @property (nonatomic, readonly) NSNumber *autorename;
 
+/// Allow moves by owner even if it would result in an ownership transfer for
+/// the content being moved. This does not apply to copies.
+@property (nonatomic, readonly) NSNumber *allowOwnershipTransfer;
+
 #pragma mark - Constructors
-
-///
-/// Convenience constructor.
-///
-/// @param fromPath Path in the user's Dropbox to be copied or moved.
-/// @param toPath Path in the user's Dropbox that is the destination.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithFromPath:(NSString *)fromPath toPath:(NSString *)toPath;
-
-///
-/// Convenience constructor.
-///
-/// @param fromPath Path in the user's Dropbox to be copied or moved.
-/// @param toPath Path in the user's Dropbox that is the destination.
-/// @param allowSharedFolder If true, `dCopy` will copy contents in shared
-/// folder, otherwise `cantCopySharedFolder` in `DBFILESRelocationError` will be
-/// returned if fromPath contains shared folder. This field is always true for
-/// `move`.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithFromPath:(NSString *)fromPath
-                          toPath:(NSString *)toPath
-               allowSharedFolder:(nullable NSNumber *)allowSharedFolder;
 
 ///
 /// Full constructor for the struct (exposes all instance variables).
@@ -74,13 +52,28 @@ NS_ASSUME_NONNULL_BEGIN
 /// `move`.
 /// @param autorename If there's a conflict, have the Dropbox server try to
 /// autorename the file to avoid the conflict.
+/// @param allowOwnershipTransfer Allow moves by owner even if it would result
+/// in an ownership transfer for the content being moved. This does not apply to
+/// copies.
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithFromPath:(NSString *)fromPath
                           toPath:(NSString *)toPath
                allowSharedFolder:(nullable NSNumber *)allowSharedFolder
-                      autorename:(nullable NSNumber *)autorename;
+                      autorename:(nullable NSNumber *)autorename
+          allowOwnershipTransfer:(nullable NSNumber *)allowOwnershipTransfer;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param fromPath Path in the user's Dropbox to be copied or moved.
+/// @param toPath Path in the user's Dropbox that is the destination.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithFromPath:(NSString *)fromPath toPath:(NSString *)toPath;
 
 @end
 
