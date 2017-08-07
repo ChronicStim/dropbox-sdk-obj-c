@@ -29,42 +29,35 @@ NS_ASSUME_NONNULL_BEGIN
 /// The maximum number of results to return per request.
 @property (nonatomic, readonly) NSNumber *limit;
 
-/// This is a list indicating whether each returned folder data entry will
-/// include a boolean field `allow` in `DBSHARINGFolderPermission` that
-/// describes whether the current user can perform the `FolderAction` on the
+/// A list of `FolderAction`s corresponding to `FolderPermission`s that should
+/// appear in the  response's `permissions` in `DBSHARINGSharedFolderMetadata`
+/// field describing the actions the  authenticated user can perform on the
 /// folder.
 @property (nonatomic, readonly, nullable) NSArray<DBSHARINGFolderAction *> *actions;
 
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initDefault;
-
-///
-/// Convenience constructor.
-///
-/// @param limit The maximum number of results to return per request.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithLimit:(nullable NSNumber *)limit;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param limit The maximum number of results to return per request.
-/// @param actions This is a list indicating whether each returned folder data
-/// entry will include a boolean field `allow` in `DBSHARINGFolderPermission`
-/// that describes whether the current user can perform the `FolderAction` on
-/// the folder.
+/// @param actions A list of `FolderAction`s corresponding to
+/// `FolderPermission`s that should appear in the  response's `permissions` in
+/// `DBSHARINGSharedFolderMetadata` field describing the actions the
+/// authenticated user can perform on the folder.
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithLimit:(nullable NSNumber *)limit actions:(nullable NSArray<DBSHARINGFolderAction *> *)actions;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+///
+/// @return An initialized instance.
+///
+- (instancetype)initDefault;
 
 - (instancetype)init NS_UNAVAILABLE;
 

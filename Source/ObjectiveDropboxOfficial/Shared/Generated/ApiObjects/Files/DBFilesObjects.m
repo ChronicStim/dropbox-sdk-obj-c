@@ -793,24 +793,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initWithPath:(NSString *)path {
-  return [self initWithPath:path includeMediaInfo:nil includeDeleted:nil includeHasExplicitSharedMembers:nil];
-}
-
-- (instancetype)initWithPath:(NSString *)path includeMediaInfo:(NSNumber *)includeMediaInfo {
-  return
-      [self initWithPath:path includeMediaInfo:includeMediaInfo includeDeleted:nil includeHasExplicitSharedMembers:nil];
-}
-
-- (instancetype)initWithPath:(NSString *)path
-            includeMediaInfo:(NSNumber *)includeMediaInfo
-              includeDeleted:(NSNumber *)includeDeleted {
-  return [self initWithPath:path
-                     includeMediaInfo:includeMediaInfo
-                       includeDeleted:includeDeleted
-      includeHasExplicitSharedMembers:nil];
-}
-
 - (instancetype)initWithPath:(NSString *)path
                    includeMediaInfo:(NSNumber *)includeMediaInfo
                      includeDeleted:(NSNumber *)includeDeleted
@@ -826,6 +808,10 @@
     _includeHasExplicitSharedMembers = includeHasExplicitSharedMembers ?: @NO;
   }
   return self;
+}
+
+- (instancetype)initWithPath:(NSString *)path {
+  return [self initWithPath:path includeMediaInfo:nil includeDeleted:nil includeHasExplicitSharedMembers:nil];
 }
 
 #pragma mark - Serialization methods
@@ -939,43 +925,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initWithPath:(NSString *)path {
-  return [self initWithPath:path
-                     includeMediaInfo:nil
-                       includeDeleted:nil
-      includeHasExplicitSharedMembers:nil
-             includePropertyTemplates:nil];
-}
-
-- (instancetype)initWithPath:(NSString *)path includeMediaInfo:(NSNumber *)includeMediaInfo {
-  return [self initWithPath:path
-                     includeMediaInfo:includeMediaInfo
-                       includeDeleted:nil
-      includeHasExplicitSharedMembers:nil
-             includePropertyTemplates:nil];
-}
-
-- (instancetype)initWithPath:(NSString *)path
-            includeMediaInfo:(NSNumber *)includeMediaInfo
-              includeDeleted:(NSNumber *)includeDeleted {
-  return [self initWithPath:path
-                     includeMediaInfo:includeMediaInfo
-                       includeDeleted:includeDeleted
-      includeHasExplicitSharedMembers:nil
-             includePropertyTemplates:nil];
-}
-
-- (instancetype)initWithPath:(NSString *)path
-                   includeMediaInfo:(NSNumber *)includeMediaInfo
-                     includeDeleted:(NSNumber *)includeDeleted
-    includeHasExplicitSharedMembers:(NSNumber *)includeHasExplicitSharedMembers {
-  return [self initWithPath:path
-                     includeMediaInfo:includeMediaInfo
-                       includeDeleted:includeDeleted
-      includeHasExplicitSharedMembers:includeHasExplicitSharedMembers
-             includePropertyTemplates:nil];
-}
-
 - (instancetype)initWithPath:(NSString *)path
                    includeMediaInfo:(NSNumber *)includeMediaInfo
                      includeDeleted:(NSNumber *)includeDeleted
@@ -998,6 +947,14 @@
     _includePropertyTemplates = includePropertyTemplates;
   }
   return self;
+}
+
+- (instancetype)initWithPath:(NSString *)path {
+  return [self initWithPath:path
+                     includeMediaInfo:nil
+                       includeDeleted:nil
+      includeHasExplicitSharedMembers:nil
+             includePropertyTemplates:nil];
 }
 
 #pragma mark - Serialization methods
@@ -1467,25 +1424,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initWithPath:(NSString *)path {
-  return [self initWithPath:path mode:nil autorename:nil clientModified:nil mute:nil];
-}
-
-- (instancetype)initWithPath:(NSString *)path mode:(DBFILESWriteMode *)mode {
-  return [self initWithPath:path mode:mode autorename:nil clientModified:nil mute:nil];
-}
-
-- (instancetype)initWithPath:(NSString *)path mode:(DBFILESWriteMode *)mode autorename:(NSNumber *)autorename {
-  return [self initWithPath:path mode:mode autorename:autorename clientModified:nil mute:nil];
-}
-
-- (instancetype)initWithPath:(NSString *)path
-                        mode:(DBFILESWriteMode *)mode
-                  autorename:(NSNumber *)autorename
-              clientModified:(NSDate *)clientModified {
-  return [self initWithPath:path mode:mode autorename:autorename clientModified:clientModified mute:nil];
-}
-
 - (instancetype)initWithPath:(NSString *)path
                         mode:(DBFILESWriteMode *)mode
                   autorename:(NSNumber *)autorename
@@ -1502,6 +1440,10 @@
     _mute = mute ?: @NO;
   }
   return self;
+}
+
+- (instancetype)initWithPath:(NSString *)path {
+  return [self initWithPath:path mode:nil autorename:nil clientModified:nil mute:nil];
 }
 
 #pragma mark - Serialization methods
@@ -1634,43 +1576,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initWithPath:(NSString *)path {
-  return [self initWithPath:path mode:nil autorename:nil clientModified:nil mute:nil propertyGroups:nil];
-}
-
-- (instancetype)initWithPath:(NSString *)path mode:(DBFILESWriteMode *)mode {
-  return [self initWithPath:path mode:mode autorename:nil clientModified:nil mute:nil propertyGroups:nil];
-}
-
-- (instancetype)initWithPath:(NSString *)path mode:(DBFILESWriteMode *)mode autorename:(NSNumber *)autorename {
-  return [self initWithPath:path mode:mode autorename:autorename clientModified:nil mute:nil propertyGroups:nil];
-}
-
-- (instancetype)initWithPath:(NSString *)path
-                        mode:(DBFILESWriteMode *)mode
-                  autorename:(NSNumber *)autorename
-              clientModified:(NSDate *)clientModified {
-  return [self initWithPath:path
-                       mode:mode
-                 autorename:autorename
-             clientModified:clientModified
-                       mute:nil
-             propertyGroups:nil];
-}
-
-- (instancetype)initWithPath:(NSString *)path
-                        mode:(DBFILESWriteMode *)mode
-                  autorename:(NSNumber *)autorename
-              clientModified:(NSDate *)clientModified
-                        mute:(NSNumber *)mute {
-  return [self initWithPath:path
-                       mode:mode
-                 autorename:autorename
-             clientModified:clientModified
-                       mute:mute
-             propertyGroups:nil];
-}
-
 - (instancetype)initWithPath:(NSString *)path
                         mode:(DBFILESWriteMode *)mode
                   autorename:(NSNumber *)autorename
@@ -1686,6 +1591,10 @@
     _propertyGroups = propertyGroups;
   }
   return self;
+}
+
+- (instancetype)initWithPath:(NSString *)path {
+  return [self initWithPath:path mode:nil autorename:nil clientModified:nil mute:nil propertyGroups:nil];
 }
 
 #pragma mark - Serialization methods
@@ -1837,10 +1746,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initWithPath:(NSString *)path {
-  return [self initWithPath:path autorename:nil];
-}
-
 - (instancetype)initWithPath:(NSString *)path autorename:(NSNumber *)autorename {
   [DBStoneValidators stringValidator:nil maxLength:nil pattern:@"(/(.|[\\r\\n])*)|(ns:[0-9]+(/.*)?)"](path);
 
@@ -1850,6 +1755,10 @@
     _autorename = autorename ?: @NO;
   }
   return self;
+}
+
+- (instancetype)initWithPath:(NSString *)path {
+  return [self initWithPath:path autorename:nil];
 }
 
 #pragma mark - Serialization methods
@@ -3466,18 +3375,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initWithName:(NSString *)name {
-  return [self initWithName:name pathLower:nil pathDisplay:nil parentSharedFolderId:nil];
-}
-
-- (instancetype)initWithName:(NSString *)name pathLower:(NSString *)pathLower {
-  return [self initWithName:name pathLower:pathLower pathDisplay:nil parentSharedFolderId:nil];
-}
-
-- (instancetype)initWithName:(NSString *)name pathLower:(NSString *)pathLower pathDisplay:(NSString *)pathDisplay {
-  return [self initWithName:name pathLower:pathLower pathDisplay:pathDisplay parentSharedFolderId:nil];
-}
-
 - (instancetype)initWithName:(NSString *)name
                    pathLower:(NSString *)pathLower
                  pathDisplay:(NSString *)pathDisplay
@@ -3494,6 +3391,10 @@
     _parentSharedFolderId = parentSharedFolderId;
   }
   return self;
+}
+
+- (instancetype)initWithName:(NSString *)name {
+  return [self initWithName:name pathLower:nil pathDisplay:nil parentSharedFolderId:nil];
 }
 
 #pragma mark - Serialization methods
@@ -3650,18 +3551,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initWithName:(NSString *)name {
-  return [self initWithName:name pathLower:nil pathDisplay:nil parentSharedFolderId:nil];
-}
-
-- (instancetype)initWithName:(NSString *)name pathLower:(NSString *)pathLower {
-  return [self initWithName:name pathLower:pathLower pathDisplay:nil parentSharedFolderId:nil];
-}
-
-- (instancetype)initWithName:(NSString *)name pathLower:(NSString *)pathLower pathDisplay:(NSString *)pathDisplay {
-  return [self initWithName:name pathLower:pathLower pathDisplay:pathDisplay parentSharedFolderId:nil];
-}
-
 - (instancetype)initWithName:(NSString *)name
                    pathLower:(NSString *)pathLower
                  pathDisplay:(NSString *)pathDisplay
@@ -3675,6 +3564,10 @@
   if (self) {
   }
   return self;
+}
+
+- (instancetype)initWithName:(NSString *)name {
+  return [self initWithName:name pathLower:nil pathDisplay:nil parentSharedFolderId:nil];
 }
 
 #pragma mark - Serialization methods
@@ -3910,10 +3803,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initWithPath:(NSString *)path {
-  return [self initWithPath:path rev:nil];
-}
-
 - (instancetype)initWithPath:(NSString *)path rev:(NSString *)rev {
   [DBStoneValidators stringValidator:nil maxLength:nil
                              pattern:@"(/(.|[\\r\\n])*|id:.*)|(rev:[0-9a-f]{9,})|(ns:[0-9]+(/.*)?)"](path);
@@ -3926,6 +3815,10 @@
     _rev = rev;
   }
   return self;
+}
+
+- (instancetype)initWithPath:(NSString *)path {
+  return [self initWithPath:path rev:nil];
 }
 
 #pragma mark - Serialization methods
@@ -4203,210 +4096,6 @@
               clientModified:(NSDate *)clientModified
               serverModified:(NSDate *)serverModified
                          rev:(NSString *)rev
-                        size:(NSNumber *)size {
-  return [self initWithName:name
-                           id_:id_
-                clientModified:clientModified
-                serverModified:serverModified
-                           rev:rev
-                          size:size
-                     pathLower:nil
-                   pathDisplay:nil
-          parentSharedFolderId:nil
-                     mediaInfo:nil
-                   sharingInfo:nil
-                propertyGroups:nil
-      hasExplicitSharedMembers:nil
-                   contentHash:nil];
-}
-
-- (instancetype)initWithName:(NSString *)name
-                         id_:(NSString *)id_
-              clientModified:(NSDate *)clientModified
-              serverModified:(NSDate *)serverModified
-                         rev:(NSString *)rev
-                        size:(NSNumber *)size
-                   pathLower:(NSString *)pathLower {
-  return [self initWithName:name
-                           id_:id_
-                clientModified:clientModified
-                serverModified:serverModified
-                           rev:rev
-                          size:size
-                     pathLower:pathLower
-                   pathDisplay:nil
-          parentSharedFolderId:nil
-                     mediaInfo:nil
-                   sharingInfo:nil
-                propertyGroups:nil
-      hasExplicitSharedMembers:nil
-                   contentHash:nil];
-}
-
-- (instancetype)initWithName:(NSString *)name
-                         id_:(NSString *)id_
-              clientModified:(NSDate *)clientModified
-              serverModified:(NSDate *)serverModified
-                         rev:(NSString *)rev
-                        size:(NSNumber *)size
-                   pathLower:(NSString *)pathLower
-                 pathDisplay:(NSString *)pathDisplay {
-  return [self initWithName:name
-                           id_:id_
-                clientModified:clientModified
-                serverModified:serverModified
-                           rev:rev
-                          size:size
-                     pathLower:pathLower
-                   pathDisplay:pathDisplay
-          parentSharedFolderId:nil
-                     mediaInfo:nil
-                   sharingInfo:nil
-                propertyGroups:nil
-      hasExplicitSharedMembers:nil
-                   contentHash:nil];
-}
-
-- (instancetype)initWithName:(NSString *)name
-                         id_:(NSString *)id_
-              clientModified:(NSDate *)clientModified
-              serverModified:(NSDate *)serverModified
-                         rev:(NSString *)rev
-                        size:(NSNumber *)size
-                   pathLower:(NSString *)pathLower
-                 pathDisplay:(NSString *)pathDisplay
-        parentSharedFolderId:(NSString *)parentSharedFolderId {
-  return [self initWithName:name
-                           id_:id_
-                clientModified:clientModified
-                serverModified:serverModified
-                           rev:rev
-                          size:size
-                     pathLower:pathLower
-                   pathDisplay:pathDisplay
-          parentSharedFolderId:parentSharedFolderId
-                     mediaInfo:nil
-                   sharingInfo:nil
-                propertyGroups:nil
-      hasExplicitSharedMembers:nil
-                   contentHash:nil];
-}
-
-- (instancetype)initWithName:(NSString *)name
-                         id_:(NSString *)id_
-              clientModified:(NSDate *)clientModified
-              serverModified:(NSDate *)serverModified
-                         rev:(NSString *)rev
-                        size:(NSNumber *)size
-                   pathLower:(NSString *)pathLower
-                 pathDisplay:(NSString *)pathDisplay
-        parentSharedFolderId:(NSString *)parentSharedFolderId
-                   mediaInfo:(DBFILESMediaInfo *)mediaInfo {
-  return [self initWithName:name
-                           id_:id_
-                clientModified:clientModified
-                serverModified:serverModified
-                           rev:rev
-                          size:size
-                     pathLower:pathLower
-                   pathDisplay:pathDisplay
-          parentSharedFolderId:parentSharedFolderId
-                     mediaInfo:mediaInfo
-                   sharingInfo:nil
-                propertyGroups:nil
-      hasExplicitSharedMembers:nil
-                   contentHash:nil];
-}
-
-- (instancetype)initWithName:(NSString *)name
-                         id_:(NSString *)id_
-              clientModified:(NSDate *)clientModified
-              serverModified:(NSDate *)serverModified
-                         rev:(NSString *)rev
-                        size:(NSNumber *)size
-                   pathLower:(NSString *)pathLower
-                 pathDisplay:(NSString *)pathDisplay
-        parentSharedFolderId:(NSString *)parentSharedFolderId
-                   mediaInfo:(DBFILESMediaInfo *)mediaInfo
-                 sharingInfo:(DBFILESFileSharingInfo *)sharingInfo {
-  return [self initWithName:name
-                           id_:id_
-                clientModified:clientModified
-                serverModified:serverModified
-                           rev:rev
-                          size:size
-                     pathLower:pathLower
-                   pathDisplay:pathDisplay
-          parentSharedFolderId:parentSharedFolderId
-                     mediaInfo:mediaInfo
-                   sharingInfo:sharingInfo
-                propertyGroups:nil
-      hasExplicitSharedMembers:nil
-                   contentHash:nil];
-}
-
-- (instancetype)initWithName:(NSString *)name
-                         id_:(NSString *)id_
-              clientModified:(NSDate *)clientModified
-              serverModified:(NSDate *)serverModified
-                         rev:(NSString *)rev
-                        size:(NSNumber *)size
-                   pathLower:(NSString *)pathLower
-                 pathDisplay:(NSString *)pathDisplay
-        parentSharedFolderId:(NSString *)parentSharedFolderId
-                   mediaInfo:(DBFILESMediaInfo *)mediaInfo
-                 sharingInfo:(DBFILESFileSharingInfo *)sharingInfo
-              propertyGroups:(NSArray<DBPROPERTIESPropertyGroup *> *)propertyGroups {
-  return [self initWithName:name
-                           id_:id_
-                clientModified:clientModified
-                serverModified:serverModified
-                           rev:rev
-                          size:size
-                     pathLower:pathLower
-                   pathDisplay:pathDisplay
-          parentSharedFolderId:parentSharedFolderId
-                     mediaInfo:mediaInfo
-                   sharingInfo:sharingInfo
-                propertyGroups:propertyGroups
-      hasExplicitSharedMembers:nil
-                   contentHash:nil];
-}
-
-- (instancetype)initWithName:(NSString *)name
-                         id_:(NSString *)id_
-              clientModified:(NSDate *)clientModified
-              serverModified:(NSDate *)serverModified
-                         rev:(NSString *)rev
-                        size:(NSNumber *)size
-                   pathLower:(NSString *)pathLower
-                 pathDisplay:(NSString *)pathDisplay
-        parentSharedFolderId:(NSString *)parentSharedFolderId
-                   mediaInfo:(DBFILESMediaInfo *)mediaInfo
-                 sharingInfo:(DBFILESFileSharingInfo *)sharingInfo
-              propertyGroups:(NSArray<DBPROPERTIESPropertyGroup *> *)propertyGroups
-    hasExplicitSharedMembers:(NSNumber *)hasExplicitSharedMembers {
-  return [self initWithName:name
-                           id_:id_
-                clientModified:clientModified
-                serverModified:serverModified
-                           rev:rev
-                          size:size
-                     pathLower:pathLower
-                   pathDisplay:pathDisplay
-          parentSharedFolderId:parentSharedFolderId
-                     mediaInfo:mediaInfo
-                   sharingInfo:sharingInfo
-                propertyGroups:propertyGroups
-      hasExplicitSharedMembers:hasExplicitSharedMembers
-                   contentHash:nil];
-}
-
-- (instancetype)initWithName:(NSString *)name
-                         id_:(NSString *)id_
-              clientModified:(NSDate *)clientModified
-              serverModified:(NSDate *)serverModified
-                         rev:(NSString *)rev
                         size:(NSNumber *)size
                    pathLower:(NSString *)pathLower
                  pathDisplay:(NSString *)pathDisplay
@@ -4441,6 +4130,28 @@
     _contentHash = contentHash;
   }
   return self;
+}
+
+- (instancetype)initWithName:(NSString *)name
+                         id_:(NSString *)id_
+              clientModified:(NSDate *)clientModified
+              serverModified:(NSDate *)serverModified
+                         rev:(NSString *)rev
+                        size:(NSNumber *)size {
+  return [self initWithName:name
+                           id_:id_
+                clientModified:clientModified
+                serverModified:serverModified
+                           rev:rev
+                          size:size
+                     pathLower:nil
+                   pathDisplay:nil
+          parentSharedFolderId:nil
+                     mediaInfo:nil
+                   sharingInfo:nil
+                propertyGroups:nil
+      hasExplicitSharedMembers:nil
+                   contentHash:nil];
 }
 
 #pragma mark - Serialization methods
@@ -4785,10 +4496,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initWithReadOnly:(NSNumber *)readOnly parentSharedFolderId:(NSString *)parentSharedFolderId {
-  return [self initWithReadOnly:readOnly parentSharedFolderId:parentSharedFolderId modifiedBy:nil];
-}
-
 - (instancetype)initWithReadOnly:(NSNumber *)readOnly
             parentSharedFolderId:(NSString *)parentSharedFolderId
                       modifiedBy:(NSString *)modifiedBy {
@@ -4802,6 +4509,10 @@
     _modifiedBy = modifiedBy;
   }
   return self;
+}
+
+- (instancetype)initWithReadOnly:(NSNumber *)readOnly parentSharedFolderId:(NSString *)parentSharedFolderId {
+  return [self initWithReadOnly:readOnly parentSharedFolderId:parentSharedFolderId modifiedBy:nil];
 }
 
 #pragma mark - Serialization methods
@@ -4916,90 +4627,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initWithName:(NSString *)name id_:(NSString *)id_ {
-  return [self initWithName:name
-                        id_:id_
-                  pathLower:nil
-                pathDisplay:nil
-       parentSharedFolderId:nil
-             sharedFolderId:nil
-                sharingInfo:nil
-             propertyGroups:nil];
-}
-
-- (instancetype)initWithName:(NSString *)name id_:(NSString *)id_ pathLower:(NSString *)pathLower {
-  return [self initWithName:name
-                        id_:id_
-                  pathLower:pathLower
-                pathDisplay:nil
-       parentSharedFolderId:nil
-             sharedFolderId:nil
-                sharingInfo:nil
-             propertyGroups:nil];
-}
-
-- (instancetype)initWithName:(NSString *)name
-                         id_:(NSString *)id_
-                   pathLower:(NSString *)pathLower
-                 pathDisplay:(NSString *)pathDisplay {
-  return [self initWithName:name
-                        id_:id_
-                  pathLower:pathLower
-                pathDisplay:pathDisplay
-       parentSharedFolderId:nil
-             sharedFolderId:nil
-                sharingInfo:nil
-             propertyGroups:nil];
-}
-
-- (instancetype)initWithName:(NSString *)name
-                         id_:(NSString *)id_
-                   pathLower:(NSString *)pathLower
-                 pathDisplay:(NSString *)pathDisplay
-        parentSharedFolderId:(NSString *)parentSharedFolderId {
-  return [self initWithName:name
-                        id_:id_
-                  pathLower:pathLower
-                pathDisplay:pathDisplay
-       parentSharedFolderId:parentSharedFolderId
-             sharedFolderId:nil
-                sharingInfo:nil
-             propertyGroups:nil];
-}
-
-- (instancetype)initWithName:(NSString *)name
-                         id_:(NSString *)id_
-                   pathLower:(NSString *)pathLower
-                 pathDisplay:(NSString *)pathDisplay
-        parentSharedFolderId:(NSString *)parentSharedFolderId
-              sharedFolderId:(NSString *)sharedFolderId {
-  return [self initWithName:name
-                        id_:id_
-                  pathLower:pathLower
-                pathDisplay:pathDisplay
-       parentSharedFolderId:parentSharedFolderId
-             sharedFolderId:sharedFolderId
-                sharingInfo:nil
-             propertyGroups:nil];
-}
-
-- (instancetype)initWithName:(NSString *)name
-                         id_:(NSString *)id_
-                   pathLower:(NSString *)pathLower
-                 pathDisplay:(NSString *)pathDisplay
-        parentSharedFolderId:(NSString *)parentSharedFolderId
-              sharedFolderId:(NSString *)sharedFolderId
-                 sharingInfo:(DBFILESFolderSharingInfo *)sharingInfo {
-  return [self initWithName:name
-                        id_:id_
-                  pathLower:pathLower
-                pathDisplay:pathDisplay
-       parentSharedFolderId:parentSharedFolderId
-             sharedFolderId:sharedFolderId
-                sharingInfo:sharingInfo
-             propertyGroups:nil];
-}
-
 - (instancetype)initWithName:(NSString *)name
                          id_:(NSString *)id_
                    pathLower:(NSString *)pathLower
@@ -5026,6 +4653,17 @@
     _propertyGroups = propertyGroups;
   }
   return self;
+}
+
+- (instancetype)initWithName:(NSString *)name id_:(NSString *)id_ {
+  return [self initWithName:name
+                        id_:id_
+                  pathLower:nil
+                pathDisplay:nil
+       parentSharedFolderId:nil
+             sharedFolderId:nil
+                sharingInfo:nil
+             propertyGroups:nil];
 }
 
 #pragma mark - Serialization methods
@@ -5213,39 +4851,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initWithReadOnly:(NSNumber *)readOnly {
-  return [self initWithReadOnly:readOnly parentSharedFolderId:nil sharedFolderId:nil traverseOnly:nil noAccess:nil];
-}
-
-- (instancetype)initWithReadOnly:(NSNumber *)readOnly parentSharedFolderId:(NSString *)parentSharedFolderId {
-  return [self initWithReadOnly:readOnly
-           parentSharedFolderId:parentSharedFolderId
-                 sharedFolderId:nil
-                   traverseOnly:nil
-                       noAccess:nil];
-}
-
-- (instancetype)initWithReadOnly:(NSNumber *)readOnly
-            parentSharedFolderId:(NSString *)parentSharedFolderId
-                  sharedFolderId:(NSString *)sharedFolderId {
-  return [self initWithReadOnly:readOnly
-           parentSharedFolderId:parentSharedFolderId
-                 sharedFolderId:sharedFolderId
-                   traverseOnly:nil
-                       noAccess:nil];
-}
-
-- (instancetype)initWithReadOnly:(NSNumber *)readOnly
-            parentSharedFolderId:(NSString *)parentSharedFolderId
-                  sharedFolderId:(NSString *)sharedFolderId
-                    traverseOnly:(NSNumber *)traverseOnly {
-  return [self initWithReadOnly:readOnly
-           parentSharedFolderId:parentSharedFolderId
-                 sharedFolderId:sharedFolderId
-                   traverseOnly:traverseOnly
-                       noAccess:nil];
-}
-
 - (instancetype)initWithReadOnly:(NSNumber *)readOnly
             parentSharedFolderId:(NSString *)parentSharedFolderId
                   sharedFolderId:(NSString *)sharedFolderId
@@ -5265,6 +4870,10 @@
     _noAccess = noAccess ?: @NO;
   }
   return self;
+}
+
+- (instancetype)initWithReadOnly:(NSNumber *)readOnly {
+  return [self initWithReadOnly:readOnly parentSharedFolderId:nil sharedFolderId:nil traverseOnly:nil noAccess:nil];
 }
 
 #pragma mark - Serialization methods
@@ -6253,43 +5862,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initWithPath:(NSString *)path {
-  return [self initWithPath:path
-                            recursive:nil
-                     includeMediaInfo:nil
-                       includeDeleted:nil
-      includeHasExplicitSharedMembers:nil];
-}
-
-- (instancetype)initWithPath:(NSString *)path recursive:(NSNumber *)recursive {
-  return [self initWithPath:path
-                            recursive:recursive
-                     includeMediaInfo:nil
-                       includeDeleted:nil
-      includeHasExplicitSharedMembers:nil];
-}
-
-- (instancetype)initWithPath:(NSString *)path
-                   recursive:(NSNumber *)recursive
-            includeMediaInfo:(NSNumber *)includeMediaInfo {
-  return [self initWithPath:path
-                            recursive:recursive
-                     includeMediaInfo:includeMediaInfo
-                       includeDeleted:nil
-      includeHasExplicitSharedMembers:nil];
-}
-
-- (instancetype)initWithPath:(NSString *)path
-                   recursive:(NSNumber *)recursive
-            includeMediaInfo:(NSNumber *)includeMediaInfo
-              includeDeleted:(NSNumber *)includeDeleted {
-  return [self initWithPath:path
-                            recursive:recursive
-                     includeMediaInfo:includeMediaInfo
-                       includeDeleted:includeDeleted
-      includeHasExplicitSharedMembers:nil];
-}
-
 - (instancetype)initWithPath:(NSString *)path
                           recursive:(NSNumber *)recursive
                    includeMediaInfo:(NSNumber *)includeMediaInfo
@@ -6306,6 +5878,14 @@
     _includeHasExplicitSharedMembers = includeHasExplicitSharedMembers ?: @NO;
   }
   return self;
+}
+
+- (instancetype)initWithPath:(NSString *)path {
+  return [self initWithPath:path
+                            recursive:nil
+                     includeMediaInfo:nil
+                       includeDeleted:nil
+      includeHasExplicitSharedMembers:nil];
 }
 
 #pragma mark - Serialization methods
@@ -6976,10 +6556,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initWithCursor:(NSString *)cursor {
-  return [self initWithCursor:cursor timeout:nil];
-}
-
 - (instancetype)initWithCursor:(NSString *)cursor timeout:(NSNumber *)timeout {
   [DBStoneValidators stringValidator:@(1) maxLength:nil pattern:nil](cursor);
   [DBStoneValidators numericValidator:@(30) maxValue:@(480)](timeout ?: @(30));
@@ -6990,6 +6566,10 @@
     _timeout = timeout ?: @(30);
   }
   return self;
+}
+
+- (instancetype)initWithCursor:(NSString *)cursor {
+  return [self initWithCursor:cursor timeout:nil];
 }
 
 #pragma mark - Serialization methods
@@ -7238,10 +6818,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initWithChanges:(NSNumber *)changes {
-  return [self initWithChanges:changes backoff:nil];
-}
-
 - (instancetype)initWithChanges:(NSNumber *)changes backoff:(NSNumber *)backoff {
 
   self = [super init];
@@ -7250,6 +6826,10 @@
     _backoff = backoff;
   }
   return self;
+}
+
+- (instancetype)initWithChanges:(NSNumber *)changes {
+  return [self initWithChanges:changes backoff:nil];
 }
 
 #pragma mark - Serialization methods
@@ -7476,10 +7056,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initWithPath:(NSString *)path {
-  return [self initWithPath:path limit:nil];
-}
-
 - (instancetype)initWithPath:(NSString *)path limit:(NSNumber *)limit {
   [DBStoneValidators stringValidator:nil maxLength:nil pattern:@"/(.|[\\r\\n])*|id:.*|(ns:[0-9]+(/.*)?)"](path);
   [DBStoneValidators numericValidator:@(1) maxValue:@(100)](limit ?: @(10));
@@ -7490,6 +7066,10 @@
     _limit = limit ?: @(10);
   }
   return self;
+}
+
+- (instancetype)initWithPath:(NSString *)path {
+  return [self initWithPath:path limit:nil];
 }
 
 #pragma mark - Serialization methods
@@ -7991,7 +7571,6 @@
 @end
 
 #import "DBFILESLookupError.h"
-#import "DBFILESPathRootError.h"
 #import "DBStoneSerializers.h"
 #import "DBStoneValidators.h"
 
@@ -8000,7 +7579,6 @@
 @implementation DBFILESLookupError
 
 @synthesize malformedPath = _malformedPath;
-@synthesize invalidPathRoot = _invalidPathRoot;
 
 #pragma mark - Constructors
 
@@ -8045,15 +7623,6 @@
   return self;
 }
 
-- (instancetype)initWithInvalidPathRoot:(DBFILESPathRootError *)invalidPathRoot {
-  self = [super init];
-  if (self) {
-    _tag = DBFILESLookupErrorInvalidPathRoot;
-    _invalidPathRoot = invalidPathRoot;
-  }
-  return self;
-}
-
 - (instancetype)initWithOther {
   self = [super init];
   if (self) {
@@ -8070,14 +7639,6 @@
                 format:@"Invalid tag: required DBFILESLookupErrorMalformedPath, but was %@.", [self tagName]];
   }
   return _malformedPath;
-}
-
-- (DBFILESPathRootError *)invalidPathRoot {
-  if (![self isInvalidPathRoot]) {
-    [NSException raise:@"IllegalStateException"
-                format:@"Invalid tag: required DBFILESLookupErrorInvalidPathRoot, but was %@.", [self tagName]];
-  }
-  return _invalidPathRoot;
 }
 
 #pragma mark - Tag state methods
@@ -8102,10 +7663,6 @@
   return _tag == DBFILESLookupErrorRestrictedContent;
 }
 
-- (BOOL)isInvalidPathRoot {
-  return _tag == DBFILESLookupErrorInvalidPathRoot;
-}
-
 - (BOOL)isOther {
   return _tag == DBFILESLookupErrorOther;
 }
@@ -8122,8 +7679,6 @@
     return @"DBFILESLookupErrorNotFolder";
   case DBFILESLookupErrorRestrictedContent:
     return @"DBFILESLookupErrorRestrictedContent";
-  case DBFILESLookupErrorInvalidPathRoot:
-    return @"DBFILESLookupErrorInvalidPathRoot";
   case DBFILESLookupErrorOther:
     return @"DBFILESLookupErrorOther";
   }
@@ -8174,8 +7729,6 @@
     result = prime * result + [[self tagName] hash];
   case DBFILESLookupErrorRestrictedContent:
     result = prime * result + [[self tagName] hash];
-  case DBFILESLookupErrorInvalidPathRoot:
-    result = prime * result + [self.invalidPathRoot hash];
   case DBFILESLookupErrorOther:
     result = prime * result + [[self tagName] hash];
   }
@@ -8215,8 +7768,6 @@
     return [[self tagName] isEqual:[aLookupError tagName]];
   case DBFILESLookupErrorRestrictedContent:
     return [[self tagName] isEqual:[aLookupError tagName]];
-  case DBFILESLookupErrorInvalidPathRoot:
-    return [self.invalidPathRoot isEqual:aLookupError.invalidPathRoot];
   case DBFILESLookupErrorOther:
     return [[self tagName] isEqual:[aLookupError tagName]];
   }
@@ -8245,9 +7796,6 @@
     jsonDict[@".tag"] = @"not_folder";
   } else if ([valueObj isRestrictedContent]) {
     jsonDict[@".tag"] = @"restricted_content";
-  } else if ([valueObj isInvalidPathRoot]) {
-    jsonDict[@"invalid_path_root"] = [[DBFILESPathRootErrorSerializer serialize:valueObj.invalidPathRoot] mutableCopy];
-    jsonDict[@".tag"] = @"invalid_path_root";
   } else if ([valueObj isOther]) {
     jsonDict[@".tag"] = @"other";
   } else {
@@ -8271,9 +7819,6 @@
     return [[DBFILESLookupError alloc] initWithNotFolder];
   } else if ([tag isEqualToString:@"restricted_content"]) {
     return [[DBFILESLookupError alloc] initWithRestrictedContent];
-  } else if ([tag isEqualToString:@"invalid_path_root"]) {
-    DBFILESPathRootError *invalidPathRoot = [DBFILESPathRootErrorSerializer deserialize:valueDict];
-    return [[DBFILESLookupError alloc] initWithInvalidPathRoot:invalidPathRoot];
   } else if ([tag isEqualToString:@"other"]) {
     return [[DBFILESLookupError alloc] initWithOther];
   } else {
@@ -8467,18 +8012,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initDefault {
-  return [self initWithDimensions:nil location:nil timeTaken:nil];
-}
-
-- (instancetype)initWithDimensions:(DBFILESDimensions *)dimensions {
-  return [self initWithDimensions:dimensions location:nil timeTaken:nil];
-}
-
-- (instancetype)initWithDimensions:(DBFILESDimensions *)dimensions location:(DBFILESGpsCoordinates *)location {
-  return [self initWithDimensions:dimensions location:location timeTaken:nil];
-}
-
 - (instancetype)initWithDimensions:(DBFILESDimensions *)dimensions
                           location:(DBFILESGpsCoordinates *)location
                          timeTaken:(NSDate *)timeTaken {
@@ -8490,6 +8023,10 @@
     _timeTaken = timeTaken;
   }
   return self;
+}
+
+- (instancetype)initDefault {
+  return [self initWithDimensions:nil location:nil timeTaken:nil];
 }
 
 #pragma mark - Serialization methods
@@ -8621,114 +8158,6 @@
 
 @end
 
-#import "DBFILESPathRootError.h"
-#import "DBStoneSerializers.h"
-#import "DBStoneValidators.h"
-
-#pragma mark - API Object
-
-@implementation DBFILESPathRootError
-
-#pragma mark - Constructors
-
-- (instancetype)initDefault {
-  return [self initWithPathRoot:nil];
-}
-
-- (instancetype)initWithPathRoot:(NSString *)pathRoot {
-
-  self = [super init];
-  if (self) {
-    _pathRoot = pathRoot;
-  }
-  return self;
-}
-
-#pragma mark - Serialization methods
-
-+ (NSDictionary *)serialize:(id)instance {
-  return [DBFILESPathRootErrorSerializer serialize:instance];
-}
-
-+ (id)deserialize:(NSDictionary *)dict {
-  return [DBFILESPathRootErrorSerializer deserialize:dict];
-}
-
-#pragma mark - Description method
-
-- (NSString *)description {
-  return [[DBFILESPathRootErrorSerializer serialize:self] description];
-}
-
-#pragma mark - Copyable method
-
-- (instancetype)copyWithZone:(NSZone *)zone {
-#pragma unused(zone)
-  /// object is immutable
-  return self;
-}
-
-#pragma mark - Hash method
-
-- (NSUInteger)hash {
-  NSUInteger prime = 31;
-  NSUInteger result = 1;
-
-  if (self.pathRoot) {
-    result = prime * result + [self.pathRoot hash];
-  }
-
-  return prime * result;
-}
-
-#pragma mark - Equality method
-
-- (BOOL)isEqual:(id)other {
-  if (other == self) {
-    return YES;
-  }
-  if (!other || ![other isKindOfClass:[self class]]) {
-    return NO;
-  }
-  return [self isEqualToPathRootError:other];
-}
-
-- (BOOL)isEqualToPathRootError:(DBFILESPathRootError *)aPathRootError {
-  if (self == aPathRootError) {
-    return YES;
-  }
-  if (self.pathRoot) {
-    if (![self.pathRoot isEqual:aPathRootError.pathRoot]) {
-      return NO;
-    }
-  }
-  return YES;
-}
-
-@end
-
-#pragma mark - Serializer Object
-
-@implementation DBFILESPathRootErrorSerializer
-
-+ (NSDictionary *)serialize:(DBFILESPathRootError *)valueObj {
-  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
-
-  if (valueObj.pathRoot) {
-    jsonDict[@"path_root"] = valueObj.pathRoot;
-  }
-
-  return jsonDict;
-}
-
-+ (DBFILESPathRootError *)deserialize:(NSDictionary *)valueDict {
-  NSString *pathRoot = valueDict[@"path_root"] ?: nil;
-
-  return [[DBFILESPathRootError alloc] initWithPathRoot:pathRoot];
-}
-
-@end
-
 #import "DBFILESDimensions.h"
 #import "DBFILESGpsCoordinates.h"
 #import "DBFILESMediaMetadata.h"
@@ -8742,18 +8171,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initDefault {
-  return [self initWithDimensions:nil location:nil timeTaken:nil];
-}
-
-- (instancetype)initWithDimensions:(DBFILESDimensions *)dimensions {
-  return [self initWithDimensions:dimensions location:nil timeTaken:nil];
-}
-
-- (instancetype)initWithDimensions:(DBFILESDimensions *)dimensions location:(DBFILESGpsCoordinates *)location {
-  return [self initWithDimensions:dimensions location:location timeTaken:nil];
-}
-
 - (instancetype)initWithDimensions:(DBFILESDimensions *)dimensions
                           location:(DBFILESGpsCoordinates *)location
                          timeTaken:(NSDate *)timeTaken {
@@ -8762,6 +8179,10 @@
   if (self) {
   }
   return self;
+}
+
+- (instancetype)initDefault {
+  return [self initWithDimensions:nil location:nil timeTaken:nil];
 }
 
 #pragma mark - Serialization methods
@@ -8887,10 +8308,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initWithPath:(NSString *)path {
-  return [self initWithPath:path rev:nil];
-}
-
 - (instancetype)initWithPath:(NSString *)path rev:(NSString *)rev {
   [DBStoneValidators stringValidator:nil maxLength:nil
                              pattern:@"(/(.|[\\r\\n])*|id:.*)|(rev:[0-9a-f]{9,})|(ns:[0-9]+(/.*)?)"](path);
@@ -8903,6 +8320,10 @@
     _rev = rev;
   }
   return self;
+}
+
+- (instancetype)initWithPath:(NSString *)path {
+  return [self initWithPath:path rev:nil];
 }
 
 #pragma mark - Serialization methods
@@ -9221,15 +8642,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initWithTemplateId:(NSString *)templateId {
-  return [self initWithTemplateId:templateId addOrUpdateFields:nil removeFields:nil];
-}
-
-- (instancetype)initWithTemplateId:(NSString *)templateId
-                 addOrUpdateFields:(NSArray<DBPROPERTIESPropertyField *> *)addOrUpdateFields {
-  return [self initWithTemplateId:templateId addOrUpdateFields:addOrUpdateFields removeFields:nil];
-}
-
 - (instancetype)initWithTemplateId:(NSString *)templateId
                  addOrUpdateFields:(NSArray<DBPROPERTIESPropertyField *> *)addOrUpdateFields
                       removeFields:(NSArray<NSString *> *)removeFields {
@@ -9246,6 +8658,10 @@
     _removeFields = removeFields;
   }
   return self;
+}
+
+- (instancetype)initWithTemplateId:(NSString *)templateId {
+  return [self initWithTemplateId:templateId addOrUpdateFields:nil removeFields:nil];
 }
 
 #pragma mark - Serialization methods
@@ -9604,16 +9020,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initWithFromPath:(NSString *)fromPath toPath:(NSString *)toPath {
-  return [self initWithFromPath:fromPath toPath:toPath allowSharedFolder:nil autorename:nil];
-}
-
-- (instancetype)initWithFromPath:(NSString *)fromPath
-                          toPath:(NSString *)toPath
-               allowSharedFolder:(NSNumber *)allowSharedFolder {
-  return [self initWithFromPath:fromPath toPath:toPath allowSharedFolder:allowSharedFolder autorename:nil];
-}
-
 - (instancetype)initWithFromPath:(NSString *)fromPath
                           toPath:(NSString *)toPath
                allowSharedFolder:(NSNumber *)allowSharedFolder
@@ -9627,6 +9033,10 @@
     _autorename = autorename ?: @NO;
   }
   return self;
+}
+
+- (instancetype)initWithFromPath:(NSString *)fromPath toPath:(NSString *)toPath {
+  return [self initWithFromPath:fromPath toPath:toPath allowSharedFolder:nil autorename:nil];
 }
 
 #pragma mark - Serialization methods
@@ -9740,15 +9150,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initWithEntries:(NSArray<DBFILESRelocationPath *> *)entries {
-  return [self initWithEntries:entries allowSharedFolder:nil autorename:nil];
-}
-
-- (instancetype)initWithEntries:(NSArray<DBFILESRelocationPath *> *)entries
-              allowSharedFolder:(NSNumber *)allowSharedFolder {
-  return [self initWithEntries:entries allowSharedFolder:allowSharedFolder autorename:nil];
-}
-
 - (instancetype)initWithEntries:(NSArray<DBFILESRelocationPath *> *)entries
               allowSharedFolder:(NSNumber *)allowSharedFolder
                      autorename:(NSNumber *)autorename {
@@ -9761,6 +9162,10 @@
     _autorename = autorename ?: @NO;
   }
   return self;
+}
+
+- (instancetype)initWithEntries:(NSArray<DBFILESRelocationPath *> *)entries {
+  return [self initWithEntries:entries allowSharedFolder:nil autorename:nil];
 }
 
 #pragma mark - Serialization methods
@@ -13086,21 +12491,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initWithPath:(NSString *)path query:(NSString *)query {
-  return [self initWithPath:path query:query start:nil maxResults:nil mode:nil];
-}
-
-- (instancetype)initWithPath:(NSString *)path query:(NSString *)query start:(NSNumber *)start {
-  return [self initWithPath:path query:query start:start maxResults:nil mode:nil];
-}
-
-- (instancetype)initWithPath:(NSString *)path
-                       query:(NSString *)query
-                       start:(NSNumber *)start
-                  maxResults:(NSNumber *)maxResults {
-  return [self initWithPath:path query:query start:start maxResults:maxResults mode:nil];
-}
-
 - (instancetype)initWithPath:(NSString *)path
                        query:(NSString *)query
                        start:(NSNumber *)start
@@ -13118,6 +12508,10 @@
     _mode = mode ?: [[DBFILESSearchMode alloc] initWithFilename];
   }
   return self;
+}
+
+- (instancetype)initWithPath:(NSString *)path query:(NSString *)query {
+  return [self initWithPath:path query:query start:nil maxResults:nil mode:nil];
 }
 
 #pragma mark - Serialization methods
@@ -13985,14 +13379,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initWithPath:(NSString *)path {
-  return [self initWithPath:path format:nil size:nil];
-}
-
-- (instancetype)initWithPath:(NSString *)path format:(DBFILESThumbnailFormat *)format {
-  return [self initWithPath:path format:format size:nil];
-}
-
 - (instancetype)initWithPath:(NSString *)path
                       format:(DBFILESThumbnailFormat *)format
                         size:(DBFILESThumbnailSize *)size {
@@ -14006,6 +13392,10 @@
     _size = size ?: [[DBFILESThumbnailSize alloc] initWithW64h64];
   }
   return self;
+}
+
+- (instancetype)initWithPath:(NSString *)path {
+  return [self initWithPath:path format:nil size:nil];
 }
 
 #pragma mark - Serialization methods
@@ -15496,10 +14886,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initWithCursor:(DBFILESUploadSessionCursor *)cursor {
-  return [self initWithCursor:cursor close:nil];
-}
-
 - (instancetype)initWithCursor:(DBFILESUploadSessionCursor *)cursor close:(NSNumber *)close {
 
   self = [super init];
@@ -15508,6 +14894,10 @@
     _close = close ?: @NO;
   }
   return self;
+}
+
+- (instancetype)initWithCursor:(DBFILESUploadSessionCursor *)cursor {
+  return [self initWithCursor:cursor close:nil];
 }
 
 #pragma mark - Serialization methods
@@ -16629,6 +16019,14 @@
   return self;
 }
 
+- (instancetype)initWithTooManyWriteOperations {
+  self = [super init];
+  if (self) {
+    _tag = DBFILESUploadSessionFinishErrorTooManyWriteOperations;
+  }
+  return self;
+}
+
 - (instancetype)initWithOther {
   self = [super init];
   if (self) {
@@ -16670,6 +16068,10 @@
   return _tag == DBFILESUploadSessionFinishErrorTooManySharedFolderTargets;
 }
 
+- (BOOL)isTooManyWriteOperations {
+  return _tag == DBFILESUploadSessionFinishErrorTooManyWriteOperations;
+}
+
 - (BOOL)isOther {
   return _tag == DBFILESUploadSessionFinishErrorOther;
 }
@@ -16682,6 +16084,8 @@
     return @"DBFILESUploadSessionFinishErrorPath";
   case DBFILESUploadSessionFinishErrorTooManySharedFolderTargets:
     return @"DBFILESUploadSessionFinishErrorTooManySharedFolderTargets";
+  case DBFILESUploadSessionFinishErrorTooManyWriteOperations:
+    return @"DBFILESUploadSessionFinishErrorTooManyWriteOperations";
   case DBFILESUploadSessionFinishErrorOther:
     return @"DBFILESUploadSessionFinishErrorOther";
   }
@@ -16726,6 +16130,8 @@
     result = prime * result + [self.path hash];
   case DBFILESUploadSessionFinishErrorTooManySharedFolderTargets:
     result = prime * result + [[self tagName] hash];
+  case DBFILESUploadSessionFinishErrorTooManyWriteOperations:
+    result = prime * result + [[self tagName] hash];
   case DBFILESUploadSessionFinishErrorOther:
     result = prime * result + [[self tagName] hash];
   }
@@ -16759,6 +16165,8 @@
     return [self.path isEqual:anUploadSessionFinishError.path];
   case DBFILESUploadSessionFinishErrorTooManySharedFolderTargets:
     return [[self tagName] isEqual:[anUploadSessionFinishError tagName]];
+  case DBFILESUploadSessionFinishErrorTooManyWriteOperations:
+    return [[self tagName] isEqual:[anUploadSessionFinishError tagName]];
   case DBFILESUploadSessionFinishErrorOther:
     return [[self tagName] isEqual:[anUploadSessionFinishError tagName]];
   }
@@ -16783,6 +16191,8 @@
     jsonDict[@".tag"] = @"path";
   } else if ([valueObj isTooManySharedFolderTargets]) {
     jsonDict[@".tag"] = @"too_many_shared_folder_targets";
+  } else if ([valueObj isTooManyWriteOperations]) {
+    jsonDict[@".tag"] = @"too_many_write_operations";
   } else if ([valueObj isOther]) {
     jsonDict[@".tag"] = @"other";
   } else {
@@ -16804,6 +16214,8 @@
     return [[DBFILESUploadSessionFinishError alloc] initWithPath:path];
   } else if ([tag isEqualToString:@"too_many_shared_folder_targets"]) {
     return [[DBFILESUploadSessionFinishError alloc] initWithTooManySharedFolderTargets];
+  } else if ([tag isEqualToString:@"too_many_write_operations"]) {
+    return [[DBFILESUploadSessionFinishError alloc] initWithTooManyWriteOperations];
   } else if ([tag isEqualToString:@"other"]) {
     return [[DBFILESUploadSessionFinishError alloc] initWithOther];
   } else {
@@ -17155,10 +16567,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initDefault {
-  return [self initWithClose:nil];
-}
-
 - (instancetype)initWithClose:(NSNumber *)close {
 
   self = [super init];
@@ -17166,6 +16574,10 @@
     _close = close ?: @NO;
   }
   return self;
+}
+
+- (instancetype)initDefault {
+  return [self initWithClose:nil];
 }
 
 #pragma mark - Serialization methods
@@ -17464,24 +16876,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initDefault {
-  return [self initWithDimensions:nil location:nil timeTaken:nil duration:nil];
-}
-
-- (instancetype)initWithDimensions:(DBFILESDimensions *)dimensions {
-  return [self initWithDimensions:dimensions location:nil timeTaken:nil duration:nil];
-}
-
-- (instancetype)initWithDimensions:(DBFILESDimensions *)dimensions location:(DBFILESGpsCoordinates *)location {
-  return [self initWithDimensions:dimensions location:location timeTaken:nil duration:nil];
-}
-
-- (instancetype)initWithDimensions:(DBFILESDimensions *)dimensions
-                          location:(DBFILESGpsCoordinates *)location
-                         timeTaken:(NSDate *)timeTaken {
-  return [self initWithDimensions:dimensions location:location timeTaken:timeTaken duration:nil];
-}
-
 - (instancetype)initWithDimensions:(DBFILESDimensions *)dimensions
                           location:(DBFILESGpsCoordinates *)location
                          timeTaken:(NSDate *)timeTaken
@@ -17492,6 +16886,10 @@
     _duration = duration;
   }
   return self;
+}
+
+- (instancetype)initDefault {
+  return [self initWithDimensions:nil location:nil timeTaken:nil duration:nil];
 }
 
 #pragma mark - Serialization methods
@@ -17873,6 +17271,14 @@
   return self;
 }
 
+- (instancetype)initWithTeamFolder {
+  self = [super init];
+  if (self) {
+    _tag = DBFILESWriteErrorTeamFolder;
+  }
+  return self;
+}
+
 - (instancetype)initWithOther {
   self = [super init];
   if (self) {
@@ -17921,6 +17327,10 @@
   return _tag == DBFILESWriteErrorDisallowedName;
 }
 
+- (BOOL)isTeamFolder {
+  return _tag == DBFILESWriteErrorTeamFolder;
+}
+
 - (BOOL)isOther {
   return _tag == DBFILESWriteErrorOther;
 }
@@ -17937,6 +17347,8 @@
     return @"DBFILESWriteErrorInsufficientSpace";
   case DBFILESWriteErrorDisallowedName:
     return @"DBFILESWriteErrorDisallowedName";
+  case DBFILESWriteErrorTeamFolder:
+    return @"DBFILESWriteErrorTeamFolder";
   case DBFILESWriteErrorOther:
     return @"DBFILESWriteErrorOther";
   }
@@ -17987,6 +17399,8 @@
     result = prime * result + [[self tagName] hash];
   case DBFILESWriteErrorDisallowedName:
     result = prime * result + [[self tagName] hash];
+  case DBFILESWriteErrorTeamFolder:
+    result = prime * result + [[self tagName] hash];
   case DBFILESWriteErrorOther:
     result = prime * result + [[self tagName] hash];
   }
@@ -18026,6 +17440,8 @@
     return [[self tagName] isEqual:[aWriteError tagName]];
   case DBFILESWriteErrorDisallowedName:
     return [[self tagName] isEqual:[aWriteError tagName]];
+  case DBFILESWriteErrorTeamFolder:
+    return [[self tagName] isEqual:[aWriteError tagName]];
   case DBFILESWriteErrorOther:
     return [[self tagName] isEqual:[aWriteError tagName]];
   }
@@ -18055,6 +17471,8 @@
     jsonDict[@".tag"] = @"insufficient_space";
   } else if ([valueObj isDisallowedName]) {
     jsonDict[@".tag"] = @"disallowed_name";
+  } else if ([valueObj isTeamFolder]) {
+    jsonDict[@".tag"] = @"team_folder";
   } else if ([valueObj isOther]) {
     jsonDict[@".tag"] = @"other";
   } else {
@@ -18079,6 +17497,8 @@
     return [[DBFILESWriteError alloc] initWithInsufficientSpace];
   } else if ([tag isEqualToString:@"disallowed_name"]) {
     return [[DBFILESWriteError alloc] initWithDisallowedName];
+  } else if ([tag isEqualToString:@"team_folder"]) {
+    return [[DBFILESWriteError alloc] initWithTeamFolder];
   } else if ([tag isEqualToString:@"other"]) {
     return [[DBFILESWriteError alloc] initWithOther];
   } else {

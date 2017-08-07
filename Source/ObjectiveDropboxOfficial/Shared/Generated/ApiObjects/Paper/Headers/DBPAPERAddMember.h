@@ -30,33 +30,34 @@ NS_ASSUME_NONNULL_BEGIN
 /// Permission for the user.
 @property (nonatomic, readonly) DBPAPERPaperDocPermissionLevel *permissionLevel;
 
-/// User which should be added to the Paper doc. Specify only email or Dropbox
-/// account id.
+/// User which should be added to the Paper doc. Specify only email address or
+/// Dropbox account ID.
 @property (nonatomic, readonly) DBSHARINGMemberSelector *member;
 
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param member User which should be added to the Paper doc. Specify only
-/// email or Dropbox account id.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithMember:(DBSHARINGMemberSelector *)member;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param member User which should be added to the Paper doc. Specify only
-/// email or Dropbox account id.
+/// email address or Dropbox account ID.
 /// @param permissionLevel Permission for the user.
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithMember:(DBSHARINGMemberSelector *)member
                permissionLevel:(nullable DBPAPERPaperDocPermissionLevel *)permissionLevel;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param member User which should be added to the Paper doc. Specify only
+/// email address or Dropbox account ID.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithMember:(DBSHARINGMemberSelector *)member;
 
 - (instancetype)init NS_UNAVAILABLE;
 

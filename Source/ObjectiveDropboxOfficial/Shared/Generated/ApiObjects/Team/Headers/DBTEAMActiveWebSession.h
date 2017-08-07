@@ -37,81 +37,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// Information on the browser used for this web session
 @property (nonatomic, readonly, copy) NSString *browser;
 
+/// The time this session expires
+@property (nonatomic, readonly, nullable) NSDate *expires;
+
 #pragma mark - Constructors
-
-///
-/// Convenience constructor.
-///
-/// @param sessionId The session id
-/// @param userAgent Information on the hosting device
-/// @param os Information on the hosting operating system
-/// @param browser Information on the browser used for this web session
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithSessionId:(NSString *)sessionId
-                        userAgent:(NSString *)userAgent
-                               os:(NSString *)os
-                          browser:(NSString *)browser;
-
-///
-/// Convenience constructor.
-///
-/// @param sessionId The session id
-/// @param userAgent Information on the hosting device
-/// @param os Information on the hosting operating system
-/// @param browser Information on the browser used for this web session
-/// @param ipAddress The IP address of the last activity from this session
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithSessionId:(NSString *)sessionId
-                        userAgent:(NSString *)userAgent
-                               os:(NSString *)os
-                          browser:(NSString *)browser
-                        ipAddress:(nullable NSString *)ipAddress;
-
-///
-/// Convenience constructor.
-///
-/// @param sessionId The session id
-/// @param userAgent Information on the hosting device
-/// @param os Information on the hosting operating system
-/// @param browser Information on the browser used for this web session
-/// @param ipAddress The IP address of the last activity from this session
-/// @param country The country from which the last activity from this session
-/// was made
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithSessionId:(NSString *)sessionId
-                        userAgent:(NSString *)userAgent
-                               os:(NSString *)os
-                          browser:(NSString *)browser
-                        ipAddress:(nullable NSString *)ipAddress
-                          country:(nullable NSString *)country;
-
-///
-/// Convenience constructor.
-///
-/// @param sessionId The session id
-/// @param userAgent Information on the hosting device
-/// @param os Information on the hosting operating system
-/// @param browser Information on the browser used for this web session
-/// @param ipAddress The IP address of the last activity from this session
-/// @param country The country from which the last activity from this session
-/// was made
-/// @param created The time this session was created
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithSessionId:(NSString *)sessionId
-                        userAgent:(NSString *)userAgent
-                               os:(NSString *)os
-                          browser:(NSString *)browser
-                        ipAddress:(nullable NSString *)ipAddress
-                          country:(nullable NSString *)country
-                          created:(nullable NSDate *)created;
 
 ///
 /// Full constructor for the struct (exposes all instance variables).
@@ -125,6 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// was made
 /// @param created The time this session was created
 /// @param updated The time of the last activity from this session
+/// @param expires The time this session expires
 ///
 /// @return An initialized instance.
 ///
@@ -135,7 +65,24 @@ NS_ASSUME_NONNULL_BEGIN
                         ipAddress:(nullable NSString *)ipAddress
                           country:(nullable NSString *)country
                           created:(nullable NSDate *)created
-                          updated:(nullable NSDate *)updated;
+                          updated:(nullable NSDate *)updated
+                          expires:(nullable NSDate *)expires;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param sessionId The session id
+/// @param userAgent Information on the hosting device
+/// @param os Information on the hosting operating system
+/// @param browser Information on the browser used for this web session
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithSessionId:(NSString *)sessionId
+                        userAgent:(NSString *)userAgent
+                               os:(NSString *)os
+                          browser:(NSString *)browser;
 
 @end
 

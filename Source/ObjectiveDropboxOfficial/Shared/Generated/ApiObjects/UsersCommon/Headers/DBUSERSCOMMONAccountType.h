@@ -8,7 +8,7 @@
 
 #import "DBSerializableProtocol.h"
 
-@class DBUSERSAccountType;
+@class DBUSERSCOMMONAccountType;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,26 +23,26 @@ NS_ASSUME_NONNULL_BEGIN
 /// deserialize instance methods), which is required for all Obj-C SDK API route
 /// objects.
 ///
-@interface DBUSERSAccountType : NSObject <DBSerializable, NSCopying>
+@interface DBUSERSCOMMONAccountType : NSObject <DBSerializable, NSCopying>
 
 #pragma mark - Instance fields
 
-/// The `DBUSERSAccountTypeTag` enum type represents the possible tag states
-/// with which the `DBUSERSAccountType` union can exist.
-typedef NS_ENUM(NSInteger, DBUSERSAccountTypeTag) {
+/// The `DBUSERSCOMMONAccountTypeTag` enum type represents the possible tag
+/// states with which the `DBUSERSCOMMONAccountType` union can exist.
+typedef NS_ENUM(NSInteger, DBUSERSCOMMONAccountTypeTag) {
   /// The basic account type.
-  DBUSERSAccountTypeBasic,
+  DBUSERSCOMMONAccountTypeBasic,
 
   /// The Dropbox Pro account type.
-  DBUSERSAccountTypePro,
+  DBUSERSCOMMONAccountTypePro,
 
   /// The Dropbox Business account type.
-  DBUSERSAccountTypeBusiness,
+  DBUSERSCOMMONAccountTypeBusiness,
 
 };
 
 /// Represents the union's current tag state.
-@property (nonatomic, readonly) DBUSERSAccountTypeTag tag;
+@property (nonatomic, readonly) DBUSERSCOMMONAccountTypeTag tag;
 
 #pragma mark - Constructors
 
@@ -110,29 +110,29 @@ typedef NS_ENUM(NSInteger, DBUSERSAccountTypeTag) {
 #pragma mark - Serializer Object
 
 ///
-/// The serialization class for the `DBUSERSAccountType` union.
+/// The serialization class for the `DBUSERSCOMMONAccountType` union.
 ///
-@interface DBUSERSAccountTypeSerializer : NSObject
+@interface DBUSERSCOMMONAccountTypeSerializer : NSObject
 
 ///
-/// Serializes `DBUSERSAccountType` instances.
+/// Serializes `DBUSERSCOMMONAccountType` instances.
 ///
-/// @param instance An instance of the `DBUSERSAccountType` API object.
+/// @param instance An instance of the `DBUSERSCOMMONAccountType` API object.
 ///
 /// @return A json-compatible dictionary representation of the
-/// `DBUSERSAccountType` API object.
+/// `DBUSERSCOMMONAccountType` API object.
 ///
-+ (NSDictionary *)serialize:(DBUSERSAccountType *)instance;
++ (NSDictionary *)serialize:(DBUSERSCOMMONAccountType *)instance;
 
 ///
-/// Deserializes `DBUSERSAccountType` instances.
+/// Deserializes `DBUSERSCOMMONAccountType` instances.
 ///
 /// @param dict A json-compatible dictionary representation of the
-/// `DBUSERSAccountType` API object.
+/// `DBUSERSCOMMONAccountType` API object.
 ///
-/// @return An instantiation of the `DBUSERSAccountType` object.
+/// @return An instantiation of the `DBUSERSCOMMONAccountType` object.
 ///
-+ (DBUSERSAccountType *)deserialize:(NSDictionary *)dict;
++ (DBUSERSCOMMONAccountType *)deserialize:(NSDictionary *)dict;
 
 @end
 

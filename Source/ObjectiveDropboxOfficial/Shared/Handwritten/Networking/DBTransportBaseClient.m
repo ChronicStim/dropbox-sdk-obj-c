@@ -7,6 +7,7 @@
 #import "DBAUTHAccessError.h"
 #import "DBAUTHAuthError.h"
 #import "DBAUTHRateLimitError.h"
+#import "DBCOMMONPathRootError.h"
 #import "DBRequestErrors.h"
 #import "DBSDKConstants.h"
 #import "DBStoneBase.h"
@@ -39,9 +40,12 @@ NSDictionary<NSString *, NSString *> *kV2SDKBaseHosts;
   });
 }
 
-- (instancetype)initWithAccessToken:(NSString *)accessToken transportConfig:(DBTransportBaseConfig *)transportConfig {
+- (instancetype)initWithAccessToken:(NSString *)accessToken
+                           tokenUid:(NSString *)tokenUid
+                    transportConfig:(DBTransportBaseConfig *)transportConfig {
   if (self = [super init]) {
     _accessToken = accessToken;
+    _tokenUid = [tokenUid copy];
     _appKey = transportConfig.appKey;
     _appSecret = transportConfig.appSecret;
     NSString *defaultUserAgent = [NSString stringWithFormat:@"%@/%@", kV2SDKDefaultUserAgentPrefix, kV2SDKVersion];
@@ -209,7 +213,7 @@ NSDictionary<NSString *, NSString *> *kV2SDKBaseHosts;
                                     httpHeaders:(NSDictionary *)httpHeaders {
   DBRequestError *dbxError;
 
-  if (clientError) {
+  if (clientError && errorData == nil) {
     return [[DBRequestError alloc] initAsClientError:clientError];
   }
 
@@ -258,6 +262,13 @@ NSDictionary<NSString *, NSString *> *kV2SDKBaseHosts;
                                             errorContent:errorContent
                                              userMessage:userMessage
                                    structuredAccessError:accessError];
+  } else if (statusCode == 422) {
+    DBCOMMONPathRootError *pathRootError = [DBCOMMONPathRootErrorSerializer deserialize:deserializedData[@"error"]];
+    dbxError = [[DBRequestError alloc] initAsPathRootError:requestId
+                                                statusCode:@(statusCode)
+                                              errorContent:errorContent
+                                               userMessage:userMessage
+                                   structuredPathRootError:pathRootError];
   } else if (statusCode == 429) {
     DBAUTHRateLimitError *rateLimitError = [DBAUTHRateLimitErrorSerializer deserialize:deserializedData[@"error"]];
     NSString *retryAfter = httpHeaders[@"Retry-After"];
