@@ -31,29 +31,36 @@ NS_ASSUME_NONNULL_BEGIN
 /// The files to query.
 @property (nonatomic, readonly) NSArray<NSString *> *files;
 
-/// File actions to query.
+/// A list of `FileAction`s corresponding to `FilePermission`s that should
+/// appear in the  response's `permissions` in `DBSHARINGSharedFileMetadata`
+/// field describing the actions the  authenticated user can perform on the
+/// file.
 @property (nonatomic, readonly, nullable) NSArray<DBSHARINGFileAction *> *actions;
 
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
+/// Full constructor for the struct (exposes all instance variables).
+///
+/// @param files The files to query.
+/// @param actions A list of `FileAction`s corresponding to `FilePermission`s
+/// that should appear in the  response's `permissions` in
+/// `DBSHARINGSharedFileMetadata` field describing the actions the
+/// authenticated user can perform on the file.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithFiles:(NSArray<NSString *> *)files actions:(nullable NSArray<DBSHARINGFileAction *> *)actions;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
 ///
 /// @param files The files to query.
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithFiles:(NSArray<NSString *> *)files;
-
-///
-/// Full constructor for the struct (exposes all instance variables).
-///
-/// @param files The files to query.
-/// @param actions File actions to query.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithFiles:(NSArray<NSString *> *)files actions:(nullable NSArray<DBSHARINGFileAction *> *)actions;
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -75,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGGetFileMetadataBatchArg` API object.
 ///
-+ (NSDictionary *)serialize:(DBSHARINGGetFileMetadataBatchArg *)instance;
++ (nullable NSDictionary *)serialize:(DBSHARINGGetFileMetadataBatchArg *)instance;
 
 ///
 /// Deserializes `DBSHARINGGetFileMetadataBatchArg` instances.

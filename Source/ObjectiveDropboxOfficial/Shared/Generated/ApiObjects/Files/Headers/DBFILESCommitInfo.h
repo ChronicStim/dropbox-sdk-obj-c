@@ -8,6 +8,7 @@
 
 #import "DBSerializableProtocol.h"
 
+@class DBFILEPROPERTIESPropertyGroup;
 @class DBFILESCommitInfo;
 @class DBFILESWriteMode;
 
@@ -48,60 +49,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// clients that this modification shouldn't result in a user notification.
 @property (nonatomic, readonly) NSNumber *mute;
 
+/// List of custom properties to add to file.
+@property (nonatomic, readonly, nullable) NSArray<DBFILEPROPERTIESPropertyGroup *> *propertyGroups;
+
 #pragma mark - Constructors
-
-///
-/// Convenience constructor.
-///
-/// @param path Path in the user's Dropbox to save the file.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPath:(NSString *)path;
-
-///
-/// Convenience constructor.
-///
-/// @param path Path in the user's Dropbox to save the file.
-/// @param mode Selects what to do if the file already exists.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPath:(NSString *)path mode:(nullable DBFILESWriteMode *)mode;
-
-///
-/// Convenience constructor.
-///
-/// @param path Path in the user's Dropbox to save the file.
-/// @param mode Selects what to do if the file already exists.
-/// @param autorename If there's a conflict, as determined by mode, have the
-/// Dropbox server try to autorename the file to avoid conflict.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPath:(NSString *)path
-                        mode:(nullable DBFILESWriteMode *)mode
-                  autorename:(nullable NSNumber *)autorename;
-
-///
-/// Convenience constructor.
-///
-/// @param path Path in the user's Dropbox to save the file.
-/// @param mode Selects what to do if the file already exists.
-/// @param autorename If there's a conflict, as determined by mode, have the
-/// Dropbox server try to autorename the file to avoid conflict.
-/// @param clientModified The value to store as the clientModified timestamp.
-/// Dropbox automatically records the time at which the file was written to the
-/// Dropbox servers. It can also record an additional timestamp, provided by
-/// Dropbox desktop clients, mobile clients, and API apps of when the file was
-/// actually created or modified.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPath:(NSString *)path
-                        mode:(nullable DBFILESWriteMode *)mode
-                  autorename:(nullable NSNumber *)autorename
-              clientModified:(nullable NSDate *)clientModified;
 
 ///
 /// Full constructor for the struct (exposes all instance variables).
@@ -119,6 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// their Dropbox account via notifications in the client software. If true,
 /// this tells the clients that this modification shouldn't result in a user
 /// notification.
+/// @param propertyGroups List of custom properties to add to file.
 ///
 /// @return An initialized instance.
 ///
@@ -126,7 +78,18 @@ NS_ASSUME_NONNULL_BEGIN
                         mode:(nullable DBFILESWriteMode *)mode
                   autorename:(nullable NSNumber *)autorename
               clientModified:(nullable NSDate *)clientModified
-                        mute:(nullable NSNumber *)mute;
+                        mute:(nullable NSNumber *)mute
+              propertyGroups:(nullable NSArray<DBFILEPROPERTIESPropertyGroup *> *)propertyGroups;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param path Path in the user's Dropbox to save the file.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithPath:(NSString *)path;
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -147,7 +110,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBFILESCommitInfo` API object.
 ///
-+ (NSDictionary *)serialize:(DBFILESCommitInfo *)instance;
++ (nullable NSDictionary *)serialize:(DBFILESCommitInfo *)instance;
 
 ///
 /// Deserializes `DBFILESCommitInfo` instances.

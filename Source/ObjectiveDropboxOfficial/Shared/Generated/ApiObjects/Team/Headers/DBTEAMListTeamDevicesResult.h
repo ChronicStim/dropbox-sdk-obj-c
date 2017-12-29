@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Instance fields
 
-/// The devices of each member of the team
+/// The devices of each member of the team.
 @property (nonatomic, readonly) NSArray<DBTEAMMemberDevices *> *devices;
 
 /// If true, then there are more devices available. Pass the cursor to
@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Convenience constructor.
 ///
-/// @param devices The devices of each member of the team
+/// @param devices The devices of each member of the team.
 /// @param hasMore If true, then there are more devices available. Pass the
 /// cursor to `devicesListTeamDevices` to retrieve the rest.
 ///
@@ -53,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Full constructor for the struct (exposes all instance variables).
 ///
-/// @param devices The devices of each member of the team
+/// @param devices The devices of each member of the team.
 /// @param hasMore If true, then there are more devices available. Pass the
 /// cursor to `devicesListTeamDevices` to retrieve the rest.
 /// @param cursor Pass the cursor into `devicesListTeamDevices` to receive the
@@ -84,7 +84,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMListTeamDevicesResult` API object.
 ///
-+ (NSDictionary *)serialize:(DBTEAMListTeamDevicesResult *)instance;
++ (nullable NSDictionary *)serialize:(DBTEAMListTeamDevicesResult *)instance;
 
 ///
 /// Deserializes `DBTEAMListTeamDevicesResult` instances.

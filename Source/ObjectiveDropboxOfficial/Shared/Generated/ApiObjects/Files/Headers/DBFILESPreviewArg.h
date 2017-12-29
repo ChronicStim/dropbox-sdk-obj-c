@@ -28,29 +28,30 @@ NS_ASSUME_NONNULL_BEGIN
 /// The path of the file to preview.
 @property (nonatomic, readonly, copy) NSString *path;
 
-/// Deprecated. Please specify revision in path instead.
+/// Please specify revision in path instead.
 @property (nonatomic, readonly, copy, nullable) NSString *rev;
 
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
+/// Full constructor for the struct (exposes all instance variables).
+///
+/// @param path The path of the file to preview.
+/// @param rev Please specify revision in path instead.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithPath:(NSString *)path rev:(nullable NSString *)rev;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
 ///
 /// @param path The path of the file to preview.
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithPath:(NSString *)path;
-
-///
-/// Full constructor for the struct (exposes all instance variables).
-///
-/// @param path The path of the file to preview.
-/// @param rev Deprecated. Please specify revision in path instead.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPath:(NSString *)path rev:(nullable NSString *)rev;
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -71,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBFILESPreviewArg` API object.
 ///
-+ (NSDictionary *)serialize:(DBFILESPreviewArg *)instance;
++ (nullable NSDictionary *)serialize:(DBFILESPreviewArg *)instance;
 
 ///
 /// Deserializes `DBFILESPreviewArg` instances.

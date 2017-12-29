@@ -31,29 +31,36 @@ NS_ASSUME_NONNULL_BEGIN
 /// The file to query.
 @property (nonatomic, readonly, copy) NSString *file;
 
-/// File actions to query.
+/// A list of `FileAction`s corresponding to `FilePermission`s that should
+/// appear in the  response's `permissions` in `DBSHARINGSharedFileMetadata`
+/// field describing the actions the  authenticated user can perform on the
+/// file.
 @property (nonatomic, readonly, nullable) NSArray<DBSHARINGFileAction *> *actions;
 
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
+/// Full constructor for the struct (exposes all instance variables).
+///
+/// @param file The file to query.
+/// @param actions A list of `FileAction`s corresponding to `FilePermission`s
+/// that should appear in the  response's `permissions` in
+/// `DBSHARINGSharedFileMetadata` field describing the actions the
+/// authenticated user can perform on the file.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithFile:(NSString *)file actions:(nullable NSArray<DBSHARINGFileAction *> *)actions;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
 ///
 /// @param file The file to query.
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithFile:(NSString *)file;
-
-///
-/// Full constructor for the struct (exposes all instance variables).
-///
-/// @param file The file to query.
-/// @param actions File actions to query.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithFile:(NSString *)file actions:(nullable NSArray<DBSHARINGFileAction *> *)actions;
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -74,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGGetFileMetadataArg` API object.
 ///
-+ (NSDictionary *)serialize:(DBSHARINGGetFileMetadataArg *)instance;
++ (nullable NSDictionary *)serialize:(DBSHARINGGetFileMetadataArg *)instance;
 
 ///
 /// Deserializes `DBSHARINGGetFileMetadataArg` instances.

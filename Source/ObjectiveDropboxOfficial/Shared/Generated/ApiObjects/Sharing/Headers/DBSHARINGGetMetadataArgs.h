@@ -29,35 +29,37 @@ NS_ASSUME_NONNULL_BEGIN
 /// The ID for the shared folder.
 @property (nonatomic, readonly, copy) NSString *sharedFolderId;
 
-/// This is a list indicating whether the returned folder data will include a
-/// boolean value  `allow` in `DBSHARINGFolderPermission` that describes whether
-/// the current user can perform the  FolderAction on the folder.
+/// A list of `FolderAction`s corresponding to `FolderPermission`s that should
+/// appear in the  response's `permissions` in `DBSHARINGSharedFolderMetadata`
+/// field describing the actions the  authenticated user can perform on the
+/// folder.
 @property (nonatomic, readonly, nullable) NSArray<DBSHARINGFolderAction *> *actions;
 
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
+/// Full constructor for the struct (exposes all instance variables).
+///
+/// @param sharedFolderId The ID for the shared folder.
+/// @param actions A list of `FolderAction`s corresponding to
+/// `FolderPermission`s that should appear in the  response's `permissions` in
+/// `DBSHARINGSharedFolderMetadata` field describing the actions the
+/// authenticated user can perform on the folder.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithSharedFolderId:(NSString *)sharedFolderId
+                               actions:(nullable NSArray<DBSHARINGFolderAction *> *)actions;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
 ///
 /// @param sharedFolderId The ID for the shared folder.
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithSharedFolderId:(NSString *)sharedFolderId;
-
-///
-/// Full constructor for the struct (exposes all instance variables).
-///
-/// @param sharedFolderId The ID for the shared folder.
-/// @param actions This is a list indicating whether the returned folder data
-/// will include a boolean value  `allow` in `DBSHARINGFolderPermission` that
-/// describes whether the current user can perform the  FolderAction on the
-/// folder.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithSharedFolderId:(NSString *)sharedFolderId
-                               actions:(nullable NSArray<DBSHARINGFolderAction *> *)actions;
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -78,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGGetMetadataArgs` API object.
 ///
-+ (NSDictionary *)serialize:(DBSHARINGGetMetadataArgs *)instance;
++ (nullable NSDictionary *)serialize:(DBSHARINGGetMetadataArgs *)instance;
 
 ///
 /// Deserializes `DBSHARINGGetMetadataArgs` instances.

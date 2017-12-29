@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Instance fields
 
-/// Paper folder id. This id uniquely identifies the folder.
+/// Paper folder ID. This ID uniquely identifies the folder.
 @property (nonatomic, readonly, copy) NSString *id_;
 
 /// Paper folder name.
@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Full constructor for the struct (exposes all instance variables).
 ///
-/// @param id_ Paper folder id. This id uniquely identifies the folder.
+/// @param id_ Paper folder ID. This ID uniquely identifies the folder.
 /// @param name Paper folder name.
 ///
 /// @return An initialized instance.
@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the `DBPAPERFolder`
 /// API object.
 ///
-+ (NSDictionary *)serialize:(DBPAPERFolder *)instance;
++ (nullable NSDictionary *)serialize:(DBPAPERFolder *)instance;
 
 ///
 /// Deserializes `DBPAPERFolder` instances.

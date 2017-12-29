@@ -9,10 +9,10 @@
 #import "DBFILESMetadata.h"
 #import "DBSerializableProtocol.h"
 
+@class DBFILEPROPERTIESPropertyGroup;
 @class DBFILESFileMetadata;
 @class DBFILESFileSharingInfo;
 @class DBFILESMediaInfo;
-@class DBPROPERTIESPropertyGroup;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Additional information if the file has custom properties with the property
 /// template specified.
-@property (nonatomic, readonly, nullable) NSArray<DBPROPERTIESPropertyGroup *> *propertyGroups;
+@property (nonatomic, readonly, nullable) NSArray<DBFILEPROPERTIESPropertyGroup *> *propertyGroups;
 
 /// This flag will only be present if include_has_explicit_shared_members  is
 /// true in `listFolder` or `getMetadata`. If this  flag is present, it will be
@@ -73,331 +73,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, copy, nullable) NSString *contentHash;
 
 #pragma mark - Constructors
-
-///
-/// Convenience constructor.
-///
-/// @param name The last component of the path (including extension). This never
-/// contains a slash.
-/// @param id_ A unique identifier for the file.
-/// @param clientModified For files, this is the modification time set by the
-/// desktop client when the file was added to Dropbox. Since this time is not
-/// verified (the Dropbox server stores whatever the desktop client sends up),
-/// this should only be used for display purposes (such as sorting) and not, for
-/// example, to determine if a file has changed or not.
-/// @param serverModified The last time the file was modified on Dropbox.
-/// @param rev A unique identifier for the current revision of a file. This
-/// field is the same rev as elsewhere in the API and can be used to detect
-/// changes and avoid conflicts.
-/// @param size The file size in bytes.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithName:(NSString *)name
-                         id_:(NSString *)id_
-              clientModified:(NSDate *)clientModified
-              serverModified:(NSDate *)serverModified
-                         rev:(NSString *)rev
-                        size:(NSNumber *)size;
-
-///
-/// Convenience constructor.
-///
-/// @param name The last component of the path (including extension). This never
-/// contains a slash.
-/// @param id_ A unique identifier for the file.
-/// @param clientModified For files, this is the modification time set by the
-/// desktop client when the file was added to Dropbox. Since this time is not
-/// verified (the Dropbox server stores whatever the desktop client sends up),
-/// this should only be used for display purposes (such as sorting) and not, for
-/// example, to determine if a file has changed or not.
-/// @param serverModified The last time the file was modified on Dropbox.
-/// @param rev A unique identifier for the current revision of a file. This
-/// field is the same rev as elsewhere in the API and can be used to detect
-/// changes and avoid conflicts.
-/// @param size The file size in bytes.
-/// @param pathLower The lowercased full path in the user's Dropbox. This always
-/// starts with a slash. This field will be null if the file or folder is not
-/// mounted.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithName:(NSString *)name
-                         id_:(NSString *)id_
-              clientModified:(NSDate *)clientModified
-              serverModified:(NSDate *)serverModified
-                         rev:(NSString *)rev
-                        size:(NSNumber *)size
-                   pathLower:(nullable NSString *)pathLower;
-
-///
-/// Convenience constructor.
-///
-/// @param name The last component of the path (including extension). This never
-/// contains a slash.
-/// @param id_ A unique identifier for the file.
-/// @param clientModified For files, this is the modification time set by the
-/// desktop client when the file was added to Dropbox. Since this time is not
-/// verified (the Dropbox server stores whatever the desktop client sends up),
-/// this should only be used for display purposes (such as sorting) and not, for
-/// example, to determine if a file has changed or not.
-/// @param serverModified The last time the file was modified on Dropbox.
-/// @param rev A unique identifier for the current revision of a file. This
-/// field is the same rev as elsewhere in the API and can be used to detect
-/// changes and avoid conflicts.
-/// @param size The file size in bytes.
-/// @param pathLower The lowercased full path in the user's Dropbox. This always
-/// starts with a slash. This field will be null if the file or folder is not
-/// mounted.
-/// @param pathDisplay The cased path to be used for display purposes only. In
-/// rare instances the casing will not correctly match the user's filesystem,
-/// but this behavior will match the path provided in the Core API v1, and at
-/// least the last path component will have the correct casing. Changes to only
-/// the casing of paths won't be returned by `listFolderContinue`. This field
-/// will be null if the file or folder is not mounted.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithName:(NSString *)name
-                         id_:(NSString *)id_
-              clientModified:(NSDate *)clientModified
-              serverModified:(NSDate *)serverModified
-                         rev:(NSString *)rev
-                        size:(NSNumber *)size
-                   pathLower:(nullable NSString *)pathLower
-                 pathDisplay:(nullable NSString *)pathDisplay;
-
-///
-/// Convenience constructor.
-///
-/// @param name The last component of the path (including extension). This never
-/// contains a slash.
-/// @param id_ A unique identifier for the file.
-/// @param clientModified For files, this is the modification time set by the
-/// desktop client when the file was added to Dropbox. Since this time is not
-/// verified (the Dropbox server stores whatever the desktop client sends up),
-/// this should only be used for display purposes (such as sorting) and not, for
-/// example, to determine if a file has changed or not.
-/// @param serverModified The last time the file was modified on Dropbox.
-/// @param rev A unique identifier for the current revision of a file. This
-/// field is the same rev as elsewhere in the API and can be used to detect
-/// changes and avoid conflicts.
-/// @param size The file size in bytes.
-/// @param pathLower The lowercased full path in the user's Dropbox. This always
-/// starts with a slash. This field will be null if the file or folder is not
-/// mounted.
-/// @param pathDisplay The cased path to be used for display purposes only. In
-/// rare instances the casing will not correctly match the user's filesystem,
-/// but this behavior will match the path provided in the Core API v1, and at
-/// least the last path component will have the correct casing. Changes to only
-/// the casing of paths won't be returned by `listFolderContinue`. This field
-/// will be null if the file or folder is not mounted.
-/// @param parentSharedFolderId Deprecated. Please use `parentSharedFolderId` in
-/// `DBFILESFileSharingInfo` or `parentSharedFolderId` in
-/// `DBFILESFolderSharingInfo` instead.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithName:(NSString *)name
-                         id_:(NSString *)id_
-              clientModified:(NSDate *)clientModified
-              serverModified:(NSDate *)serverModified
-                         rev:(NSString *)rev
-                        size:(NSNumber *)size
-                   pathLower:(nullable NSString *)pathLower
-                 pathDisplay:(nullable NSString *)pathDisplay
-        parentSharedFolderId:(nullable NSString *)parentSharedFolderId;
-
-///
-/// Convenience constructor.
-///
-/// @param name The last component of the path (including extension). This never
-/// contains a slash.
-/// @param id_ A unique identifier for the file.
-/// @param clientModified For files, this is the modification time set by the
-/// desktop client when the file was added to Dropbox. Since this time is not
-/// verified (the Dropbox server stores whatever the desktop client sends up),
-/// this should only be used for display purposes (such as sorting) and not, for
-/// example, to determine if a file has changed or not.
-/// @param serverModified The last time the file was modified on Dropbox.
-/// @param rev A unique identifier for the current revision of a file. This
-/// field is the same rev as elsewhere in the API and can be used to detect
-/// changes and avoid conflicts.
-/// @param size The file size in bytes.
-/// @param pathLower The lowercased full path in the user's Dropbox. This always
-/// starts with a slash. This field will be null if the file or folder is not
-/// mounted.
-/// @param pathDisplay The cased path to be used for display purposes only. In
-/// rare instances the casing will not correctly match the user's filesystem,
-/// but this behavior will match the path provided in the Core API v1, and at
-/// least the last path component will have the correct casing. Changes to only
-/// the casing of paths won't be returned by `listFolderContinue`. This field
-/// will be null if the file or folder is not mounted.
-/// @param parentSharedFolderId Deprecated. Please use `parentSharedFolderId` in
-/// `DBFILESFileSharingInfo` or `parentSharedFolderId` in
-/// `DBFILESFolderSharingInfo` instead.
-/// @param mediaInfo Additional information if the file is a photo or video.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithName:(NSString *)name
-                         id_:(NSString *)id_
-              clientModified:(NSDate *)clientModified
-              serverModified:(NSDate *)serverModified
-                         rev:(NSString *)rev
-                        size:(NSNumber *)size
-                   pathLower:(nullable NSString *)pathLower
-                 pathDisplay:(nullable NSString *)pathDisplay
-        parentSharedFolderId:(nullable NSString *)parentSharedFolderId
-                   mediaInfo:(nullable DBFILESMediaInfo *)mediaInfo;
-
-///
-/// Convenience constructor.
-///
-/// @param name The last component of the path (including extension). This never
-/// contains a slash.
-/// @param id_ A unique identifier for the file.
-/// @param clientModified For files, this is the modification time set by the
-/// desktop client when the file was added to Dropbox. Since this time is not
-/// verified (the Dropbox server stores whatever the desktop client sends up),
-/// this should only be used for display purposes (such as sorting) and not, for
-/// example, to determine if a file has changed or not.
-/// @param serverModified The last time the file was modified on Dropbox.
-/// @param rev A unique identifier for the current revision of a file. This
-/// field is the same rev as elsewhere in the API and can be used to detect
-/// changes and avoid conflicts.
-/// @param size The file size in bytes.
-/// @param pathLower The lowercased full path in the user's Dropbox. This always
-/// starts with a slash. This field will be null if the file or folder is not
-/// mounted.
-/// @param pathDisplay The cased path to be used for display purposes only. In
-/// rare instances the casing will not correctly match the user's filesystem,
-/// but this behavior will match the path provided in the Core API v1, and at
-/// least the last path component will have the correct casing. Changes to only
-/// the casing of paths won't be returned by `listFolderContinue`. This field
-/// will be null if the file or folder is not mounted.
-/// @param parentSharedFolderId Deprecated. Please use `parentSharedFolderId` in
-/// `DBFILESFileSharingInfo` or `parentSharedFolderId` in
-/// `DBFILESFolderSharingInfo` instead.
-/// @param mediaInfo Additional information if the file is a photo or video.
-/// @param sharingInfo Set if this file is contained in a shared folder.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithName:(NSString *)name
-                         id_:(NSString *)id_
-              clientModified:(NSDate *)clientModified
-              serverModified:(NSDate *)serverModified
-                         rev:(NSString *)rev
-                        size:(NSNumber *)size
-                   pathLower:(nullable NSString *)pathLower
-                 pathDisplay:(nullable NSString *)pathDisplay
-        parentSharedFolderId:(nullable NSString *)parentSharedFolderId
-                   mediaInfo:(nullable DBFILESMediaInfo *)mediaInfo
-                 sharingInfo:(nullable DBFILESFileSharingInfo *)sharingInfo;
-
-///
-/// Convenience constructor.
-///
-/// @param name The last component of the path (including extension). This never
-/// contains a slash.
-/// @param id_ A unique identifier for the file.
-/// @param clientModified For files, this is the modification time set by the
-/// desktop client when the file was added to Dropbox. Since this time is not
-/// verified (the Dropbox server stores whatever the desktop client sends up),
-/// this should only be used for display purposes (such as sorting) and not, for
-/// example, to determine if a file has changed or not.
-/// @param serverModified The last time the file was modified on Dropbox.
-/// @param rev A unique identifier for the current revision of a file. This
-/// field is the same rev as elsewhere in the API and can be used to detect
-/// changes and avoid conflicts.
-/// @param size The file size in bytes.
-/// @param pathLower The lowercased full path in the user's Dropbox. This always
-/// starts with a slash. This field will be null if the file or folder is not
-/// mounted.
-/// @param pathDisplay The cased path to be used for display purposes only. In
-/// rare instances the casing will not correctly match the user's filesystem,
-/// but this behavior will match the path provided in the Core API v1, and at
-/// least the last path component will have the correct casing. Changes to only
-/// the casing of paths won't be returned by `listFolderContinue`. This field
-/// will be null if the file or folder is not mounted.
-/// @param parentSharedFolderId Deprecated. Please use `parentSharedFolderId` in
-/// `DBFILESFileSharingInfo` or `parentSharedFolderId` in
-/// `DBFILESFolderSharingInfo` instead.
-/// @param mediaInfo Additional information if the file is a photo or video.
-/// @param sharingInfo Set if this file is contained in a shared folder.
-/// @param propertyGroups Additional information if the file has custom
-/// properties with the property template specified.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithName:(NSString *)name
-                         id_:(NSString *)id_
-              clientModified:(NSDate *)clientModified
-              serverModified:(NSDate *)serverModified
-                         rev:(NSString *)rev
-                        size:(NSNumber *)size
-                   pathLower:(nullable NSString *)pathLower
-                 pathDisplay:(nullable NSString *)pathDisplay
-        parentSharedFolderId:(nullable NSString *)parentSharedFolderId
-                   mediaInfo:(nullable DBFILESMediaInfo *)mediaInfo
-                 sharingInfo:(nullable DBFILESFileSharingInfo *)sharingInfo
-              propertyGroups:(nullable NSArray<DBPROPERTIESPropertyGroup *> *)propertyGroups;
-
-///
-/// Convenience constructor.
-///
-/// @param name The last component of the path (including extension). This never
-/// contains a slash.
-/// @param id_ A unique identifier for the file.
-/// @param clientModified For files, this is the modification time set by the
-/// desktop client when the file was added to Dropbox. Since this time is not
-/// verified (the Dropbox server stores whatever the desktop client sends up),
-/// this should only be used for display purposes (such as sorting) and not, for
-/// example, to determine if a file has changed or not.
-/// @param serverModified The last time the file was modified on Dropbox.
-/// @param rev A unique identifier for the current revision of a file. This
-/// field is the same rev as elsewhere in the API and can be used to detect
-/// changes and avoid conflicts.
-/// @param size The file size in bytes.
-/// @param pathLower The lowercased full path in the user's Dropbox. This always
-/// starts with a slash. This field will be null if the file or folder is not
-/// mounted.
-/// @param pathDisplay The cased path to be used for display purposes only. In
-/// rare instances the casing will not correctly match the user's filesystem,
-/// but this behavior will match the path provided in the Core API v1, and at
-/// least the last path component will have the correct casing. Changes to only
-/// the casing of paths won't be returned by `listFolderContinue`. This field
-/// will be null if the file or folder is not mounted.
-/// @param parentSharedFolderId Deprecated. Please use `parentSharedFolderId` in
-/// `DBFILESFileSharingInfo` or `parentSharedFolderId` in
-/// `DBFILESFolderSharingInfo` instead.
-/// @param mediaInfo Additional information if the file is a photo or video.
-/// @param sharingInfo Set if this file is contained in a shared folder.
-/// @param propertyGroups Additional information if the file has custom
-/// properties with the property template specified.
-/// @param hasExplicitSharedMembers This flag will only be present if
-/// include_has_explicit_shared_members  is true in `listFolder` or
-/// `getMetadata`. If this  flag is present, it will be true if this file has
-/// any explicit shared  members. This is different from sharing_info in that
-/// this could be true  in the case where a file has explicit members but is not
-/// contained within  a shared folder.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithName:(NSString *)name
-                         id_:(NSString *)id_
-              clientModified:(NSDate *)clientModified
-              serverModified:(NSDate *)serverModified
-                         rev:(NSString *)rev
-                        size:(NSNumber *)size
-                   pathLower:(nullable NSString *)pathLower
-                 pathDisplay:(nullable NSString *)pathDisplay
-        parentSharedFolderId:(nullable NSString *)parentSharedFolderId
-                   mediaInfo:(nullable DBFILESMediaInfo *)mediaInfo
-                 sharingInfo:(nullable DBFILESFileSharingInfo *)sharingInfo
-              propertyGroups:(nullable NSArray<DBPROPERTIESPropertyGroup *> *)propertyGroups
-    hasExplicitSharedMembers:(nullable NSNumber *)hasExplicitSharedMembers;
 
 ///
 /// Full constructor for the struct (exposes all instance variables).
@@ -424,7 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// least the last path component will have the correct casing. Changes to only
 /// the casing of paths won't be returned by `listFolderContinue`. This field
 /// will be null if the file or folder is not mounted.
-/// @param parentSharedFolderId Deprecated. Please use `parentSharedFolderId` in
+/// @param parentSharedFolderId Please use `parentSharedFolderId` in
 /// `DBFILESFileSharingInfo` or `parentSharedFolderId` in
 /// `DBFILESFolderSharingInfo` instead.
 /// @param mediaInfo Additional information if the file is a photo or video.
@@ -454,9 +129,36 @@ NS_ASSUME_NONNULL_BEGIN
         parentSharedFolderId:(nullable NSString *)parentSharedFolderId
                    mediaInfo:(nullable DBFILESMediaInfo *)mediaInfo
                  sharingInfo:(nullable DBFILESFileSharingInfo *)sharingInfo
-              propertyGroups:(nullable NSArray<DBPROPERTIESPropertyGroup *> *)propertyGroups
+              propertyGroups:(nullable NSArray<DBFILEPROPERTIESPropertyGroup *> *)propertyGroups
     hasExplicitSharedMembers:(nullable NSNumber *)hasExplicitSharedMembers
                  contentHash:(nullable NSString *)contentHash;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param name The last component of the path (including extension). This never
+/// contains a slash.
+/// @param id_ A unique identifier for the file.
+/// @param clientModified For files, this is the modification time set by the
+/// desktop client when the file was added to Dropbox. Since this time is not
+/// verified (the Dropbox server stores whatever the desktop client sends up),
+/// this should only be used for display purposes (such as sorting) and not, for
+/// example, to determine if a file has changed or not.
+/// @param serverModified The last time the file was modified on Dropbox.
+/// @param rev A unique identifier for the current revision of a file. This
+/// field is the same rev as elsewhere in the API and can be used to detect
+/// changes and avoid conflicts.
+/// @param size The file size in bytes.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithName:(NSString *)name
+                         id_:(NSString *)id_
+              clientModified:(NSDate *)clientModified
+              serverModified:(NSDate *)serverModified
+                         rev:(NSString *)rev
+                        size:(NSNumber *)size;
 
 @end
 
@@ -475,7 +177,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBFILESFileMetadata` API object.
 ///
-+ (NSDictionary *)serialize:(DBFILESFileMetadata *)instance;
++ (nullable NSDictionary *)serialize:(DBFILESFileMetadata *)instance;
 
 ///
 /// Deserializes `DBFILESFileMetadata` instances.

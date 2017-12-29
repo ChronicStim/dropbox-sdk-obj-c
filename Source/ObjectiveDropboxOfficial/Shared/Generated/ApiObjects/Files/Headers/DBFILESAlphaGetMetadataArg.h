@@ -9,6 +9,7 @@
 #import "DBFILESGetMetadataArg.h"
 #import "DBSerializableProtocol.h"
 
+@class DBFILEPROPERTIESTemplateFilterBase;
 @class DBFILESAlphaGetMetadataArg;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -33,62 +34,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param path The path of a file or folder on Dropbox.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPath:(NSString *)path;
-
-///
-/// Convenience constructor.
-///
-/// @param path The path of a file or folder on Dropbox.
-/// @param includeMediaInfo If true, `mediaInfo` in `DBFILESFileMetadata` is set
-/// for photo and video.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPath:(NSString *)path includeMediaInfo:(nullable NSNumber *)includeMediaInfo;
-
-///
-/// Convenience constructor.
-///
-/// @param path The path of a file or folder on Dropbox.
-/// @param includeMediaInfo If true, `mediaInfo` in `DBFILESFileMetadata` is set
-/// for photo and video.
-/// @param includeDeleted If true, DeletedMetadata will be returned for deleted
-/// file or folder, otherwise `notFound` in `DBFILESLookupError` will be
-/// returned.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPath:(NSString *)path
-            includeMediaInfo:(nullable NSNumber *)includeMediaInfo
-              includeDeleted:(nullable NSNumber *)includeDeleted;
-
-///
-/// Convenience constructor.
-///
-/// @param path The path of a file or folder on Dropbox.
-/// @param includeMediaInfo If true, `mediaInfo` in `DBFILESFileMetadata` is set
-/// for photo and video.
-/// @param includeDeleted If true, DeletedMetadata will be returned for deleted
-/// file or folder, otherwise `notFound` in `DBFILESLookupError` will be
-/// returned.
-/// @param includeHasExplicitSharedMembers If true, the results will include a
-/// flag for each file indicating whether or not  that file has any explicit
-/// members.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPath:(NSString *)path
-                   includeMediaInfo:(nullable NSNumber *)includeMediaInfo
-                     includeDeleted:(nullable NSNumber *)includeDeleted
-    includeHasExplicitSharedMembers:(nullable NSNumber *)includeHasExplicitSharedMembers;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param path The path of a file or folder on Dropbox.
@@ -100,6 +45,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param includeHasExplicitSharedMembers If true, the results will include a
 /// flag for each file indicating whether or not  that file has any explicit
 /// members.
+/// @param includePropertyGroups If set to a valid list of template IDs,
+/// `propertyGroups` in `DBFILESFileMetadata` is set if there exists property
+/// data associated with the file and each of the listed templates.
 /// @param includePropertyTemplates If set to a valid list of template IDs,
 /// `propertyGroups` in `DBFILESFileMetadata` is set for files with custom
 /// properties.
@@ -110,7 +58,18 @@ NS_ASSUME_NONNULL_BEGIN
                    includeMediaInfo:(nullable NSNumber *)includeMediaInfo
                      includeDeleted:(nullable NSNumber *)includeDeleted
     includeHasExplicitSharedMembers:(nullable NSNumber *)includeHasExplicitSharedMembers
+              includePropertyGroups:(nullable DBFILEPROPERTIESTemplateFilterBase *)includePropertyGroups
            includePropertyTemplates:(nullable NSArray<NSString *> *)includePropertyTemplates;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param path The path of a file or folder on Dropbox.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithPath:(NSString *)path;
 
 @end
 
@@ -129,7 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBFILESAlphaGetMetadataArg` API object.
 ///
-+ (NSDictionary *)serialize:(DBFILESAlphaGetMetadataArg *)instance;
++ (nullable NSDictionary *)serialize:(DBFILESAlphaGetMetadataArg *)instance;
 
 ///
 /// Deserializes `DBFILESAlphaGetMetadataArg` instances.

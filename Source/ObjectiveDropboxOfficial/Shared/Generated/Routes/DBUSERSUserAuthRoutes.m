@@ -5,12 +5,13 @@
 ///
 
 #import "DBUSERSUserAuthRoutes.h"
+#import "DBCOMMONRootInfo.h"
 #import "DBRequestErrors.h"
 #import "DBStoneBase.h"
 #import "DBTransportClientProtocol.h"
 #import "DBUSERSAccount.h"
-#import "DBUSERSAccountType.h"
 #import "DBUSERSBasicAccount.h"
+#import "DBUSERSCOMMONAccountType.h"
 #import "DBUSERSFullAccount.h"
 #import "DBUSERSFullTeam.h"
 #import "DBUSERSGetAccountArg.h"

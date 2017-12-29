@@ -8,7 +8,6 @@
 
 #import "DBSerializableProtocol.h"
 
-@class DBFILESPathRootError;
 @class DBSHARINGSharePathError;
 @class DBSHARINGSharedFolderMetadata;
 
@@ -71,9 +70,6 @@ typedef NS_ENUM(NSInteger, DBSHARINGSharePathErrorTag) {
   /// We do not support sharing a folder inside a Mac OS X package.
   DBSHARINGSharePathErrorInsideOsxPackage,
 
-  /// The path root parameter provided is invalid.
-  DBSHARINGSharePathErrorInvalidPathRoot,
-
   /// (no description).
   DBSHARINGSharePathErrorOther,
 
@@ -86,11 +82,6 @@ typedef NS_ENUM(NSInteger, DBSHARINGSharePathErrorTag) {
 /// folder. @note Ensure the `isAlreadyShared` method returns true before
 /// accessing, otherwise a runtime exception will be raised.
 @property (nonatomic, readonly) DBSHARINGSharedFolderMetadata *alreadyShared;
-
-/// The path root parameter provided is invalid. @note Ensure the
-/// `isInvalidPathRoot` method returns true before accessing, otherwise a
-/// runtime exception will be raised.
-@property (nonatomic, readonly) DBFILESPathRootError *invalidPathRoot;
 
 #pragma mark - Constructors
 
@@ -226,18 +217,6 @@ typedef NS_ENUM(NSInteger, DBSHARINGSharePathErrorTag) {
 - (instancetype)initWithInsideOsxPackage;
 
 ///
-/// Initializes union class with tag state of "invalid_path_root".
-///
-/// Description of the "invalid_path_root" tag state: The path root parameter
-/// provided is invalid.
-///
-/// @param invalidPathRoot The path root parameter provided is invalid.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithInvalidPathRoot:(DBFILESPathRootError *)invalidPathRoot;
-
-///
 /// Initializes union class with tag state of "other".
 ///
 /// @return An initialized instance.
@@ -357,17 +336,6 @@ typedef NS_ENUM(NSInteger, DBSHARINGSharePathErrorTag) {
 - (BOOL)isInsideOsxPackage;
 
 ///
-/// Retrieves whether the union's current tag state has value
-/// "invalid_path_root".
-///
-/// @note Call this method and ensure it returns true before accessing the
-/// `invalidPathRoot` property, otherwise a runtime exception will be thrown.
-///
-/// @return Whether the union's current tag state has value "invalid_path_root".
-///
-- (BOOL)isInvalidPathRoot;
-
-///
 /// Retrieves whether the union's current tag state has value "other".
 ///
 /// @return Whether the union's current tag state has value "other".
@@ -398,7 +366,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGSharePathErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGSharePathError` API object.
 ///
-+ (NSDictionary *)serialize:(DBSHARINGSharePathError *)instance;
++ (nullable NSDictionary *)serialize:(DBSHARINGSharePathError *)instance;
 
 ///
 /// Deserializes `DBSHARINGSharePathError` instances.

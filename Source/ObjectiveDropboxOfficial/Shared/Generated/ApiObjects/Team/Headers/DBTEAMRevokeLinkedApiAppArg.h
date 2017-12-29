@@ -25,41 +25,42 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Instance fields
 
-/// The application's unique id
+/// The application's unique id.
 @property (nonatomic, readonly, copy) NSString *appId;
 
-/// The unique id of the member owning the device
+/// The unique id of the member owning the device.
 @property (nonatomic, readonly, copy) NSString *teamMemberId;
 
 /// Whether to keep the application dedicated folder (in case the application
-/// uses  one)
+/// uses  one).
 @property (nonatomic, readonly) NSNumber *keepAppFolder;
 
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param appId The application's unique id
-/// @param teamMemberId The unique id of the member owning the device
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithAppId:(NSString *)appId teamMemberId:(NSString *)teamMemberId;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
-/// @param appId The application's unique id
-/// @param teamMemberId The unique id of the member owning the device
+/// @param appId The application's unique id.
+/// @param teamMemberId The unique id of the member owning the device.
 /// @param keepAppFolder Whether to keep the application dedicated folder (in
-/// case the application uses  one)
+/// case the application uses  one).
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithAppId:(NSString *)appId
                  teamMemberId:(NSString *)teamMemberId
                 keepAppFolder:(nullable NSNumber *)keepAppFolder;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param appId The application's unique id.
+/// @param teamMemberId The unique id of the member owning the device.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithAppId:(NSString *)appId teamMemberId:(NSString *)teamMemberId;
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -80,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMRevokeLinkedApiAppArg` API object.
 ///
-+ (NSDictionary *)serialize:(DBTEAMRevokeLinkedApiAppArg *)instance;
++ (nullable NSDictionary *)serialize:(DBTEAMRevokeLinkedApiAppArg *)instance;
 
 ///
 /// Deserializes `DBTEAMRevokeLinkedApiAppArg` instances.

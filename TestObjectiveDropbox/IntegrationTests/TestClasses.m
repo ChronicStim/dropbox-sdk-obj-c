@@ -118,7 +118,7 @@ void MyLog(NSString *format, ...) {
     [filesTests saveUrl:downloadToFile asMember:asMember];
   };
   void (^move)() = ^{
-    [filesTests move:saveUrl];
+    [filesTests moveV2:saveUrl];
   };
   void (^listRevisions)() = ^{
     [filesTests listRevisions:move];
@@ -136,7 +136,7 @@ void MyLog(NSString *format, ...) {
     [filesTests dCopyReferenceGet:getMetadata];
   };
   void (^dCopy)() = ^{
-    [filesTests dCopy:dCopyReferenceGet];
+    [filesTests dCopyV2:dCopyReferenceGet];
   };
   void (^uploadDataSession)() = ^{
     [filesTests uploadDataSession:dCopy];
@@ -151,10 +151,10 @@ void MyLog(NSString *format, ...) {
     [filesTests listFolderError:listFolder];
   };
   void (^createFolder)() = ^{
-    [filesTests createFolder:listFolderError];
+    [filesTests createFolderV2:listFolderError];
   };
   void (^delete_)() = ^{
-    [filesTests delete_:createFolder];
+    [filesTests deleteV2:createFolder];
   };
   void (^start)() = ^{
     delete_();
@@ -439,7 +439,7 @@ void MyLog(NSString *format, ...) {
                                error:nil];
   
   NSMutableDictionary<NSURL *, DBFILESCommitInfo *> *uploadFilesUrlsToCommitInfo = [NSMutableDictionary new];
-  
+
   NSLog(@"\n\nCreating files in: %@\n\n", [workingDirectory path]);
   // create a bunch of fake files
   for (int i = 0; i < 150; i++) {
@@ -717,9 +717,9 @@ void MyLog(NSString *format, ...) {
   return self;
 }
 
-- (void)delete_:(void (^)())nextTest {
+- (void)deleteV2:(void (^)())nextTest {
   [TestFormat printSubTestBegin:NSStringFromSelector(_cmd)];
-  [[[_tester.files delete_:_tester.testData.baseFolder]
+  [[[_tester.files deleteV2:_tester.testData.baseFolder]
       setResponseBlock:^(DBFILESMetadata *result, DBFILESDeleteError *routeError, DBRequestError *error) {
         if (result) {
           MyLog(@"%@\n", result);
@@ -737,9 +737,9 @@ void MyLog(NSString *format, ...) {
   }];
 }
 
-- (void)createFolder:(void (^)())nextTest {
+- (void)createFolderV2:(void (^)())nextTest {
   [TestFormat printSubTestBegin:NSStringFromSelector(_cmd)];
-  [[[_tester.files createFolder:_tester.testData.testFolderPath]
+  [[[_tester.files createFolderV2:_tester.testData.testFolderPath]
       setResponseBlock:^(DBFILESFolderMetadata *result, DBFILESCreateFolderError *routeError, DBRequestError *error) {
         if (result) {
           MyLog(@"%@\n", result);
@@ -872,11 +872,11 @@ void MyLog(NSString *format, ...) {
   }];
 }
 
-- (void)dCopy:(void (^)())nextTest {
+- (void)dCopyV2:(void (^)())nextTest {
   [TestFormat printSubTestBegin:NSStringFromSelector(_cmd)];
   NSString *copyOutputPath = [NSString
       stringWithFormat:@"%@%@%@%@", _tester.testData.testFilePath, @"_duplicate", @"_", _tester.testData.testId];
-  [[[_tester.files dCopy:_tester.testData.testFilePath toPath:copyOutputPath]
+  [[[_tester.files dCopyV2:_tester.testData.testFilePath toPath:copyOutputPath]
       setResponseBlock:^(DBFILESMetadata *result, DBFILESRelocationError *routeError, DBRequestError *error) {
         if (result) {
           MyLog(@"%@\n", result);
@@ -984,10 +984,10 @@ void MyLog(NSString *format, ...) {
   }];
 }
 
-- (void)move:(void (^)())nextTest {
+- (void)moveV2:(void (^)())nextTest {
   [TestFormat printSubTestBegin:NSStringFromSelector(_cmd)];
   NSString *folderPath = [NSString stringWithFormat:@"%@%@%@", _tester.testData.testFolderPath, @"/", @"movedLocation"];
-  [[[_tester.files createFolder:folderPath]
+  [[[_tester.files createFolderV2:folderPath]
       setResponseBlock:^(DBFILESFolderMetadata *result, DBFILESCreateFolderError *routeError, DBRequestError *error) {
         if (result) {
           MyLog(@"%@\n", result);
@@ -997,7 +997,7 @@ void MyLog(NSString *format, ...) {
           NSString *destPath =
               [NSString stringWithFormat:@"%@%@%@%@", folderPath, @"/", _tester.testData.testFileName, @"_session"];
 
-          [[[_tester.files move:fileToMove toPath:destPath]
+          [[[_tester.files moveV2:fileToMove toPath:destPath]
               setResponseBlock:^(DBFILESMetadata *result, DBFILESRelocationError *routeError, DBRequestError *error) {
                 if (result) {
                   MyLog(@"%@\n", result);
@@ -1028,7 +1028,7 @@ void MyLog(NSString *format, ...) {
   }
   [TestFormat printSubTestBegin:NSStringFromSelector(_cmd)];
   NSString *folderPath = [NSString stringWithFormat:@"%@%@%@", _tester.testData.testFolderPath, @"/", @"dbx-test.html"];
-  [[[_tester.files saveUrl:folderPath url:@"https://www.dropbox.com/help/5"]
+  [[[_tester.files saveUrl:folderPath url:@"https://www.google.com"]
       setResponseBlock:^(DBFILESSaveUrlResult *result, DBFILESSaveUrlError *routeError, DBRequestError *error) {
         if (result) {
           MyLog(@"%@\n", result);
@@ -1200,7 +1200,7 @@ void MyLog(NSString *format, ...) {
     NSString *copyOutputPath =
         [NSString stringWithFormat:@"%@%@%@", _tester.testData.testFilePath, @"_duplicate2_", _tester.testData.testId];
 
-    [[[_tester.files dCopy:_tester.testData.testFilePath toPath:copyOutputPath]
+    [[[_tester.files dCopyV2:_tester.testData.testFilePath toPath:copyOutputPath]
         setResponseBlock:^(DBFILESMetadata *result, DBFILESRelocationError *routeError, DBRequestError *error) {
           if (result) {
             MyLog(@"%@\n", result);
@@ -2090,9 +2090,7 @@ void MyLog(NSString *format, ...) {
     }];
   };
 
-  DBTEAMMemberAddArg *memberAddArg = [[DBTEAMMemberAddArg alloc] initWithMemberEmail:_tester.testData.teamMemberNewEmail
-                                                                     memberGivenName:@"FirstName"
-                                                                       memberSurname:@"LastName"];
+  DBTEAMMemberAddArg *memberAddArg = [[DBTEAMMemberAddArg alloc] initWithMemberEmail:_tester.testData.teamMemberNewEmail];
   [[[_tester.team membersAdd:@[ memberAddArg ]]
       setResponseBlock:^(DBTEAMMembersAddLaunch *result, DBNilObject *routeError, DBRequestError *error) {
         if (result) {
@@ -2103,7 +2101,7 @@ void MyLog(NSString *format, ...) {
             DBTEAMMemberAddResult *addResult = result.complete[0];
             if ([addResult isSuccess]) {
               _teamMemberId2 = addResult.success.profile.teamMemberId;
-            } else {
+            } else if (![addResult isUserAlreadyOnTeam]) {
               [TestFormat abort:error routeError:routeError];
             }
             [TestFormat printOffset:@"Member added"];
@@ -2122,11 +2120,12 @@ void MyLog(NSString *format, ...) {
 
 - (void)membersGetInfo:(void (^)())nextTest {
   [TestFormat printSubTestBegin:NSStringFromSelector(_cmd)];
-  DBTEAMUserSelectorArg *userSelectArg = [[DBTEAMUserSelectorArg alloc] initWithTeamMemberId:_teamMemberId];
+  DBTEAMUserSelectorArg *userSelectArg = [[DBTEAMUserSelectorArg alloc] initWithEmail:_tester.testData.teamMemberNewEmail];
   [[[_tester.team membersGetInfo:@[ userSelectArg ]]
       setResponseBlock:^(NSArray<DBTEAMMembersGetInfoItem *> *result, DBTEAMMembersGetInfoError *routeError, DBRequestError *error) {
         if (result) {
           MyLog(@"%@\n", result);
+          _teamMemberId2 = result[0].memberInfo.profile.teamMemberId;
           [TestFormat printSubTestEnd:NSStringFromSelector(_cmd)];
           nextTest();
         } else {

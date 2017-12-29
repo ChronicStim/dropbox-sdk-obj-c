@@ -9,6 +9,7 @@
 #import "DBSerializableProtocol.h"
 
 @class DBSHARINGAclUpdatePolicy;
+@class DBSHARINGFolderAction;
 @class DBSHARINGLinkSettings;
 @class DBSHARINGMemberPolicy;
 @class DBSHARINGSharedLinkPolicy;
@@ -53,80 +54,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// Settings on the link for this folder.
 @property (nonatomic, readonly, nullable) DBSHARINGLinkSettings *linkSettings;
 
+/// A list of `FolderAction`s corresponding to `FolderPermission`s that should
+/// appear in the  response's `permissions` in `DBSHARINGSharedFolderMetadata`
+/// field describing the actions the  authenticated user can perform on the
+/// folder.
+@property (nonatomic, readonly, nullable) NSArray<DBSHARINGFolderAction *> *actions;
+
 #pragma mark - Constructors
-
-///
-/// Convenience constructor.
-///
-/// @param sharedFolderId The ID for the shared folder.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithSharedFolderId:(NSString *)sharedFolderId;
-
-///
-/// Convenience constructor.
-///
-/// @param sharedFolderId The ID for the shared folder.
-/// @param memberPolicy Who can be a member of this shared folder. Only
-/// applicable if the current user is on a team.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithSharedFolderId:(NSString *)sharedFolderId
-                          memberPolicy:(nullable DBSHARINGMemberPolicy *)memberPolicy;
-
-///
-/// Convenience constructor.
-///
-/// @param sharedFolderId The ID for the shared folder.
-/// @param memberPolicy Who can be a member of this shared folder. Only
-/// applicable if the current user is on a team.
-/// @param aclUpdatePolicy Who can add and remove members of this shared folder.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithSharedFolderId:(NSString *)sharedFolderId
-                          memberPolicy:(nullable DBSHARINGMemberPolicy *)memberPolicy
-                       aclUpdatePolicy:(nullable DBSHARINGAclUpdatePolicy *)aclUpdatePolicy;
-
-///
-/// Convenience constructor.
-///
-/// @param sharedFolderId The ID for the shared folder.
-/// @param memberPolicy Who can be a member of this shared folder. Only
-/// applicable if the current user is on a team.
-/// @param aclUpdatePolicy Who can add and remove members of this shared folder.
-/// @param viewerInfoPolicy Who can enable/disable viewer info for this shared
-/// folder.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithSharedFolderId:(NSString *)sharedFolderId
-                          memberPolicy:(nullable DBSHARINGMemberPolicy *)memberPolicy
-                       aclUpdatePolicy:(nullable DBSHARINGAclUpdatePolicy *)aclUpdatePolicy
-                      viewerInfoPolicy:(nullable DBSHARINGViewerInfoPolicy *)viewerInfoPolicy;
-
-///
-/// Convenience constructor.
-///
-/// @param sharedFolderId The ID for the shared folder.
-/// @param memberPolicy Who can be a member of this shared folder. Only
-/// applicable if the current user is on a team.
-/// @param aclUpdatePolicy Who can add and remove members of this shared folder.
-/// @param viewerInfoPolicy Who can enable/disable viewer info for this shared
-/// folder.
-/// @param sharedLinkPolicy The policy to apply to shared links created for
-/// content inside this shared folder. The current user must be on a team to set
-/// this policy to `members` in `DBSHARINGSharedLinkPolicy`.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithSharedFolderId:(NSString *)sharedFolderId
-                          memberPolicy:(nullable DBSHARINGMemberPolicy *)memberPolicy
-                       aclUpdatePolicy:(nullable DBSHARINGAclUpdatePolicy *)aclUpdatePolicy
-                      viewerInfoPolicy:(nullable DBSHARINGViewerInfoPolicy *)viewerInfoPolicy
-                      sharedLinkPolicy:(nullable DBSHARINGSharedLinkPolicy *)sharedLinkPolicy;
 
 ///
 /// Full constructor for the struct (exposes all instance variables).
@@ -141,6 +75,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// content inside this shared folder. The current user must be on a team to set
 /// this policy to `members` in `DBSHARINGSharedLinkPolicy`.
 /// @param linkSettings Settings on the link for this folder.
+/// @param actions A list of `FolderAction`s corresponding to
+/// `FolderPermission`s that should appear in the  response's `permissions` in
+/// `DBSHARINGSharedFolderMetadata` field describing the actions the
+/// authenticated user can perform on the folder.
 ///
 /// @return An initialized instance.
 ///
@@ -149,7 +87,18 @@ NS_ASSUME_NONNULL_BEGIN
                        aclUpdatePolicy:(nullable DBSHARINGAclUpdatePolicy *)aclUpdatePolicy
                       viewerInfoPolicy:(nullable DBSHARINGViewerInfoPolicy *)viewerInfoPolicy
                       sharedLinkPolicy:(nullable DBSHARINGSharedLinkPolicy *)sharedLinkPolicy
-                          linkSettings:(nullable DBSHARINGLinkSettings *)linkSettings;
+                          linkSettings:(nullable DBSHARINGLinkSettings *)linkSettings
+                               actions:(nullable NSArray<DBSHARINGFolderAction *> *)actions;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param sharedFolderId The ID for the shared folder.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithSharedFolderId:(NSString *)sharedFolderId;
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -171,7 +120,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGUpdateFolderPolicyArg` API object.
 ///
-+ (NSDictionary *)serialize:(DBSHARINGUpdateFolderPolicyArg *)instance;
++ (nullable NSDictionary *)serialize:(DBSHARINGUpdateFolderPolicyArg *)instance;
 
 ///
 /// Deserializes `DBSHARINGUpdateFolderPolicyArg` instances.

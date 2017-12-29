@@ -30,60 +30,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Instance fields
 
-/// The member unique Id
+/// The member unique Id.
 @property (nonatomic, readonly, copy) NSString *teamMemberId;
 
-/// List of web sessions made by this team member
+/// List of web sessions made by this team member.
 @property (nonatomic, readonly, nullable) NSArray<DBTEAMActiveWebSession *> *webSessions;
 
-/// List of desktop clients by this team member
+/// List of desktop clients by this team member.
 @property (nonatomic, readonly, nullable) NSArray<DBTEAMDesktopClientSession *> *desktopClients;
 
-/// List of mobile clients by this team member
+/// List of mobile clients by this team member.
 @property (nonatomic, readonly, nullable) NSArray<DBTEAMMobileClientSession *> *mobileClients;
 
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param teamMemberId The member unique Id
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithTeamMemberId:(NSString *)teamMemberId;
-
-///
-/// Convenience constructor.
-///
-/// @param teamMemberId The member unique Id
-/// @param webSessions List of web sessions made by this team member
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithTeamMemberId:(NSString *)teamMemberId
-                         webSessions:(nullable NSArray<DBTEAMActiveWebSession *> *)webSessions;
-
-///
-/// Convenience constructor.
-///
-/// @param teamMemberId The member unique Id
-/// @param webSessions List of web sessions made by this team member
-/// @param desktopClients List of desktop clients by this team member
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithTeamMemberId:(NSString *)teamMemberId
-                         webSessions:(nullable NSArray<DBTEAMActiveWebSession *> *)webSessions
-                      desktopClients:(nullable NSArray<DBTEAMDesktopClientSession *> *)desktopClients;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
-/// @param teamMemberId The member unique Id
-/// @param webSessions List of web sessions made by this team member
-/// @param desktopClients List of desktop clients by this team member
-/// @param mobileClients List of mobile clients by this team member
+/// @param teamMemberId The member unique Id.
+/// @param webSessions List of web sessions made by this team member.
+/// @param desktopClients List of desktop clients by this team member.
+/// @param mobileClients List of mobile clients by this team member.
 ///
 /// @return An initialized instance.
 ///
@@ -91,6 +58,16 @@ NS_ASSUME_NONNULL_BEGIN
                          webSessions:(nullable NSArray<DBTEAMActiveWebSession *> *)webSessions
                       desktopClients:(nullable NSArray<DBTEAMDesktopClientSession *> *)desktopClients
                        mobileClients:(nullable NSArray<DBTEAMMobileClientSession *> *)mobileClients;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param teamMemberId The member unique Id.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithTeamMemberId:(NSString *)teamMemberId;
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -111,7 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMMemberDevices` API object.
 ///
-+ (NSDictionary *)serialize:(DBTEAMMemberDevices *)instance;
++ (nullable NSDictionary *)serialize:(DBTEAMMemberDevices *)instance;
 
 ///
 /// Deserializes `DBTEAMMemberDevices` instances.

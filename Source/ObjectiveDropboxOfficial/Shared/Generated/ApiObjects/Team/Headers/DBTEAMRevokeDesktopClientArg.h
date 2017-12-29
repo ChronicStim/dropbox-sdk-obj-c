@@ -28,35 +28,36 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Whether to delete all files of the account (this is possible only if
 /// supported by the desktop client and  will be made the next time the client
-/// access the account)
+/// access the account).
 @property (nonatomic, readonly) NSNumber *deleteOnUnlink;
 
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param sessionId The session id
-/// @param teamMemberId The unique id of the member owning the device
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithSessionId:(NSString *)sessionId teamMemberId:(NSString *)teamMemberId;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
-/// @param sessionId The session id
-/// @param teamMemberId The unique id of the member owning the device
+/// @param sessionId The session id.
+/// @param teamMemberId The unique id of the member owning the device.
 /// @param deleteOnUnlink Whether to delete all files of the account (this is
 /// possible only if supported by the desktop client and  will be made the next
-/// time the client access the account)
+/// time the client access the account).
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithSessionId:(NSString *)sessionId
                      teamMemberId:(NSString *)teamMemberId
                    deleteOnUnlink:(nullable NSNumber *)deleteOnUnlink;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param sessionId The session id.
+/// @param teamMemberId The unique id of the member owning the device.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithSessionId:(NSString *)sessionId teamMemberId:(NSString *)teamMemberId;
 
 @end
 
@@ -76,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMRevokeDesktopClientArg` API object.
 ///
-+ (NSDictionary *)serialize:(DBTEAMRevokeDesktopClientArg *)instance;
++ (nullable NSDictionary *)serialize:(DBTEAMRevokeDesktopClientArg *)instance;
 
 ///
 /// Deserializes `DBTEAMRevokeDesktopClientArg` instances.

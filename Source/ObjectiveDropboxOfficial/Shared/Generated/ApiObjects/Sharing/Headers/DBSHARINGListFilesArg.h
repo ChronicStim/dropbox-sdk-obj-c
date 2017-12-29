@@ -32,38 +32,36 @@ NS_ASSUME_NONNULL_BEGIN
 /// specified.
 @property (nonatomic, readonly) NSNumber *limit;
 
-/// File actions to query.
+/// A list of `FileAction`s corresponding to `FilePermission`s that should
+/// appear in the  response's `permissions` in `DBSHARINGSharedFileMetadata`
+/// field describing the actions the  authenticated user can perform on the
+/// file.
 @property (nonatomic, readonly, nullable) NSArray<DBSHARINGFileAction *> *actions;
 
 #pragma mark - Constructors
-
-///
-/// Convenience constructor.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initDefault;
-
-///
-/// Convenience constructor.
-///
-/// @param limit Number of files to return max per query. Defaults to 100 if no
-/// limit is specified.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithLimit:(nullable NSNumber *)limit;
 
 ///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param limit Number of files to return max per query. Defaults to 100 if no
 /// limit is specified.
-/// @param actions File actions to query.
+/// @param actions A list of `FileAction`s corresponding to `FilePermission`s
+/// that should appear in the  response's `permissions` in
+/// `DBSHARINGSharedFileMetadata` field describing the actions the
+/// authenticated user can perform on the file.
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithLimit:(nullable NSNumber *)limit actions:(nullable NSArray<DBSHARINGFileAction *> *)actions;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+///
+/// @return An initialized instance.
+///
+- (instancetype)initDefault;
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -84,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGListFilesArg` API object.
 ///
-+ (NSDictionary *)serialize:(DBSHARINGListFilesArg *)instance;
++ (nullable NSDictionary *)serialize:(DBSHARINGListFilesArg *)instance;
 
 ///
 /// Deserializes `DBSHARINGListFilesArg` instances.

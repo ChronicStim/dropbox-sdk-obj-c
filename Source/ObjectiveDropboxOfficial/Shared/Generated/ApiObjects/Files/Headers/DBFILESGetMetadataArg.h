@@ -8,6 +8,7 @@
 
 #import "DBSerializableProtocol.h"
 
+@class DBFILEPROPERTIESTemplateFilterBase;
 @class DBFILESGetMetadataArg;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -39,43 +40,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// not  that file has any explicit members.
 @property (nonatomic, readonly) NSNumber *includeHasExplicitSharedMembers;
 
+/// If set to a valid list of template IDs, `propertyGroups` in
+/// `DBFILESFileMetadata` is set if there exists property data associated with
+/// the file and each of the listed templates.
+@property (nonatomic, readonly, nullable) DBFILEPROPERTIESTemplateFilterBase *includePropertyGroups;
+
 #pragma mark - Constructors
-
-///
-/// Convenience constructor.
-///
-/// @param path The path of a file or folder on Dropbox.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPath:(NSString *)path;
-
-///
-/// Convenience constructor.
-///
-/// @param path The path of a file or folder on Dropbox.
-/// @param includeMediaInfo If true, `mediaInfo` in `DBFILESFileMetadata` is set
-/// for photo and video.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPath:(NSString *)path includeMediaInfo:(nullable NSNumber *)includeMediaInfo;
-
-///
-/// Convenience constructor.
-///
-/// @param path The path of a file or folder on Dropbox.
-/// @param includeMediaInfo If true, `mediaInfo` in `DBFILESFileMetadata` is set
-/// for photo and video.
-/// @param includeDeleted If true, DeletedMetadata will be returned for deleted
-/// file or folder, otherwise `notFound` in `DBFILESLookupError` will be
-/// returned.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPath:(NSString *)path
-            includeMediaInfo:(nullable NSNumber *)includeMediaInfo
-              includeDeleted:(nullable NSNumber *)includeDeleted;
 
 ///
 /// Full constructor for the struct (exposes all instance variables).
@@ -89,13 +59,27 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param includeHasExplicitSharedMembers If true, the results will include a
 /// flag for each file indicating whether or not  that file has any explicit
 /// members.
+/// @param includePropertyGroups If set to a valid list of template IDs,
+/// `propertyGroups` in `DBFILESFileMetadata` is set if there exists property
+/// data associated with the file and each of the listed templates.
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithPath:(NSString *)path
                    includeMediaInfo:(nullable NSNumber *)includeMediaInfo
                      includeDeleted:(nullable NSNumber *)includeDeleted
-    includeHasExplicitSharedMembers:(nullable NSNumber *)includeHasExplicitSharedMembers;
+    includeHasExplicitSharedMembers:(nullable NSNumber *)includeHasExplicitSharedMembers
+              includePropertyGroups:(nullable DBFILEPROPERTIESTemplateFilterBase *)includePropertyGroups;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param path The path of a file or folder on Dropbox.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithPath:(NSString *)path;
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -116,7 +100,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBFILESGetMetadataArg` API object.
 ///
-+ (NSDictionary *)serialize:(DBFILESGetMetadataArg *)instance;
++ (nullable NSDictionary *)serialize:(DBFILESGetMetadataArg *)instance;
 
 ///
 /// Deserializes `DBFILESGetMetadataArg` instances.

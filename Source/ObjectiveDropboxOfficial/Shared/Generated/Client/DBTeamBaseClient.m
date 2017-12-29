@@ -5,6 +5,8 @@
 ///
 
 #import "DBTeamBaseClient.h"
+#import "DBFILEPROPERTIESTeamAuthRoutes.h"
+#import "DBTEAMLOGTeamAuthRoutes.h"
 #import "DBTEAMTeamAuthRoutes.h"
 #import "DBTransportClientProtocol.h"
 
@@ -14,7 +16,9 @@
   self = [super init];
   if (self) {
     _transportClient = client;
+    _filePropertiesRoutes = [[DBFILEPROPERTIESTeamAuthRoutes alloc] init:client];
     _teamRoutes = [[DBTEAMTeamAuthRoutes alloc] init:client];
+    _teamLogRoutes = [[DBTEAMLOGTeamAuthRoutes alloc] init:client];
   }
   return self;
 }

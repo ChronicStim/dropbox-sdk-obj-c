@@ -9,6 +9,9 @@
 #import "DBSHARINGSharedContentLinkMetadataBase.h"
 #import "DBSerializableProtocol.h"
 
+@class DBSHARINGAccessLevel;
+@class DBSHARINGAudienceExceptions;
+@class DBSHARINGAudienceRestrictingSharedFolder;
 @class DBSHARINGLinkAudience;
 @class DBSHARINGLinkPermission;
 @class DBSHARINGSharedContentLinkMetadata;
@@ -30,13 +33,56 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Instance fields
 
+/// The content inside this folder with link audience different than this
+/// folder's. This is only returned when an endpoint that returns metadata for a
+/// single shared folder is called, e.g. /get_folder_metadata.
+@property (nonatomic, readonly, nullable) DBSHARINGAudienceExceptions *audienceExceptions;
+
 /// The URL of the link.
 @property (nonatomic, readonly, copy) NSString *url;
 
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
+/// Full constructor for the struct (exposes all instance variables).
+///
+/// @param audienceOptions The audience options that are available for the
+/// content. Some audience options may be unavailable. For example, team_only
+/// may be unavailable if the content is not owned by a user on a team. The
+/// 'default' audience option is always available if the user can modify link
+/// settings.
+/// @param currentAudience The current audience of the link.
+/// @param linkPermissions A list of permissions for actions you can perform on
+/// the link.
+/// @param passwordProtected Whether the link is protected by a password.
+/// @param url The URL of the link.
+/// @param accessLevel The access level on the link for this file.
+/// @param audienceRestrictingSharedFolder The shared folder that prevents the
+/// link audience for this link from being more restrictive.
+/// @param expiry Whether the link has an expiry set on it. A link with an
+/// expiry will have its  audience changed to members when the expiry is
+/// reached.
+/// @param audienceExceptions The content inside this folder with link audience
+/// different than this folder's. This is only returned when an endpoint that
+/// returns metadata for a single shared folder is called, e.g.
+/// /get_folder_metadata.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithAudienceOptions:(NSArray<DBSHARINGLinkAudience *> *)audienceOptions
+                        currentAudience:(DBSHARINGLinkAudience *)currentAudience
+                        linkPermissions:(NSArray<DBSHARINGLinkPermission *> *)linkPermissions
+                      passwordProtected:(NSNumber *)passwordProtected
+                                    url:(NSString *)url
+                            accessLevel:(nullable DBSHARINGAccessLevel *)accessLevel
+        audienceRestrictingSharedFolder:
+            (nullable DBSHARINGAudienceRestrictingSharedFolder *)audienceRestrictingSharedFolder
+                                 expiry:(nullable NSDate *)expiry
+                     audienceExceptions:(nullable DBSHARINGAudienceExceptions *)audienceExceptions;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
 ///
 /// @param audienceOptions The audience options that are available for the
 /// content. Some audience options may be unavailable. For example, team_only
@@ -57,32 +103,6 @@ NS_ASSUME_NONNULL_BEGIN
                       passwordProtected:(NSNumber *)passwordProtected
                                     url:(NSString *)url;
 
-///
-/// Full constructor for the struct (exposes all instance variables).
-///
-/// @param audienceOptions The audience options that are available for the
-/// content. Some audience options may be unavailable. For example, team_only
-/// may be unavailable if the content is not owned by a user on a team. The
-/// 'default' audience option is always available if the user can modify link
-/// settings.
-/// @param currentAudience The current audience of the link.
-/// @param linkPermissions A list of permissions for actions you can perform on
-/// the link.
-/// @param passwordProtected Whether the link is protected by a password.
-/// @param url The URL of the link.
-/// @param expiry Whether the link has an expiry set on it. A link with an
-/// expiry will have its  audience changed to members when the expiry is
-/// reached.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithAudienceOptions:(NSArray<DBSHARINGLinkAudience *> *)audienceOptions
-                        currentAudience:(DBSHARINGLinkAudience *)currentAudience
-                        linkPermissions:(NSArray<DBSHARINGLinkPermission *> *)linkPermissions
-                      passwordProtected:(NSNumber *)passwordProtected
-                                    url:(NSString *)url
-                                 expiry:(nullable NSDate *)expiry;
-
 @end
 
 #pragma mark - Serializer Object
@@ -101,7 +121,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGSharedContentLinkMetadata` API object.
 ///
-+ (NSDictionary *)serialize:(DBSHARINGSharedContentLinkMetadata *)instance;
++ (nullable NSDictionary *)serialize:(DBSHARINGSharedContentLinkMetadata *)instance;
 
 ///
 /// Deserializes `DBSHARINGSharedContentLinkMetadata` instances.

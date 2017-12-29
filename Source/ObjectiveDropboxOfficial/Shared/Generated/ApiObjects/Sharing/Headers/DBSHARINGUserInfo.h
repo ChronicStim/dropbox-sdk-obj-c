@@ -83,7 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGUserInfo` API object.
 ///
-+ (NSDictionary *)serialize:(DBSHARINGUserInfo *)instance;
++ (nullable NSDictionary *)serialize:(DBSHARINGUserInfo *)instance;
 
 ///
 /// Deserializes `DBSHARINGUserInfo` instances.

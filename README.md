@@ -4,6 +4,8 @@ The Official Dropbox Objective-C SDK for integrating with Dropbox [API v2](https
 
 Full documentation [here](http://dropbox.github.io/dropbox-sdk-obj-c/api-docs/latest/).
 
+NOTE: Please do not rely on `master` in production. Please instead use one of our tagged [release commits](https://github.com/dropbox/dropbox-sdk-obj-c/releases) (preferrably fetched via CocoaPods or Carthage), as these commits have been more thoroughly tested.
+
 ---
 
 ## Table of Contents
@@ -56,7 +58,7 @@ Full documentation [here](http://dropbox.github.io/dropbox-sdk-obj-c/api-docs/la
 
 - iOS 9.0+
 - macOS 10.10+
-- Xcode 7.3+
+- Xcode 8+
 
 ---
 
@@ -142,7 +144,13 @@ From here, you can pull SDK updates using the following command:
 $ pod update
 ```
 
-If Xcode errors with a message about `Undefined symbols for architecture...`, try adding `$(inherited)` to your project's **Other Linker Flags** in **Build Settings**, and ensure that the `-ObjC` flag is included in **Other Linker Flags**.
+##### Common issues
+
+###### Undefined architecture
+
+If Xcode errors with a message about `Undefined symbols for architecture...`, try the following:
+
+- Project Navigator > build target > **Build Settings** > **Other Linker Flags** add `$(inherited)` and `-ObjC`.
 
 ---
 
@@ -159,7 +167,7 @@ brew install carthage
 
 ```
 # ObjectiveDropboxOfficial
-github "https://github.com/dropbox/dropbox-sdk-obj-c" ~> 3.0.18
+github "https://github.com/dropbox/dropbox-sdk-obj-c" ~> 3.4.0
 ```
 
 Then, run the following command to checkout and build the Dropbox Objective-C SDK repository:
@@ -193,13 +201,25 @@ In the Project Navigator in Xcode, select your project, and then navigate to **G
 
 Then navigate to **Build Phases** > **+** > **New Copy Files Phase**. In the newly-created **Copy Files** section, click the **Destination** drop-down menu and select **Products Directory**, then drag and drop `ObjectiveDropboxOfficial.framework.dSYM` (from `Carthage/Build/Mac`).
 
->Note: If you wish to keep the SDK outside of your Xcode project folder (perhaps to share between different apps), you will need to configure your a few environmental variables.
->
->In the Project Navigator in Xcode, select your project, and then navigate to your project's build target > **Build Settings**:
->
->**Header Search Path**: `$(PROJECT_DIR)/../<PATH_TO_SDK>/dropbox-sdk-obj-c/Source/ObjectiveDropboxOfficial (recursive)`
->
->**Framework Search Paths**: `$(PROJECT_DIR)/../<PATH_TO_SDK>/dropbox-sdk-obj-c/Source/ObjectiveDropboxOfficial/build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME) (non-recursive)`
+##### Common issues
+
+###### Linking errors
+
+Please make sure the SDK is inside of your Xcode project folder, otherwise your app may run into linking errors.
+
+If you wish to keep the SDK outside of your Xcode project folder (perhaps to share between different apps), you will need to configure your a few environmental variables.
+
+- Project Navigator > build target > **Build Settings** > **Header Search Path** add `$(PROJECT_DIR)/../<PATH_TO_SDK>/dropbox-sdk-obj-c/Source/ObjectiveDropboxOfficial (recursive)`
+
+- Project Navigator > build target > **Build Settings** > **Framework Search Paths** add `$(PROJECT_DIR)/../<PATH_TO_SDK>/dropbox-sdk-obj-c/Source/ObjectiveDropboxOfficial/build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME) (non-recursive)`
+
+###### dyld: Library not loaded error
+
+If you receive a run-time error message like `dyld: Library not loaded:`, please try the following:
+
+- Add ObjectiveDropboxOfficial framework to **Embedded Binaries** as well as **Linked Frameworks and Libraries**.
+- Project Navigator > build target > **Build Settings** > **Linking** > **Runpath Search Paths** add `$(inherited) @executable_path/Frameworks`.
+
 ---
 
 ### Manually add subproject
@@ -277,10 +297,11 @@ After you've made the above changes, your application's `.plist` file should loo
 
 ### Handling the authorization flow
 
-There are two methods to programmatically retrieve an OAuth 2.0 access token:
+There are three methods to programmatically retrieve an OAuth 2.0 access token:
 
 * **Direct auth** (iOS only): This launches the official Dropbox iOS app (if installed), authenticates via the official app, then redirects back into the SDK
-* **Safari view controller auth** (iOS, macOS): This launches a `SFSafariViewController` to facillitate the auth flow. This is desirable because it is safer for the end-user, and pre-existing session data can be used to avoid requiring the user to re-enter their Dropbox credentials.
+* **Safari view controller auth** (iOS only): This launches a `SFSafariViewController` to facillitate the auth flow. This is desirable because it is safer for the end-user, and pre-existing session data can be used to avoid requiring the user to re-enter their Dropbox credentials.
+* **Redirect to external browser** (macOS only): This launches the user's default browser to facillitate the auth flow. This is also desirable because it is safer for the end-user, and pre-existing session data can be used to avoid requiring the user to re-enter their Dropbox credentials.
 
 To facilitate the above authorization flows, you should take the following steps:
 
@@ -317,6 +338,9 @@ To facilitate the above authorization flows, you should take the following steps
 You can commence the auth flow by calling `authorizeFromController:controller:openURL` method in your application's
 view controller.
 
+Please ensure that the supplied view controller is the top-most controller, so that the authorization view displays correctly. 
+
+
 ##### iOS
 
 ```objective-c
@@ -324,10 +348,21 @@ view controller.
 
 - (void)myButtonInControllerPressed {
   [DBClientsManager authorizeFromController:[UIApplication sharedApplication]
-                                 controller:self
+                                 controller:[[self class] topMostController]
                                     openURL:^(NSURL *url) {
                                       [[UIApplication sharedApplication] openURL:url];
                                     }];
+}
+
++ (UIViewController*)topMostController
+{
+    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
+
+    while (topController.presentedViewController) {
+        topController = topController.presentedViewController;
+    }
+
+    return topController;
 }
 
 ```
@@ -339,8 +374,19 @@ view controller.
 
 - (void)myButtonInControllerPressed {
   [DBClientsManager authorizeFromControllerDesktop:[NSWorkspace sharedWorkspace]
-                                        controller:self
+                                        controller:[[self class] topMostController]
                                            openURL:^(NSURL *url){ [[NSWorkspace sharedWorkspace] openURL:url]; }];
+}
+
++ (UIViewController*)topMostController
+{
+    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
+
+    while (topController.presentedViewController) {
+        topController = topController.presentedViewController;
+    }
+
+    return topController;
 }
 ```
 
@@ -403,6 +449,9 @@ To handle the redirection back into the Objective-C SDK once the authentication 
     } else if ([authResult isError]) {
       NSLog(@"Error: %@", authResult);
     }
+    // this forces your app to the foreground, after it has handled the browser redirect
+    [[NSRunningApplication currentApplication]
+        activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
   }
 }
 ```
@@ -581,8 +630,8 @@ Here's an example of an advanced upload case for "batch" uploading a large numbe
 
 ```objective-c
 NSMutableDictionary<NSURL *, DBFILESCommitInfo *> *uploadFilesUrlsToCommitInfo = [NSMutableDictionary new];
-DBFILESCommitInfo *commitInfo = [[DBFILESCommitInfo alloc] initWithPath:@"/output/path/in/Dropbox"];
-[uploadFilesUrlsToCommitInfo setObject:commitInfo forKey:[NSURL fileURLWithPath:@"/local/path/to/my/file"]];
+DBFILESCommitInfo *commitInfo = [[DBFILESCommitInfo alloc] initWithPath:@"/output/path/in/Dropbox/file.txt"];
+[uploadFilesUrlsToCommitInfo setObject:commitInfo forKey:[NSURL fileURLWithPath:@"/local/path/to/file.txt"]];
 
 [client.filesRoutes batchUploadFiles:uploadFilesUrlsToCommitInfo
     queue:nil
@@ -1045,6 +1094,20 @@ If you're interested in modifying the SDK codebase, you should take the followin
 * navigate to `TestObjectiveDropbox` and run `pod install`
 * open `TestObjectiveDropbox/TestObjectiveDropbox.xcworkspace` in Xcode
 * implement your changes to the SDK source code.
+
+To ensure your changes have not broken any existing functionality, you can run a series of integration tests by
+following the instructions listed in the `ViewController.m` file.
+
+---
+
+## Code generation
+
+If you're interested in manually generating the SDK serialization logic, perform the following:
+
+* clone this GitHub repository to your local filesystem
+* run `git submodule init` and then `git submodule update`
+* navigate to the [Stone GitHub repo](https://github.com/dropbox/stone), and install all necessary dependencies
+* run `./generate_base_client.py` to generate code
 
 To ensure your changes have not broken any existing functionality, you can run a series of integration tests by
 following the instructions listed in the `ViewController.m` file.

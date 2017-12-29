@@ -45,16 +45,16 @@ _cmdline_parser.add_argument(
     help='Path to generation output.',
 )
 _cmdline_parser.add_argument(
-    '-c',
-    '--clang-format-path',
-    type=str,
-    help='Path clang-format tool for formatting code.',
-)
-_cmdline_parser.add_argument(
     '-f',
     '--format-output-path',
     type=str,
     help='Path to format output.',
+)
+_cmdline_parser.add_argument(
+    '-e',
+    '--exclude-from-analysis',
+    action='store_true',
+    help='Sets whether generated code should marked for exclusion from analysis.',
 )
 
 
@@ -83,9 +83,10 @@ def main():
     dropbox_format_script_path = os.path.abspath('Format')
     dropbox_format_output_path = args.format_output_path if args.format_output_path else dropbox_src_path
 
-    # if os.path.exists(dropbox_default_output_path):
-    #     shutil.rmtree(dropbox_default_output_path)
-    # os.makedirs(dropbox_default_output_path)
+    # clear out all old files
+    if not args.format_output_path:
+        shutil.rmtree(dropbox_default_output_path)
+        os.makedirs(dropbox_default_output_path)
 
     if verbose:
         print('Dropbox package path: %s' % dropbox_pkg_path)
@@ -96,8 +97,13 @@ def main():
     types_cmd = (['python', '-m', 'stone.cli', '-a', 'host', '-a', 'style',
                  '-a', 'auth', 'obj_c_types', dropbox_pkg_path] + specs)
 
-    if args.documentation:
-        types_cmd += ['--', '-d', 'true']
+    if args.documentation or args.exclude_from_analysis:
+        types_cmd += ['--']
+        if args.documentation:
+            types_cmd += ['-d']
+        if args.exclude_from_analysis:
+            types_cmd += ['-e']
+
     o = subprocess.check_output(
         (types_cmd),
         cwd=stone_path)
@@ -135,8 +141,6 @@ def main():
         print('Formatting source files')
 
     cmd = ['sh', 'format_files.sh', dropbox_format_output_path]
-    if args.clang_format_path:
-        cmd.append(args.clang_format_path)
     o = subprocess.check_output(cmd, cwd=dropbox_format_script_path)
     if o:
         print('Output:', o)

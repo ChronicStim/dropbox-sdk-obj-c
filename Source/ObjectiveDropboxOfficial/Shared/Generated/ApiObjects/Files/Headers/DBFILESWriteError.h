@@ -45,6 +45,9 @@ typedef NS_ENUM(NSInteger, DBFILESWriteErrorTag) {
   /// Dropbox will not save the file or folder because of its name.
   DBFILESWriteErrorDisallowedName,
 
+  /// This endpoint cannot move or delete team folders.
+  DBFILESWriteErrorTeamFolder,
+
   /// (no description).
   DBFILESWriteErrorOther,
 
@@ -117,6 +120,16 @@ typedef NS_ENUM(NSInteger, DBFILESWriteErrorTag) {
 - (instancetype)initWithDisallowedName;
 
 ///
+/// Initializes union class with tag state of "team_folder".
+///
+/// Description of the "team_folder" tag state: This endpoint cannot move or
+/// delete team folders.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithTeamFolder;
+
+///
 /// Initializes union class with tag state of "other".
 ///
 /// @return An initialized instance.
@@ -173,6 +186,13 @@ typedef NS_ENUM(NSInteger, DBFILESWriteErrorTag) {
 - (BOOL)isDisallowedName;
 
 ///
+/// Retrieves whether the union's current tag state has value "team_folder".
+///
+/// @return Whether the union's current tag state has value "team_folder".
+///
+- (BOOL)isTeamFolder;
+
+///
 /// Retrieves whether the union's current tag state has value "other".
 ///
 /// @return Whether the union's current tag state has value "other".
@@ -203,7 +223,7 @@ typedef NS_ENUM(NSInteger, DBFILESWriteErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBFILESWriteError` API object.
 ///
-+ (NSDictionary *)serialize:(DBFILESWriteError *)instance;
++ (nullable NSDictionary *)serialize:(DBFILESWriteError *)instance;
 
 ///
 /// Deserializes `DBFILESWriteError` instances.

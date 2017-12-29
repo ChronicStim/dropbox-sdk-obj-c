@@ -30,10 +30,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, copy) NSString *memberEmail;
 
 /// Member's first name.
-@property (nonatomic, readonly, copy) NSString *memberGivenName;
+@property (nonatomic, readonly, copy, nullable) NSString *memberGivenName;
 
 /// Member's last name.
-@property (nonatomic, readonly, copy) NSString *memberSurname;
+@property (nonatomic, readonly, copy, nullable) NSString *memberSurname;
 
 /// External ID for member.
 @property (nonatomic, readonly, copy, nullable) NSString *memberExternalId;
@@ -54,75 +54,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param memberEmail (no description).
-/// @param memberGivenName Member's first name.
-/// @param memberSurname Member's last name.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithMemberEmail:(NSString *)memberEmail
-                    memberGivenName:(NSString *)memberGivenName
-                      memberSurname:(NSString *)memberSurname;
-
-///
-/// Convenience constructor.
-///
-/// @param memberEmail (no description).
-/// @param memberGivenName Member's first name.
-/// @param memberSurname Member's last name.
-/// @param memberExternalId External ID for member.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithMemberEmail:(NSString *)memberEmail
-                    memberGivenName:(NSString *)memberGivenName
-                      memberSurname:(NSString *)memberSurname
-                   memberExternalId:(nullable NSString *)memberExternalId;
-
-///
-/// Convenience constructor.
-///
-/// @param memberEmail (no description).
-/// @param memberGivenName Member's first name.
-/// @param memberSurname Member's last name.
-/// @param memberExternalId External ID for member.
-/// @param memberPersistentId Persistent ID for member. This field is only
-/// available to teams using persistent ID SAML configuration.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithMemberEmail:(NSString *)memberEmail
-                    memberGivenName:(NSString *)memberGivenName
-                      memberSurname:(NSString *)memberSurname
-                   memberExternalId:(nullable NSString *)memberExternalId
-                 memberPersistentId:(nullable NSString *)memberPersistentId;
-
-///
-/// Convenience constructor.
-///
-/// @param memberEmail (no description).
-/// @param memberGivenName Member's first name.
-/// @param memberSurname Member's last name.
-/// @param memberExternalId External ID for member.
-/// @param memberPersistentId Persistent ID for member. This field is only
-/// available to teams using persistent ID SAML configuration.
-/// @param sendWelcomeEmail Whether to send a welcome email to the member. If
-/// send_welcome_email is false, no email invitation will be sent to the user.
-/// This may be useful for apps using single sign-on (SSO) flows for onboarding
-/// that want to handle announcements themselves.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithMemberEmail:(NSString *)memberEmail
-                    memberGivenName:(NSString *)memberGivenName
-                      memberSurname:(NSString *)memberSurname
-                   memberExternalId:(nullable NSString *)memberExternalId
-                 memberPersistentId:(nullable NSString *)memberPersistentId
-                   sendWelcomeEmail:(nullable NSNumber *)sendWelcomeEmail;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param memberEmail (no description).
@@ -140,12 +71,22 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return An initialized instance.
 ///
 - (instancetype)initWithMemberEmail:(NSString *)memberEmail
-                    memberGivenName:(NSString *)memberGivenName
-                      memberSurname:(NSString *)memberSurname
+                    memberGivenName:(nullable NSString *)memberGivenName
+                      memberSurname:(nullable NSString *)memberSurname
                    memberExternalId:(nullable NSString *)memberExternalId
                  memberPersistentId:(nullable NSString *)memberPersistentId
                    sendWelcomeEmail:(nullable NSNumber *)sendWelcomeEmail
                                role:(nullable DBTEAMAdminTier *)role;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param memberEmail (no description).
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithMemberEmail:(NSString *)memberEmail;
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -166,7 +107,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMMemberAddArg` API object.
 ///
-+ (NSDictionary *)serialize:(DBTEAMMemberAddArg *)instance;
++ (nullable NSDictionary *)serialize:(DBTEAMMemberAddArg *)instance;
 
 ///
 /// Deserializes `DBTEAMMemberAddArg` instances.

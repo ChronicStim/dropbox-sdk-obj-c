@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Instance fields
 
-/// The Paper doc owner's email.
+/// The Paper doc owner's email address.
 @property (nonatomic, readonly, copy) NSString *owner;
 
 /// The Paper doc title.
@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Full constructor for the struct (exposes all instance variables).
 ///
-/// @param owner The Paper doc owner's email.
+/// @param owner The Paper doc owner's email address.
 /// @param title The Paper doc title.
 /// @param revision The Paper doc revision. Simply an ever increasing number.
 /// @param mimeType MIME type of the export. This corresponds to ExportFormat
@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBPAPERPaperDocExportResult` API object.
 ///
-+ (NSDictionary *)serialize:(DBPAPERPaperDocExportResult *)instance;
++ (nullable NSDictionary *)serialize:(DBPAPERPaperDocExportResult *)instance;
 
 ///
 /// Deserializes `DBPAPERPaperDocExportResult` instances.

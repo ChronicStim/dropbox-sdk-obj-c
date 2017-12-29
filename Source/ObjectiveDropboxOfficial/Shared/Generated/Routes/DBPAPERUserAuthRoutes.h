@@ -18,6 +18,7 @@
 @class DBPAPERFolder;
 @class DBPAPERFolderSharingPolicyType;
 @class DBPAPERFoldersContainingPaperDoc;
+@class DBPAPERImportFormat;
 @class DBPAPERInviteeInfoWithPermissionLevel;
 @class DBPAPERListDocsCursorError;
 @class DBPAPERListPaperDocsFilterBy;
@@ -28,8 +29,12 @@
 @class DBPAPERListUsersOnFolderResponse;
 @class DBPAPERListUsersOnPaperDocResponse;
 @class DBPAPERPaperApiCursorError;
+@class DBPAPERPaperDocCreateError;
+@class DBPAPERPaperDocCreateUpdateResult;
 @class DBPAPERPaperDocExportResult;
 @class DBPAPERPaperDocPermissionLevel;
+@class DBPAPERPaperDocUpdateError;
+@class DBPAPERPaperDocUpdatePolicy;
 @class DBPAPERSharingPolicy;
 @class DBPAPERSharingPublicPolicyType;
 @class DBPAPERSharingTeamPolicyType;
@@ -58,14 +63,102 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init:(id<DBTransportClient>)client;
 
 ///
-/// Marks the given Paper doc as deleted. This operation is non-destructive and the doc can be revived by the owner.
-/// Note: This action can be performed only by the doc owner.
+/// Marks the given Paper doc as archived. Note: This action can be performed or undone by anyone with edit permissions
+/// to the doc.
 ///
+/// @param docId The Paper doc ID.
 ///
 /// @return Through the response callback, the caller will receive a `void` object on success or a
 /// `DBPAPERDocLookupError` object on failure.
 ///
 - (DBRpcTask<DBNilObject *, DBPAPERDocLookupError *> *)docsArchive:(NSString *)docId;
+
+///
+/// Creates a new Paper doc with the provided content.
+///
+/// @param importFormat The format of provided data.
+/// @param inputUrl The file to upload, as an NSString * object.
+///
+/// @return Through the response callback, the caller will receive a `DBPAPERPaperDocCreateUpdateResult` object on
+/// success or a `DBPAPERPaperDocCreateError` object on failure.
+///
+- (DBUploadTask<DBPAPERPaperDocCreateUpdateResult *, DBPAPERPaperDocCreateError *> *)
+docsCreateUrl:(DBPAPERImportFormat *)importFormat
+     inputUrl:(NSString *)inputUrl;
+
+///
+/// Creates a new Paper doc with the provided content.
+///
+/// @param parentFolderId The Paper folder ID where the Paper document should be created. The API user has to have write
+/// access to this folder or error is thrown.
+/// @param importFormat The format of provided data.
+/// @param inputUrl The file to upload, as an NSString * object.
+///
+/// @return Through the response callback, the caller will receive a `DBPAPERPaperDocCreateUpdateResult` object on
+/// success or a `DBPAPERPaperDocCreateError` object on failure.
+///
+- (DBUploadTask<DBPAPERPaperDocCreateUpdateResult *, DBPAPERPaperDocCreateError *> *)
+ docsCreateUrl:(DBPAPERImportFormat *)importFormat
+parentFolderId:(nullable NSString *)parentFolderId
+      inputUrl:(NSString *)inputUrl;
+
+///
+/// Creates a new Paper doc with the provided content.
+///
+/// @param importFormat The format of provided data.
+/// @param inputData The file to upload, as an NSData * object.
+///
+/// @return Through the response callback, the caller will receive a `DBPAPERPaperDocCreateUpdateResult` object on
+/// success or a `DBPAPERPaperDocCreateError` object on failure.
+///
+- (DBUploadTask<DBPAPERPaperDocCreateUpdateResult *, DBPAPERPaperDocCreateError *> *)
+docsCreateData:(DBPAPERImportFormat *)importFormat
+     inputData:(NSData *)inputData;
+
+///
+/// Creates a new Paper doc with the provided content.
+///
+/// @param parentFolderId The Paper folder ID where the Paper document should be created. The API user has to have write
+/// access to this folder or error is thrown.
+/// @param importFormat The format of provided data.
+/// @param inputData The file to upload, as an NSData * object.
+///
+/// @return Through the response callback, the caller will receive a `DBPAPERPaperDocCreateUpdateResult` object on
+/// success or a `DBPAPERPaperDocCreateError` object on failure.
+///
+- (DBUploadTask<DBPAPERPaperDocCreateUpdateResult *, DBPAPERPaperDocCreateError *> *)
+docsCreateData:(DBPAPERImportFormat *)importFormat
+parentFolderId:(nullable NSString *)parentFolderId
+     inputData:(NSData *)inputData;
+
+///
+/// Creates a new Paper doc with the provided content.
+///
+/// @param importFormat The format of provided data.
+/// @param inputStream The file to upload, as an NSInputStream * object.
+///
+/// @return Through the response callback, the caller will receive a `DBPAPERPaperDocCreateUpdateResult` object on
+/// success or a `DBPAPERPaperDocCreateError` object on failure.
+///
+- (DBUploadTask<DBPAPERPaperDocCreateUpdateResult *, DBPAPERPaperDocCreateError *> *)
+docsCreateStream:(DBPAPERImportFormat *)importFormat
+     inputStream:(NSInputStream *)inputStream;
+
+///
+/// Creates a new Paper doc with the provided content.
+///
+/// @param parentFolderId The Paper folder ID where the Paper document should be created. The API user has to have write
+/// access to this folder or error is thrown.
+/// @param importFormat The format of provided data.
+/// @param inputStream The file to upload, as an NSInputStream * object.
+///
+/// @return Through the response callback, the caller will receive a `DBPAPERPaperDocCreateUpdateResult` object on
+/// success or a `DBPAPERPaperDocCreateError` object on failure.
+///
+- (DBUploadTask<DBPAPERPaperDocCreateUpdateResult *, DBPAPERPaperDocCreateError *> *)
+docsCreateStream:(DBPAPERImportFormat *)importFormat
+  parentFolderId:(nullable NSString *)parentFolderId
+     inputStream:(NSInputStream *)inputStream;
 
 ///
 /// Exports and downloads Paper doc either as HTML or markdown.
@@ -181,6 +274,7 @@ docsFolderUsersListContinue:(NSString *)docId
 /// folderName) from the root folder to the folder directly containing the Paper doc.  Note: If the Paper doc is not in
 /// any folder (aka unfiled) the response will be empty.
 ///
+/// @param docId The Paper doc ID.
 ///
 /// @return Through the response callback, the caller will receive a `DBPAPERFoldersContainingPaperDoc` object on
 /// success or a `DBPAPERDocLookupError` object on failure.
@@ -230,6 +324,7 @@ docsFolderUsersListContinue:(NSString *)docId
 /// Permanently deletes the given Paper doc. This operation is final as the doc cannot be recovered.  Note: This action
 /// can be performed only by the doc owner.
 ///
+/// @param docId The Paper doc ID.
 ///
 /// @return Through the response callback, the caller will receive a `void` object on success or a
 /// `DBPAPERDocLookupError` object on failure.
@@ -239,6 +334,7 @@ docsFolderUsersListContinue:(NSString *)docId
 ///
 /// Gets the default sharing policy for the given Paper doc.
 ///
+/// @param docId The Paper doc ID.
 ///
 /// @return Through the response callback, the caller will receive a `DBPAPERSharingPolicy` object on success or a
 /// `DBPAPERDocLookupError` object on failure.
@@ -259,10 +355,67 @@ docsFolderUsersListContinue:(NSString *)docId
                                                               sharingPolicy:(DBPAPERSharingPolicy *)sharingPolicy;
 
 ///
-/// Allows an owner or editor to add users to a Paper doc or change their permissions using their email or Dropbox
-/// account id.  Note: The Doc owner's permissions cannot be changed.
+/// Updates an existing Paper doc with the provided content.
 ///
-/// @param members User which should be added to the Paper doc. Specify only email or Dropbox account id.
+/// @param docUpdatePolicy The policy used for the current update call.
+/// @param revision The latest doc revision. This value must match the head revision or an error code will be returned.
+/// This is to prevent colliding writes.
+/// @param importFormat The format of provided data.
+/// @param inputUrl The file to upload, as an NSString * object.
+///
+/// @return Through the response callback, the caller will receive a `DBPAPERPaperDocCreateUpdateResult` object on
+/// success or a `DBPAPERPaperDocUpdateError` object on failure.
+///
+- (DBUploadTask<DBPAPERPaperDocCreateUpdateResult *, DBPAPERPaperDocUpdateError *> *)
+  docsUpdateUrl:(NSString *)docId
+docUpdatePolicy:(DBPAPERPaperDocUpdatePolicy *)docUpdatePolicy
+       revision:(NSNumber *)revision
+   importFormat:(DBPAPERImportFormat *)importFormat
+       inputUrl:(NSString *)inputUrl;
+
+///
+/// Updates an existing Paper doc with the provided content.
+///
+/// @param docUpdatePolicy The policy used for the current update call.
+/// @param revision The latest doc revision. This value must match the head revision or an error code will be returned.
+/// This is to prevent colliding writes.
+/// @param importFormat The format of provided data.
+/// @param inputData The file to upload, as an NSData * object.
+///
+/// @return Through the response callback, the caller will receive a `DBPAPERPaperDocCreateUpdateResult` object on
+/// success or a `DBPAPERPaperDocUpdateError` object on failure.
+///
+- (DBUploadTask<DBPAPERPaperDocCreateUpdateResult *, DBPAPERPaperDocUpdateError *> *)
+ docsUpdateData:(NSString *)docId
+docUpdatePolicy:(DBPAPERPaperDocUpdatePolicy *)docUpdatePolicy
+       revision:(NSNumber *)revision
+   importFormat:(DBPAPERImportFormat *)importFormat
+      inputData:(NSData *)inputData;
+
+///
+/// Updates an existing Paper doc with the provided content.
+///
+/// @param docUpdatePolicy The policy used for the current update call.
+/// @param revision The latest doc revision. This value must match the head revision or an error code will be returned.
+/// This is to prevent colliding writes.
+/// @param importFormat The format of provided data.
+/// @param inputStream The file to upload, as an NSInputStream * object.
+///
+/// @return Through the response callback, the caller will receive a `DBPAPERPaperDocCreateUpdateResult` object on
+/// success or a `DBPAPERPaperDocUpdateError` object on failure.
+///
+- (DBUploadTask<DBPAPERPaperDocCreateUpdateResult *, DBPAPERPaperDocUpdateError *> *)
+docsUpdateStream:(NSString *)docId
+ docUpdatePolicy:(DBPAPERPaperDocUpdatePolicy *)docUpdatePolicy
+        revision:(NSNumber *)revision
+    importFormat:(DBPAPERImportFormat *)importFormat
+     inputStream:(NSInputStream *)inputStream;
+
+///
+/// Allows an owner or editor to add users to a Paper doc or change their permissions using their email address or
+/// Dropbox account ID.  Note: The Doc owner's permissions cannot be changed.
+///
+/// @param members User which should be added to the Paper doc. Specify only email address or Dropbox account ID.
 ///
 /// @return Through the response callback, the caller will receive a `NSArray<DBPAPERAddPaperDocUserMemberResult *>`
 /// object on success or a `DBPAPERDocLookupError` object on failure.
@@ -272,12 +425,12 @@ docsUsersAdd:(NSString *)docId
      members:(NSArray<DBPAPERAddMember *> *)members;
 
 ///
-/// Allows an owner or editor to add users to a Paper doc or change their permissions using their email or Dropbox
-/// account id.  Note: The Doc owner's permissions cannot be changed.
+/// Allows an owner or editor to add users to a Paper doc or change their permissions using their email address or
+/// Dropbox account ID.  Note: The Doc owner's permissions cannot be changed.
 ///
-/// @param members User which should be added to the Paper doc. Specify only email or Dropbox account id.
+/// @param members User which should be added to the Paper doc. Specify only email address or Dropbox account ID.
 /// @param customMessage A personal message that will be emailed to each successfully added member.
-/// @param quiet Clients should set this to true if no email shall be sent to added users.
+/// @param quiet Clients should set this to true if no email message shall be sent to added users.
 ///
 /// @return Through the response callback, the caller will receive a `NSArray<DBPAPERAddPaperDocUserMemberResult *>`
 /// object on success or a `DBPAPERDocLookupError` object on failure.
@@ -329,10 +482,10 @@ docsUsersListContinue:(NSString *)docId
                cursor:(NSString *)cursor;
 
 ///
-/// Allows an owner or editor to remove users from a Paper doc using their email or Dropbox account id.  Note: Doc owner
-/// cannot be removed.
+/// Allows an owner or editor to remove users from a Paper doc using their email address or Dropbox account ID.  Note:
+/// Doc owner cannot be removed.
 ///
-/// @param member User which should be removed from the Paper doc. Specify only email or Dropbox account id.
+/// @param member User which should be removed from the Paper doc. Specify only email address or Dropbox account ID.
 ///
 /// @return Through the response callback, the caller will receive a `void` object on success or a
 /// `DBPAPERDocLookupError` object on failure.

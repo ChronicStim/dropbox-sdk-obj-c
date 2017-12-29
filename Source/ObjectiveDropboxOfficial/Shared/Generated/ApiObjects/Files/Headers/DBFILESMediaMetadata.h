@@ -99,7 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBFILESMediaMetadata` API object.
 ///
-+ (NSDictionary *)serialize:(DBFILESMediaMetadata *)instance;
++ (nullable NSDictionary *)serialize:(DBFILESMediaMetadata *)instance;
 
 ///
 /// Deserializes `DBFILESMediaMetadata` instances.

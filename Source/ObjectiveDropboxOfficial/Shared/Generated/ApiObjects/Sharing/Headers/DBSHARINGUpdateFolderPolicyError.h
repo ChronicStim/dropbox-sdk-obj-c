@@ -48,6 +48,9 @@ typedef NS_ENUM(NSInteger, DBSHARINGUpdateFolderPolicyErrorTag) {
   /// The current user does not have permission to perform this action.
   DBSHARINGUpdateFolderPolicyErrorNoPermission,
 
+  /// This action cannot be performed on a team shared folder.
+  DBSHARINGUpdateFolderPolicyErrorTeamFolder,
+
   /// (no description).
   DBSHARINGUpdateFolderPolicyErrorOther,
 
@@ -114,6 +117,16 @@ typedef NS_ENUM(NSInteger, DBSHARINGUpdateFolderPolicyErrorTag) {
 - (instancetype)initWithNoPermission;
 
 ///
+/// Initializes union class with tag state of "team_folder".
+///
+/// Description of the "team_folder" tag state: This action cannot be performed
+/// on a team shared folder.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithTeamFolder;
+
+///
 /// Initializes union class with tag state of "other".
 ///
 /// @return An initialized instance.
@@ -167,6 +180,13 @@ typedef NS_ENUM(NSInteger, DBSHARINGUpdateFolderPolicyErrorTag) {
 - (BOOL)isNoPermission;
 
 ///
+/// Retrieves whether the union's current tag state has value "team_folder".
+///
+/// @return Whether the union's current tag state has value "team_folder".
+///
+- (BOOL)isTeamFolder;
+
+///
 /// Retrieves whether the union's current tag state has value "other".
 ///
 /// @return Whether the union's current tag state has value "other".
@@ -198,7 +218,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGUpdateFolderPolicyErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGUpdateFolderPolicyError` API object.
 ///
-+ (NSDictionary *)serialize:(DBSHARINGUpdateFolderPolicyError *)instance;
++ (nullable NSDictionary *)serialize:(DBSHARINGUpdateFolderPolicyError *)instance;
 
 ///
 /// Deserializes `DBSHARINGUpdateFolderPolicyError` instances.

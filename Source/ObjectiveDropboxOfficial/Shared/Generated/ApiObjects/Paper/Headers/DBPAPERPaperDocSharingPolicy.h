@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Full constructor for the struct (exposes all instance variables).
 ///
-/// @param docId (no description).
+/// @param docId The Paper doc ID.
 /// @param sharingPolicy The default sharing policy to be set for the Paper doc.
 ///
 /// @return An initialized instance.
@@ -60,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBPAPERPaperDocSharingPolicy` API object.
 ///
-+ (NSDictionary *)serialize:(DBPAPERPaperDocSharingPolicy *)instance;
++ (nullable NSDictionary *)serialize:(DBPAPERPaperDocSharingPolicy *)instance;
 
 ///
 /// Deserializes `DBPAPERPaperDocSharingPolicy` instances.

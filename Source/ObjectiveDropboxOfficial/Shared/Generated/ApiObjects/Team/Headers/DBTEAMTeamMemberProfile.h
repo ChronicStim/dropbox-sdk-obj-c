@@ -34,118 +34,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// List of group IDs of groups that the user belongs to.
 @property (nonatomic, readonly) NSArray<NSString *> *groups;
 
+/// The namespace id of the user's root folder.
+@property (nonatomic, readonly, copy) NSString *memberFolderId;
+
 #pragma mark - Constructors
-
-///
-/// Convenience constructor.
-///
-/// @param teamMemberId ID of user as a member of a team.
-/// @param email Email address of user.
-/// @param emailVerified Is true if the user's email is verified to be owned by
-/// the user.
-/// @param status The user's status as a member of a specific team.
-/// @param name Representations for a person's name.
-/// @param membershipType The user's membership type: full (normal team member)
-/// vs limited (does not use a license; no access to the team's shared quota).
-/// @param groups List of group IDs of groups that the user belongs to.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithTeamMemberId:(NSString *)teamMemberId
-                               email:(NSString *)email
-                       emailVerified:(NSNumber *)emailVerified
-                              status:(DBTEAMTeamMemberStatus *)status
-                                name:(DBUSERSName *)name
-                      membershipType:(DBTEAMTeamMembershipType *)membershipType
-                              groups:(NSArray<NSString *> *)groups;
-
-///
-/// Convenience constructor.
-///
-/// @param teamMemberId ID of user as a member of a team.
-/// @param email Email address of user.
-/// @param emailVerified Is true if the user's email is verified to be owned by
-/// the user.
-/// @param status The user's status as a member of a specific team.
-/// @param name Representations for a person's name.
-/// @param membershipType The user's membership type: full (normal team member)
-/// vs limited (does not use a license; no access to the team's shared quota).
-/// @param groups List of group IDs of groups that the user belongs to.
-/// @param externalId External ID that a team can attach to the user. An
-/// application using the API may find it easier to use their own IDs instead of
-/// Dropbox IDs like account_id or team_member_id.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithTeamMemberId:(NSString *)teamMemberId
-                               email:(NSString *)email
-                       emailVerified:(NSNumber *)emailVerified
-                              status:(DBTEAMTeamMemberStatus *)status
-                                name:(DBUSERSName *)name
-                      membershipType:(DBTEAMTeamMembershipType *)membershipType
-                              groups:(NSArray<NSString *> *)groups
-                          externalId:(nullable NSString *)externalId;
-
-///
-/// Convenience constructor.
-///
-/// @param teamMemberId ID of user as a member of a team.
-/// @param email Email address of user.
-/// @param emailVerified Is true if the user's email is verified to be owned by
-/// the user.
-/// @param status The user's status as a member of a specific team.
-/// @param name Representations for a person's name.
-/// @param membershipType The user's membership type: full (normal team member)
-/// vs limited (does not use a license; no access to the team's shared quota).
-/// @param groups List of group IDs of groups that the user belongs to.
-/// @param externalId External ID that a team can attach to the user. An
-/// application using the API may find it easier to use their own IDs instead of
-/// Dropbox IDs like account_id or team_member_id.
-/// @param accountId A user's account identifier.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithTeamMemberId:(NSString *)teamMemberId
-                               email:(NSString *)email
-                       emailVerified:(NSNumber *)emailVerified
-                              status:(DBTEAMTeamMemberStatus *)status
-                                name:(DBUSERSName *)name
-                      membershipType:(DBTEAMTeamMembershipType *)membershipType
-                              groups:(NSArray<NSString *> *)groups
-                          externalId:(nullable NSString *)externalId
-                           accountId:(nullable NSString *)accountId;
-
-///
-/// Convenience constructor.
-///
-/// @param teamMemberId ID of user as a member of a team.
-/// @param email Email address of user.
-/// @param emailVerified Is true if the user's email is verified to be owned by
-/// the user.
-/// @param status The user's status as a member of a specific team.
-/// @param name Representations for a person's name.
-/// @param membershipType The user's membership type: full (normal team member)
-/// vs limited (does not use a license; no access to the team's shared quota).
-/// @param groups List of group IDs of groups that the user belongs to.
-/// @param externalId External ID that a team can attach to the user. An
-/// application using the API may find it easier to use their own IDs instead of
-/// Dropbox IDs like account_id or team_member_id.
-/// @param accountId A user's account identifier.
-/// @param joinedOn The date and time the user joined as a member of a specific
-/// team.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithTeamMemberId:(NSString *)teamMemberId
-                               email:(NSString *)email
-                       emailVerified:(NSNumber *)emailVerified
-                              status:(DBTEAMTeamMemberStatus *)status
-                                name:(DBUSERSName *)name
-                      membershipType:(DBTEAMTeamMembershipType *)membershipType
-                              groups:(NSArray<NSString *> *)groups
-                          externalId:(nullable NSString *)externalId
-                           accountId:(nullable NSString *)accountId
-                            joinedOn:(nullable NSDate *)joinedOn;
 
 ///
 /// Full constructor for the struct (exposes all instance variables).
@@ -159,6 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param membershipType The user's membership type: full (normal team member)
 /// vs limited (does not use a license; no access to the team's shared quota).
 /// @param groups List of group IDs of groups that the user belongs to.
+/// @param memberFolderId The namespace id of the user's root folder.
 /// @param externalId External ID that a team can attach to the user. An
 /// application using the API may find it easier to use their own IDs instead of
 /// Dropbox IDs like account_id or team_member_id.
@@ -177,10 +70,37 @@ NS_ASSUME_NONNULL_BEGIN
                                 name:(DBUSERSName *)name
                       membershipType:(DBTEAMTeamMembershipType *)membershipType
                               groups:(NSArray<NSString *> *)groups
+                      memberFolderId:(NSString *)memberFolderId
                           externalId:(nullable NSString *)externalId
                            accountId:(nullable NSString *)accountId
                             joinedOn:(nullable NSDate *)joinedOn
                         persistentId:(nullable NSString *)persistentId;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param teamMemberId ID of user as a member of a team.
+/// @param email Email address of user.
+/// @param emailVerified Is true if the user's email is verified to be owned by
+/// the user.
+/// @param status The user's status as a member of a specific team.
+/// @param name Representations for a person's name.
+/// @param membershipType The user's membership type: full (normal team member)
+/// vs limited (does not use a license; no access to the team's shared quota).
+/// @param groups List of group IDs of groups that the user belongs to.
+/// @param memberFolderId The namespace id of the user's root folder.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithTeamMemberId:(NSString *)teamMemberId
+                               email:(NSString *)email
+                       emailVerified:(NSNumber *)emailVerified
+                              status:(DBTEAMTeamMemberStatus *)status
+                                name:(DBUSERSName *)name
+                      membershipType:(DBTEAMTeamMembershipType *)membershipType
+                              groups:(NSArray<NSString *> *)groups
+                      memberFolderId:(NSString *)memberFolderId;
 
 @end
 
@@ -199,7 +119,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMTeamMemberProfile` API object.
 ///
-+ (NSDictionary *)serialize:(DBTEAMTeamMemberProfile *)instance;
++ (nullable NSDictionary *)serialize:(DBTEAMTeamMemberProfile *)instance;
 
 ///
 /// Deserializes `DBTEAMTeamMemberProfile` instances.

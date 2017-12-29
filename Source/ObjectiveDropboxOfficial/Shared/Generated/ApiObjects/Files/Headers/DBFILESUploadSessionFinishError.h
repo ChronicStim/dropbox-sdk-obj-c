@@ -41,6 +41,10 @@ typedef NS_ENUM(NSInteger, DBFILESUploadSessionFinishErrorTag) {
   /// folder.
   DBFILESUploadSessionFinishErrorTooManySharedFolderTargets,
 
+  /// There are too many write operations happening in the user's Dropbox. You
+  /// should retry uploading this file.
+  DBFILESUploadSessionFinishErrorTooManyWriteOperations,
+
   /// (no description).
   DBFILESUploadSessionFinishErrorOther,
 
@@ -98,6 +102,17 @@ typedef NS_ENUM(NSInteger, DBFILESUploadSessionFinishErrorTag) {
 - (instancetype)initWithTooManySharedFolderTargets;
 
 ///
+/// Initializes union class with tag state of "too_many_write_operations".
+///
+/// Description of the "too_many_write_operations" tag state: There are too many
+/// write operations happening in the user's Dropbox. You should retry uploading
+/// this file.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithTooManyWriteOperations;
+
+///
 /// Initializes union class with tag state of "other".
 ///
 /// @return An initialized instance.
@@ -138,6 +153,15 @@ typedef NS_ENUM(NSInteger, DBFILESUploadSessionFinishErrorTag) {
 - (BOOL)isTooManySharedFolderTargets;
 
 ///
+/// Retrieves whether the union's current tag state has value
+/// "too_many_write_operations".
+///
+/// @return Whether the union's current tag state has value
+/// "too_many_write_operations".
+///
+- (BOOL)isTooManyWriteOperations;
+
+///
 /// Retrieves whether the union's current tag state has value "other".
 ///
 /// @return Whether the union's current tag state has value "other".
@@ -169,7 +193,7 @@ typedef NS_ENUM(NSInteger, DBFILESUploadSessionFinishErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBFILESUploadSessionFinishError` API object.
 ///
-+ (NSDictionary *)serialize:(DBFILESUploadSessionFinishError *)instance;
++ (nullable NSDictionary *)serialize:(DBFILESUploadSessionFinishError *)instance;
 
 ///
 /// Deserializes `DBFILESUploadSessionFinishError` instances.

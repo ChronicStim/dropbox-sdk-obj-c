@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Full constructor for the struct (exposes all instance variables).
 ///
-/// @param docId (no description).
+/// @param docId The Paper doc ID.
 /// @param cursor The cursor obtained from `docsFolderUsersList` or
 /// `docsFolderUsersListContinue`. Allows for pagination.
 ///
@@ -61,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBPAPERListUsersOnFolderContinueArgs` API object.
 ///
-+ (NSDictionary *)serialize:(DBPAPERListUsersOnFolderContinueArgs *)instance;
++ (nullable NSDictionary *)serialize:(DBPAPERListUsersOnFolderContinueArgs *)instance;
 
 ///
 /// Deserializes `DBPAPERListUsersOnFolderContinueArgs` instances.
