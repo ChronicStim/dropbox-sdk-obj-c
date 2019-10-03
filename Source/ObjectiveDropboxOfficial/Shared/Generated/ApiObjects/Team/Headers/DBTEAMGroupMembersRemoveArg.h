@@ -37,16 +37,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param group Group from which users will be removed.
-/// @param users List of users to be removed from the group.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithGroup:(DBTEAMGroupSelector *)group users:(NSArray<DBTEAMUserSelectorArg *> *)users;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param group Group from which users will be removed.
@@ -60,6 +50,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithGroup:(DBTEAMGroupSelector *)group
                         users:(NSArray<DBTEAMUserSelectorArg *> *)users
                 returnMembers:(nullable NSNumber *)returnMembers;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param group Group from which users will be removed.
+/// @param users List of users to be removed from the group.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithGroup:(DBTEAMGroupSelector *)group users:(NSArray<DBTEAMUserSelectorArg *> *)users;
 
 @end
 

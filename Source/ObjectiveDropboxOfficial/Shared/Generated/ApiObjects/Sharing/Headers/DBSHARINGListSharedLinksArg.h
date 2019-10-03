@@ -37,32 +37,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initDefault;
-
-///
-/// Convenience constructor.
-///
-/// @param path See `listSharedLinks` description.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPath:(nullable NSString *)path;
-
-///
-/// Convenience constructor.
-///
-/// @param path See `listSharedLinks` description.
-/// @param cursor The cursor returned by your last call to `listSharedLinks`.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPath:(nullable NSString *)path cursor:(nullable NSString *)cursor;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param path See `listSharedLinks` description.
@@ -74,6 +48,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithPath:(nullable NSString *)path
                       cursor:(nullable NSString *)cursor
                   directOnly:(nullable NSNumber *)directOnly;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+///
+/// @return An initialized instance.
+///
+- (instancetype)initDefault;
 
 - (instancetype)init NS_UNAVAILABLE;
 

@@ -50,20 +50,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param users The list of user members of the shared file.
-/// @param groups The list of group members of the shared file.
-/// @param invitees The list of invited members of a file, but have not logged
-/// in and claimed this.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithUsers:(NSArray<DBSHARINGUserFileMembershipInfo *> *)users
-                       groups:(NSArray<DBSHARINGGroupMembershipInfo *> *)groups
-                     invitees:(NSArray<DBSHARINGInviteeMembershipInfo *> *)invitees;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param users The list of user members of the shared file.
@@ -80,6 +66,21 @@ NS_ASSUME_NONNULL_BEGIN
                        groups:(NSArray<DBSHARINGGroupMembershipInfo *> *)groups
                      invitees:(NSArray<DBSHARINGInviteeMembershipInfo *> *)invitees
                        cursor:(nullable NSString *)cursor;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param users The list of user members of the shared file.
+/// @param groups The list of group members of the shared file.
+/// @param invitees The list of invited members of a file, but have not logged
+/// in and claimed this.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithUsers:(NSArray<DBSHARINGUserFileMembershipInfo *> *)users
+                       groups:(NSArray<DBSHARINGGroupMembershipInfo *> *)groups
+                     invitees:(NSArray<DBSHARINGInviteeMembershipInfo *> *)invitees;
 
 - (instancetype)init NS_UNAVAILABLE;
 

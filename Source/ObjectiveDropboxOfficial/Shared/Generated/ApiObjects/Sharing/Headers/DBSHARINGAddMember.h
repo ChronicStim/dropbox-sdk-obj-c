@@ -40,15 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param member The member to add to the shared folder.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithMember:(DBSHARINGMemberSelector *)member;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param member The member to add to the shared folder.
@@ -59,6 +50,16 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 - (instancetype)initWithMember:(DBSHARINGMemberSelector *)member
                    accessLevel:(nullable DBSHARINGAccessLevel *)accessLevel;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param member The member to add to the shared folder.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithMember:(DBSHARINGMemberSelector *)member;
 
 - (instancetype)init NS_UNAVAILABLE;
 

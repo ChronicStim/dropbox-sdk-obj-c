@@ -45,35 +45,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initDefault;
-
-///
-/// Convenience constructor.
-///
-/// @param accessLevel The member still has this level of access to the content
-/// through a parent folder.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithAccessLevel:(nullable DBSHARINGAccessLevel *)accessLevel;
-
-///
-/// Convenience constructor.
-///
-/// @param accessLevel The member still has this level of access to the content
-/// through a parent folder.
-/// @param warning A localized string with additional information about why the
-/// user has this access level to the content.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithAccessLevel:(nullable DBSHARINGAccessLevel *)accessLevel warning:(nullable NSString *)warning;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param accessLevel The member still has this level of access to the content
@@ -89,6 +60,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithAccessLevel:(nullable DBSHARINGAccessLevel *)accessLevel
                             warning:(nullable NSString *)warning
                       accessDetails:(nullable NSArray<DBSHARINGParentFolderAccessInfo *> *)accessDetails;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+///
+/// @return An initialized instance.
+///
+- (instancetype)initDefault;
 
 - (instancetype)init NS_UNAVAILABLE;
 

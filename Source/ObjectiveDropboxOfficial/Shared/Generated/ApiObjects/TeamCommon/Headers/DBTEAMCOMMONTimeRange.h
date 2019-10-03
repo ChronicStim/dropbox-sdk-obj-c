@@ -36,22 +36,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initDefault;
-
-///
-/// Convenience constructor.
-///
-/// @param startTime Optional starting time (inclusive).
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithStartTime:(nullable NSDate *)startTime;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param startTime Optional starting time (inclusive).
@@ -60,6 +44,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return An initialized instance.
 ///
 - (instancetype)initWithStartTime:(nullable NSDate *)startTime endTime:(nullable NSDate *)endTime;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+///
+/// @return An initialized instance.
+///
+- (instancetype)initDefault;
 
 - (instancetype)init NS_UNAVAILABLE;
 

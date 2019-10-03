@@ -41,25 +41,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param path The path to share.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPath:(NSString *)path;
-
-///
-/// Convenience constructor.
-///
-/// @param path The path to share.
-/// @param shortUrl Whether to return a shortened URL.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPath:(NSString *)path shortUrl:(nullable NSNumber *)shortUrl;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param path The path to share.
@@ -74,6 +55,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithPath:(NSString *)path
                     shortUrl:(nullable NSNumber *)shortUrl
                pendingUpload:(nullable DBSHARINGPendingUploadMode *)pendingUpload;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param path The path to share.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithPath:(NSString *)path;
 
 - (instancetype)init NS_UNAVAILABLE;
 

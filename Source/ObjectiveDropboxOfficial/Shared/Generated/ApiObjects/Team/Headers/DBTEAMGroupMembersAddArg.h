@@ -37,16 +37,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param group Group to which users will be added.
-/// @param members List of users to be added to the group.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithGroup:(DBTEAMGroupSelector *)group members:(NSArray<DBTEAMMemberAccess *> *)members;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param group Group to which users will be added.
@@ -60,6 +50,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithGroup:(DBTEAMGroupSelector *)group
                       members:(NSArray<DBTEAMMemberAccess *> *)members
                 returnMembers:(nullable NSNumber *)returnMembers;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param group Group to which users will be added.
+/// @param members List of users to be added to the group.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithGroup:(DBTEAMGroupSelector *)group members:(NSArray<DBTEAMMemberAccess *> *)members;
 
 @end
 

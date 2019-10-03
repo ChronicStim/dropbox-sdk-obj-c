@@ -40,17 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param links Shared links applicable to the path argument.
-/// @param hasMore Is true if there are additional shared links that have not
-/// been returned yet. Pass the cursor into `listSharedLinks` to retrieve them.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithLinks:(NSArray<DBSHARINGSharedLinkMetadata *> *)links hasMore:(NSNumber *)hasMore;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param links Shared links applicable to the path argument.
@@ -64,6 +53,18 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithLinks:(NSArray<DBSHARINGSharedLinkMetadata *> *)links
                       hasMore:(NSNumber *)hasMore
                        cursor:(nullable NSString *)cursor;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param links Shared links applicable to the path argument.
+/// @param hasMore Is true if there are additional shared links that have not
+/// been returned yet. Pass the cursor into `listSharedLinks` to retrieve them.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithLinks:(NSArray<DBSHARINGSharedLinkMetadata *> *)links hasMore:(NSNumber *)hasMore;
 
 - (instancetype)init NS_UNAVAILABLE;
 

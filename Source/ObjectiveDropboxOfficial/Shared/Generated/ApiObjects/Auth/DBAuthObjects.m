@@ -842,10 +842,6 @@
 
 #pragma mark - Constructors
 
-- (instancetype)initWithReason:(DBAUTHRateLimitReason *)reason {
-  return [self initWithReason:reason retryAfter:nil];
-}
-
 - (instancetype)initWithReason:(DBAUTHRateLimitReason *)reason retryAfter:(NSNumber *)retryAfter {
   [DBStoneValidators nonnullValidator:nil](reason);
 
@@ -855,6 +851,10 @@
     _retryAfter = retryAfter ?: @(1);
   }
   return self;
+}
+
+- (instancetype)initWithReason:(DBAUTHRateLimitReason *)reason {
+  return [self initWithReason:reason retryAfter:nil];
 }
 
 #pragma mark - Serialization methods

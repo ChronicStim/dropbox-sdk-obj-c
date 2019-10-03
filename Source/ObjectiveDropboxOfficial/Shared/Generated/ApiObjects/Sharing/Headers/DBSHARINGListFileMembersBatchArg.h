@@ -37,15 +37,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param files Files for which to return members.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithFiles:(NSArray<NSString *> *)files;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param files Files for which to return members.
@@ -55,6 +46,16 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return An initialized instance.
 ///
 - (instancetype)initWithFiles:(NSArray<NSString *> *)files limit:(nullable NSNumber *)limit;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param files Files for which to return members.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithFiles:(NSArray<NSString *> *)files;
 
 - (instancetype)init NS_UNAVAILABLE;
 

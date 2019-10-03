@@ -47,35 +47,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param groupName (no description).
-/// @param groupId (no description).
-/// @param groupManagementType Who is allowed to manage the group.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithGroupName:(NSString *)groupName
-                          groupId:(NSString *)groupId
-              groupManagementType:(DBTEAMCOMMONGroupManagementType *)groupManagementType;
-
-///
-/// Convenience constructor.
-///
-/// @param groupName (no description).
-/// @param groupId (no description).
-/// @param groupManagementType Who is allowed to manage the group.
-/// @param groupExternalId External ID of group. This is an arbitrary ID that an
-/// admin can attach to a group.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithGroupName:(NSString *)groupName
-                          groupId:(NSString *)groupId
-              groupManagementType:(DBTEAMCOMMONGroupManagementType *)groupManagementType
-                  groupExternalId:(nullable NSString *)groupExternalId;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param groupName (no description).
@@ -92,6 +63,20 @@ NS_ASSUME_NONNULL_BEGIN
               groupManagementType:(DBTEAMCOMMONGroupManagementType *)groupManagementType
                   groupExternalId:(nullable NSString *)groupExternalId
                       memberCount:(nullable NSNumber *)memberCount;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param groupName (no description).
+/// @param groupId (no description).
+/// @param groupManagementType Who is allowed to manage the group.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithGroupName:(NSString *)groupName
+                          groupId:(NSString *)groupId
+              groupManagementType:(DBTEAMCOMMONGroupManagementType *)groupManagementType;
 
 - (instancetype)init NS_UNAVAILABLE;
 

@@ -44,39 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param file The file for which you want to see members.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithFile:(NSString *)file;
-
-///
-/// Convenience constructor.
-///
-/// @param file The file for which you want to see members.
-/// @param actions The actions for which to return permissions on a member.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithFile:(NSString *)file actions:(nullable NSArray<DBSHARINGMemberAction *> *)actions;
-
-///
-/// Convenience constructor.
-///
-/// @param file The file for which you want to see members.
-/// @param actions The actions for which to return permissions on a member.
-/// @param includeInherited Whether to include members who only have access from
-/// a parent shared folder.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithFile:(NSString *)file
-                     actions:(nullable NSArray<DBSHARINGMemberAction *> *)actions
-            includeInherited:(nullable NSNumber *)includeInherited;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param file The file for which you want to see members.
@@ -92,6 +59,16 @@ NS_ASSUME_NONNULL_BEGIN
                      actions:(nullable NSArray<DBSHARINGMemberAction *> *)actions
             includeInherited:(nullable NSNumber *)includeInherited
                        limit:(nullable NSNumber *)limit;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param file The file for which you want to see members.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithFile:(NSString *)file;
 
 - (instancetype)init NS_UNAVAILABLE;
 

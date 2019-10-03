@@ -45,61 +45,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param group Specify a group.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithGroup:(DBTEAMGroupSelector *)group;
-
-///
-/// Convenience constructor.
-///
-/// @param group Specify a group.
-/// @param returnMembers Whether to return the list of members in the group.
-/// Note that the default value will cause all the group members  to be returned
-/// in the response. This may take a long time for large groups.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithGroup:(DBTEAMGroupSelector *)group returnMembers:(nullable NSNumber *)returnMembers;
-
-///
-/// Convenience constructor.
-///
-/// @param group Specify a group.
-/// @param returnMembers Whether to return the list of members in the group.
-/// Note that the default value will cause all the group members  to be returned
-/// in the response. This may take a long time for large groups.
-/// @param dNewGroupName Optional argument. Set group name to this if provided.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithGroup:(DBTEAMGroupSelector *)group
-                returnMembers:(nullable NSNumber *)returnMembers
-                dNewGroupName:(nullable NSString *)dNewGroupName;
-
-///
-/// Convenience constructor.
-///
-/// @param group Specify a group.
-/// @param returnMembers Whether to return the list of members in the group.
-/// Note that the default value will cause all the group members  to be returned
-/// in the response. This may take a long time for large groups.
-/// @param dNewGroupName Optional argument. Set group name to this if provided.
-/// @param dNewGroupExternalId Optional argument. New group external ID. If the
-/// argument is None, the group's external_id won't be updated. If the argument
-/// is empty string, the group's external id will be cleared.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithGroup:(DBTEAMGroupSelector *)group
-                returnMembers:(nullable NSNumber *)returnMembers
-                dNewGroupName:(nullable NSString *)dNewGroupName
-          dNewGroupExternalId:(nullable NSString *)dNewGroupExternalId;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param group Specify a group.
@@ -119,6 +64,16 @@ NS_ASSUME_NONNULL_BEGIN
                 dNewGroupName:(nullable NSString *)dNewGroupName
           dNewGroupExternalId:(nullable NSString *)dNewGroupExternalId
       dNewGroupManagementType:(nullable DBTEAMCOMMONGroupManagementType *)dNewGroupManagementType;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param group Specify a group.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithGroup:(DBTEAMGroupSelector *)group;
 
 @end
 

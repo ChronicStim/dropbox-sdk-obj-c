@@ -38,25 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initDefault;
-
-///
-/// Convenience constructor.
-///
-/// @param actions This is a list indicating whether each returned member will
-/// include a boolean value `allow` in `DBSHARINGMemberPermission` that
-/// describes whether the current user can perform the MemberAction on the
-/// member.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithActions:(nullable NSArray<DBSHARINGMemberAction *> *)actions;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param actions This is a list indicating whether each returned member will
@@ -69,6 +50,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return An initialized instance.
 ///
 - (instancetype)initWithActions:(nullable NSArray<DBSHARINGMemberAction *> *)actions limit:(nullable NSNumber *)limit;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+///
+/// @return An initialized instance.
+///
+- (instancetype)initDefault;
 
 - (instancetype)init NS_UNAVAILABLE;
 

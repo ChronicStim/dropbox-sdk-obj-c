@@ -39,17 +39,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param cursor A cursor as returned by `listFolder` or `listFolderContinue`.
-/// Cursors retrieved by setting `includeMediaInfo` in `DBFILESListFolderArg` to
-/// true are not supported.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithCursor:(NSString *)cursor;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param cursor A cursor as returned by `listFolder` or `listFolderContinue`.
@@ -63,6 +52,18 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return An initialized instance.
 ///
 - (instancetype)initWithCursor:(NSString *)cursor timeout:(nullable NSNumber *)timeout;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param cursor A cursor as returned by `listFolder` or `listFolderContinue`.
+/// Cursors retrieved by setting `includeMediaInfo` in `DBFILESListFolderArg` to
+/// true are not supported.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithCursor:(NSString *)cursor;
 
 - (instancetype)init NS_UNAVAILABLE;
 

@@ -54,72 +54,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param file File to which to add members.
-/// @param members Members to add. Note that even an email address is given,
-/// this may result in a user being directy added to the membership if that
-/// email is the user's main account email.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithFile:(NSString *)file members:(NSArray<DBSHARINGMemberSelector *> *)members;
-
-///
-/// Convenience constructor.
-///
-/// @param file File to which to add members.
-/// @param members Members to add. Note that even an email address is given,
-/// this may result in a user being directy added to the membership if that
-/// email is the user's main account email.
-/// @param customMessage Message to send to added members in their invitation.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithFile:(NSString *)file
-                     members:(NSArray<DBSHARINGMemberSelector *> *)members
-               customMessage:(nullable NSString *)customMessage;
-
-///
-/// Convenience constructor.
-///
-/// @param file File to which to add members.
-/// @param members Members to add. Note that even an email address is given,
-/// this may result in a user being directy added to the membership if that
-/// email is the user's main account email.
-/// @param customMessage Message to send to added members in their invitation.
-/// @param quiet Whether added members should be notified via device
-/// notifications of their invitation.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithFile:(NSString *)file
-                     members:(NSArray<DBSHARINGMemberSelector *> *)members
-               customMessage:(nullable NSString *)customMessage
-                       quiet:(nullable NSNumber *)quiet;
-
-///
-/// Convenience constructor.
-///
-/// @param file File to which to add members.
-/// @param members Members to add. Note that even an email address is given,
-/// this may result in a user being directy added to the membership if that
-/// email is the user's main account email.
-/// @param customMessage Message to send to added members in their invitation.
-/// @param quiet Whether added members should be notified via device
-/// notifications of their invitation.
-/// @param accessLevel AccessLevel union object, describing what access level we
-/// want to give new members.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithFile:(NSString *)file
-                     members:(NSArray<DBSHARINGMemberSelector *> *)members
-               customMessage:(nullable NSString *)customMessage
-                       quiet:(nullable NSNumber *)quiet
-                 accessLevel:(nullable DBSHARINGAccessLevel *)accessLevel;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param file File to which to add members.
@@ -142,6 +76,19 @@ NS_ASSUME_NONNULL_BEGIN
                        quiet:(nullable NSNumber *)quiet
                  accessLevel:(nullable DBSHARINGAccessLevel *)accessLevel
          addMessageAsComment:(nullable NSNumber *)addMessageAsComment;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param file File to which to add members.
+/// @param members Members to add. Note that even an email address is given,
+/// this may result in a user being directy added to the membership if that
+/// email is the user's main account email.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithFile:(NSString *)file members:(NSArray<DBSHARINGMemberSelector *> *)members;
 
 - (instancetype)init NS_UNAVAILABLE;
 

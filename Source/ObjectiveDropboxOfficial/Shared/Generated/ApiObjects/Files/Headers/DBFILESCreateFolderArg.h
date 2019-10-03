@@ -35,15 +35,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param path Path in the user's Dropbox to create.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPath:(NSString *)path;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param path Path in the user's Dropbox to create.
@@ -53,6 +44,16 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return An initialized instance.
 ///
 - (instancetype)initWithPath:(NSString *)path autorename:(nullable NSNumber *)autorename;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param path Path in the user's Dropbox to create.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithPath:(NSString *)path;
 
 - (instancetype)init NS_UNAVAILABLE;
 

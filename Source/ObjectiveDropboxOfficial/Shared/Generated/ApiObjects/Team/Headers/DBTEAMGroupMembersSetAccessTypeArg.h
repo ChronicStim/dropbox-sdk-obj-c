@@ -40,19 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param group Specify a group.
-/// @param user Identity of a user that is a member of group.
-/// @param accessType New group access type the user will have.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithGroup:(DBTEAMGroupSelector *)group
-                         user:(DBTEAMUserSelectorArg *)user
-                   accessType:(DBTEAMGroupAccessType *)accessType;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param group Specify a group.
@@ -68,6 +55,20 @@ NS_ASSUME_NONNULL_BEGIN
                          user:(DBTEAMUserSelectorArg *)user
                    accessType:(DBTEAMGroupAccessType *)accessType
                 returnMembers:(nullable NSNumber *)returnMembers;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param group Specify a group.
+/// @param user Identity of a user that is a member of group.
+/// @param accessType New group access type the user will have.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithGroup:(DBTEAMGroupSelector *)group
+                         user:(DBTEAMUserSelectorArg *)user
+                   accessType:(DBTEAMGroupAccessType *)accessType;
 
 @end
 

@@ -33,29 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param sharedFolderId The ID for the shared folder.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithSharedFolderId:(NSString *)sharedFolderId;
-
-///
-/// Convenience constructor.
-///
-/// @param sharedFolderId The ID for the shared folder.
-/// @param actions This is a list indicating whether each returned member will
-/// include a boolean value `allow` in `DBSHARINGMemberPermission` that
-/// describes whether the current user can perform the MemberAction on the
-/// member.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithSharedFolderId:(NSString *)sharedFolderId
-                               actions:(nullable NSArray<DBSHARINGMemberAction *> *)actions;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param sharedFolderId The ID for the shared folder.
@@ -71,6 +48,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithSharedFolderId:(NSString *)sharedFolderId
                                actions:(nullable NSArray<DBSHARINGMemberAction *> *)actions
                                  limit:(nullable NSNumber *)limit;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param sharedFolderId The ID for the shared folder.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithSharedFolderId:(NSString *)sharedFolderId;
 
 @end
 

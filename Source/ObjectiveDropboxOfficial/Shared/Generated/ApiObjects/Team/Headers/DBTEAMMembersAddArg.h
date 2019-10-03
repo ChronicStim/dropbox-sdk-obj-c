@@ -35,15 +35,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param dNewMembers Details of new members to be added to the team.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithDNewMembers:(NSArray<DBTEAMMemberAddArg *> *)dNewMembers;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param dNewMembers Details of new members to be added to the team.
@@ -53,6 +44,16 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 - (instancetype)initWithDNewMembers:(NSArray<DBTEAMMemberAddArg *> *)dNewMembers
                          forceAsync:(nullable NSNumber *)forceAsync;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param dNewMembers Details of new members to be added to the team.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithDNewMembers:(NSArray<DBTEAMMemberAddArg *> *)dNewMembers;
 
 - (instancetype)init NS_UNAVAILABLE;
 

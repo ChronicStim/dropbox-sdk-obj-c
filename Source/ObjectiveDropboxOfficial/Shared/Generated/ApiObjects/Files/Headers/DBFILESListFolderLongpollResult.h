@@ -36,16 +36,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param changes Indicates whether new changes are available. If true, call
-/// `listFolderContinue` to retrieve the changes.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithChanges:(NSNumber *)changes;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param changes Indicates whether new changes are available. If true, call
@@ -56,6 +46,17 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return An initialized instance.
 ///
 - (instancetype)initWithChanges:(NSNumber *)changes backoff:(nullable NSNumber *)backoff;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param changes Indicates whether new changes are available. If true, call
+/// `listFolderContinue` to retrieve the changes.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithChanges:(NSNumber *)changes;
 
 - (instancetype)init NS_UNAVAILABLE;
 

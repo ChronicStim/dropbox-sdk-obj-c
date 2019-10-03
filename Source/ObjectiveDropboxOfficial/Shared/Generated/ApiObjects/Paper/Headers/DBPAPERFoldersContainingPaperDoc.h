@@ -38,23 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initDefault;
-
-///
-/// Convenience constructor.
-///
-/// @param folderSharingPolicyType The sharing policy of the folder containing
-/// the Paper doc.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithFolderSharingPolicyType:(nullable DBPAPERFolderSharingPolicyType *)folderSharingPolicyType;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param folderSharingPolicyType The sharing policy of the folder containing
@@ -66,6 +49,15 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 - (instancetype)initWithFolderSharingPolicyType:(nullable DBPAPERFolderSharingPolicyType *)folderSharingPolicyType
                                         folders:(nullable NSArray<DBPAPERFolder *> *)folders;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+///
+/// @return An initialized instance.
+///
+- (instancetype)initDefault;
 
 - (instancetype)init NS_UNAVAILABLE;
 

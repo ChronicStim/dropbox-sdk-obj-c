@@ -44,49 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initDefault;
-
-///
-/// Convenience constructor.
-///
-/// @param filterBy Allows user to specify how the Paper docs should be
-/// filtered.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithFilterBy:(nullable DBPAPERListPaperDocsFilterBy *)filterBy;
-
-///
-/// Convenience constructor.
-///
-/// @param filterBy Allows user to specify how the Paper docs should be
-/// filtered.
-/// @param sortBy Allows user to specify how the Paper docs should be sorted.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithFilterBy:(nullable DBPAPERListPaperDocsFilterBy *)filterBy
-                          sortBy:(nullable DBPAPERListPaperDocsSortBy *)sortBy;
-
-///
-/// Convenience constructor.
-///
-/// @param filterBy Allows user to specify how the Paper docs should be
-/// filtered.
-/// @param sortBy Allows user to specify how the Paper docs should be sorted.
-/// @param sortOrder Allows user to specify the sort order of the result.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithFilterBy:(nullable DBPAPERListPaperDocsFilterBy *)filterBy
-                          sortBy:(nullable DBPAPERListPaperDocsSortBy *)sortBy
-                       sortOrder:(nullable DBPAPERListPaperDocsSortOrder *)sortOrder;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param filterBy Allows user to specify how the Paper docs should be
@@ -103,6 +60,15 @@ NS_ASSUME_NONNULL_BEGIN
                           sortBy:(nullable DBPAPERListPaperDocsSortBy *)sortBy
                        sortOrder:(nullable DBPAPERListPaperDocsSortOrder *)sortOrder
                            limit:(nullable NSNumber *)limit;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+///
+/// @return An initialized instance.
+///
+- (instancetype)initDefault;
 
 - (instancetype)init NS_UNAVAILABLE;
 

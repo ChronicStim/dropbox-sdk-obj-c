@@ -237,7 +237,7 @@
 					};
 					F27BA8031D63BBA100FB7864 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = TPMZGZXERR;
+						DevelopmentTeam = NX6T6UBSFF;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
@@ -551,7 +551,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_ENTITLEMENTS = TestObjectiveDropbox_iOS/TestObjectiveDropbox_iOS.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = TPMZGZXERR;
+				DEVELOPMENT_TEAM = NX6T6UBSFF;
 				INFOPLIST_FILE = TestObjectiveDropbox_iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -569,7 +569,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_ENTITLEMENTS = TestObjectiveDropbox_iOS/TestObjectiveDropbox_iOS.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = TPMZGZXERR;
+				DEVELOPMENT_TEAM = NX6T6UBSFF;
 				INFOPLIST_FILE = TestObjectiveDropbox_iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

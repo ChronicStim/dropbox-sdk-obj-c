@@ -36,15 +36,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param sharedFolderId The ID for the shared folder.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithSharedFolderId:(NSString *)sharedFolderId;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param sharedFolderId The ID for the shared folder.
@@ -55,6 +46,16 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return An initialized instance.
 ///
 - (instancetype)initWithSharedFolderId:(NSString *)sharedFolderId leaveACopy:(nullable NSNumber *)leaveACopy;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param sharedFolderId The ID for the shared folder.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithSharedFolderId:(NSString *)sharedFolderId;
 
 - (instancetype)init NS_UNAVAILABLE;
 

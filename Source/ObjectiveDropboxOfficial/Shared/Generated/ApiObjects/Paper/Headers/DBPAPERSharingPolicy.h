@@ -39,22 +39,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initDefault;
-
-///
-/// Convenience constructor.
-///
-/// @param publicSharingPolicy This value applies to the non-team members.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPublicSharingPolicy:(nullable DBPAPERSharingPublicPolicyType *)publicSharingPolicy;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param publicSharingPolicy This value applies to the non-team members.
@@ -65,6 +49,15 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 - (instancetype)initWithPublicSharingPolicy:(nullable DBPAPERSharingPublicPolicyType *)publicSharingPolicy
                           teamSharingPolicy:(nullable DBPAPERSharingTeamPolicyType *)teamSharingPolicy;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+///
+/// @return An initialized instance.
+///
+- (instancetype)initDefault;
 
 - (instancetype)init NS_UNAVAILABLE;
 

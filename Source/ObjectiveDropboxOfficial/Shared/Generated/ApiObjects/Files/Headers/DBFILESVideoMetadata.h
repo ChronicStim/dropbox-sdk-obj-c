@@ -36,46 +36,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initDefault;
-
-///
-/// Convenience constructor.
-///
-/// @param dimensions Dimension of the photo/video.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithDimensions:(nullable DBFILESDimensions *)dimensions;
-
-///
-/// Convenience constructor.
-///
-/// @param dimensions Dimension of the photo/video.
-/// @param location The GPS coordinate of the photo/video.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithDimensions:(nullable DBFILESDimensions *)dimensions
-                          location:(nullable DBFILESGpsCoordinates *)location;
-
-///
-/// Convenience constructor.
-///
-/// @param dimensions Dimension of the photo/video.
-/// @param location The GPS coordinate of the photo/video.
-/// @param timeTaken The timestamp when the photo/video is taken.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithDimensions:(nullable DBFILESDimensions *)dimensions
-                          location:(nullable DBFILESGpsCoordinates *)location
-                         timeTaken:(nullable NSDate *)timeTaken;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param dimensions Dimension of the photo/video.
@@ -89,6 +49,15 @@ NS_ASSUME_NONNULL_BEGIN
                           location:(nullable DBFILESGpsCoordinates *)location
                          timeTaken:(nullable NSDate *)timeTaken
                           duration:(nullable NSNumber *)duration;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+///
+/// @return An initialized instance.
+///
+- (instancetype)initDefault;
 
 @end
 

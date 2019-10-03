@@ -47,51 +47,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param path The path in the user's Dropbox to search. Should probably be a
-/// folder.
-/// @param query The string to search for. The search string is split on spaces
-/// into multiple tokens. For file name searching, the last token is used for
-/// prefix matching (i.e. "bat c" matches "bat cave" but not "batman car").
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPath:(NSString *)path query:(NSString *)query;
-
-///
-/// Convenience constructor.
-///
-/// @param path The path in the user's Dropbox to search. Should probably be a
-/// folder.
-/// @param query The string to search for. The search string is split on spaces
-/// into multiple tokens. For file name searching, the last token is used for
-/// prefix matching (i.e. "bat c" matches "bat cave" but not "batman car").
-/// @param start The starting index within the search results (used for paging).
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPath:(NSString *)path query:(NSString *)query start:(nullable NSNumber *)start;
-
-///
-/// Convenience constructor.
-///
-/// @param path The path in the user's Dropbox to search. Should probably be a
-/// folder.
-/// @param query The string to search for. The search string is split on spaces
-/// into multiple tokens. For file name searching, the last token is used for
-/// prefix matching (i.e. "bat c" matches "bat cave" but not "batman car").
-/// @param start The starting index within the search results (used for paging).
-/// @param maxResults The maximum number of search results to return.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithPath:(NSString *)path
-                       query:(NSString *)query
-                       start:(nullable NSNumber *)start
-                  maxResults:(nullable NSNumber *)maxResults;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param path The path in the user's Dropbox to search. Should probably be a
@@ -112,6 +67,20 @@ NS_ASSUME_NONNULL_BEGIN
                        start:(nullable NSNumber *)start
                   maxResults:(nullable NSNumber *)maxResults
                         mode:(nullable DBFILESSearchMode *)mode;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param path The path in the user's Dropbox to search. Should probably be a
+/// folder.
+/// @param query The string to search for. The search string is split on spaces
+/// into multiple tokens. For file name searching, the last token is used for
+/// prefix matching (i.e. "bat c" matches "bat cave" but not "batman car").
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithPath:(NSString *)path query:(NSString *)query;
 
 - (instancetype)init NS_UNAVAILABLE;
 

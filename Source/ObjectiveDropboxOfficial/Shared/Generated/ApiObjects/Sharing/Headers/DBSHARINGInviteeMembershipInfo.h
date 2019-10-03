@@ -41,65 +41,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param accessType The access type for this member.
-/// @param invitee Recipient of the invitation.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithAccessType:(DBSHARINGAccessLevel *)accessType invitee:(DBSHARINGInviteeInfo *)invitee;
-
-///
-/// Convenience constructor.
-///
-/// @param accessType The access type for this member.
-/// @param invitee Recipient of the invitation.
-/// @param permissions The permissions that requesting user has on this member.
-/// The set of permissions corresponds to the MemberActions in the request.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithAccessType:(DBSHARINGAccessLevel *)accessType
-                           invitee:(DBSHARINGInviteeInfo *)invitee
-                       permissions:(nullable NSArray<DBSHARINGMemberPermission *> *)permissions;
-
-///
-/// Convenience constructor.
-///
-/// @param accessType The access type for this member.
-/// @param invitee Recipient of the invitation.
-/// @param permissions The permissions that requesting user has on this member.
-/// The set of permissions corresponds to the MemberActions in the request.
-/// @param initials Suggested name initials for a member.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithAccessType:(DBSHARINGAccessLevel *)accessType
-                           invitee:(DBSHARINGInviteeInfo *)invitee
-                       permissions:(nullable NSArray<DBSHARINGMemberPermission *> *)permissions
-                          initials:(nullable NSString *)initials;
-
-///
-/// Convenience constructor.
-///
-/// @param accessType The access type for this member. It contains inherited
-/// access type from parent folder, and acquired access type from this folder.
-/// @param invitee Recipient of the invitation.
-/// @param permissions The permissions that requesting user has on this member.
-/// The set of permissions corresponds to the MemberActions in the request.
-/// @param initials Never set.
-/// @param isInherited True if the member has access from a parent folder.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithAccessType:(DBSHARINGAccessLevel *)accessType
-                           invitee:(DBSHARINGInviteeInfo *)invitee
-                       permissions:(nullable NSArray<DBSHARINGMemberPermission *> *)permissions
-                          initials:(nullable NSString *)initials
-                       isInherited:(nullable NSNumber *)isInherited;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param accessType The access type for this member. It contains inherited
@@ -107,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param invitee Recipient of the invitation.
 /// @param permissions The permissions that requesting user has on this member.
 /// The set of permissions corresponds to the MemberActions in the request.
-/// @param initials Suggested name initials for a member.
+/// @param initials Never set.
 /// @param isInherited True if the member has access from a parent folder.
 /// @param user The user this invitation is tied to, if available.
 ///
@@ -119,6 +60,18 @@ NS_ASSUME_NONNULL_BEGIN
                           initials:(nullable NSString *)initials
                        isInherited:(nullable NSNumber *)isInherited
                               user:(nullable DBSHARINGUserInfo *)user;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param accessType The access type for this member. It contains inherited
+/// access type from parent folder, and acquired access type from this folder.
+/// @param invitee Recipient of the invitation.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithAccessType:(DBSHARINGAccessLevel *)accessType invitee:(DBSHARINGInviteeInfo *)invitee;
 
 @end
 

@@ -54,58 +54,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param aclUpdatePolicy Who can add and remove members from this shared
-/// folder.
-/// @param sharedLinkPolicy Who links can be shared with.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithAclUpdatePolicy:(DBSHARINGAclUpdatePolicy *)aclUpdatePolicy
-                       sharedLinkPolicy:(DBSHARINGSharedLinkPolicy *)sharedLinkPolicy;
-
-///
-/// Convenience constructor.
-///
-/// @param aclUpdatePolicy Who can add and remove members from this shared
-/// folder.
-/// @param sharedLinkPolicy Who links can be shared with.
-/// @param memberPolicy Who can be a member of this shared folder, as set on the
-/// folder itself. The effective policy may differ from this value if the
-/// team-wide policy is more restrictive. Present only if the folder is owned by
-/// a team.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithAclUpdatePolicy:(DBSHARINGAclUpdatePolicy *)aclUpdatePolicy
-                       sharedLinkPolicy:(DBSHARINGSharedLinkPolicy *)sharedLinkPolicy
-                           memberPolicy:(nullable DBSHARINGMemberPolicy *)memberPolicy;
-
-///
-/// Convenience constructor.
-///
-/// @param aclUpdatePolicy Who can add and remove members from this shared
-/// folder.
-/// @param sharedLinkPolicy Who links can be shared with.
-/// @param memberPolicy Who can be a member of this shared folder, as set on the
-/// folder itself. The effective policy may differ from this value if the
-/// team-wide policy is more restrictive. Present only if the folder is owned by
-/// a team.
-/// @param resolvedMemberPolicy Who can be a member of this shared folder,
-/// taking into account both the folder and the team-wide policy. This value may
-/// differ from that of member_policy if the team-wide policy is more
-/// restrictive than the folder policy. Present only if the folder is owned by a
-/// team.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithAclUpdatePolicy:(DBSHARINGAclUpdatePolicy *)aclUpdatePolicy
-                       sharedLinkPolicy:(DBSHARINGSharedLinkPolicy *)sharedLinkPolicy
-                           memberPolicy:(nullable DBSHARINGMemberPolicy *)memberPolicy
-                   resolvedMemberPolicy:(nullable DBSHARINGMemberPolicy *)resolvedMemberPolicy;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param aclUpdatePolicy Who can add and remove members from this shared
@@ -130,6 +78,19 @@ NS_ASSUME_NONNULL_BEGIN
                            memberPolicy:(nullable DBSHARINGMemberPolicy *)memberPolicy
                    resolvedMemberPolicy:(nullable DBSHARINGMemberPolicy *)resolvedMemberPolicy
                        viewerInfoPolicy:(nullable DBSHARINGViewerInfoPolicy *)viewerInfoPolicy;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param aclUpdatePolicy Who can add and remove members from this shared
+/// folder.
+/// @param sharedLinkPolicy Who links can be shared with.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithAclUpdatePolicy:(DBSHARINGAclUpdatePolicy *)aclUpdatePolicy
+                       sharedLinkPolicy:(DBSHARINGSharedLinkPolicy *)sharedLinkPolicy;
 
 - (instancetype)init NS_UNAVAILABLE;
 

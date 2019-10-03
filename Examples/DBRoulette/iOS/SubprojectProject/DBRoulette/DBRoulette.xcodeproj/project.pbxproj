@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3EA05DCF1ECA4E0E00B087D0 /* ObjectiveDropboxOfficial.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA05DC91ECA4D9D00B087D0 /* ObjectiveDropboxOfficial.framework */; };
-		3EA05DD01ECA4E0E00B087D0 /* ObjectiveDropboxOfficial.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA05DC91ECA4D9D00B087D0 /* ObjectiveDropboxOfficial.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F2350E001D88B64D00BC3308 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F2350DFF1D88B64D00BC3308 /* main.m */; };
 		F2350E031D88B64D00BC3308 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F2350E021D88B64D00BC3308 /* AppDelegate.m */; };
 		F2350E061D88B64D00BC3308 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2350E051D88B64D00BC3308 /* ViewController.m */; };
@@ -16,26 +14,28 @@
 		F2350E0B1D88B64E00BC3308 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2350E0A1D88B64E00BC3308 /* Assets.xcassets */; };
 		F2350E0E1D88B64E00BC3308 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2350E0C1D88B64E00BC3308 /* LaunchScreen.storyboard */; };
 		F2350E251D88B70A00BC3308 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2350E241D88B70A00BC3308 /* PhotoViewController.m */; };
+		F2A2DE541E57B7A3001D8449 /* ObjectiveDropboxOfficial.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2A2DE4F1E57B77A001D8449 /* ObjectiveDropboxOfficial.framework */; };
+		F2A2DE551E57B7A3001D8449 /* ObjectiveDropboxOfficial.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F2A2DE4F1E57B77A001D8449 /* ObjectiveDropboxOfficial.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3EA05DC81ECA4D9D00B087D0 /* PBXContainerItemProxy */ = {
+		F2A2DE4E1E57B77A001D8449 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 3EA05DC31ECA4D9D00B087D0 /* ObjectiveDropboxOfficial.xcodeproj */;
+			containerPortal = F2A2DE491E57B77A001D8449 /* ObjectiveDropboxOfficial.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = F26B75751D7F6AF700714F70;
 			remoteInfo = "ObjectiveDropboxOfficial iOS";
 		};
-		3EA05DCA1ECA4D9D00B087D0 /* PBXContainerItemProxy */ = {
+		F2A2DE501E57B77A001D8449 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 3EA05DC31ECA4D9D00B087D0 /* ObjectiveDropboxOfficial.xcodeproj */;
+			containerPortal = F2A2DE491E57B77A001D8449 /* ObjectiveDropboxOfficial.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = F27DE9E21D7FF909003B1CEE;
 			remoteInfo = "ObjectiveDropboxOfficial macOS";
 		};
-		3EA05DD11ECA4E0E00B087D0 /* PBXContainerItemProxy */ = {
+		F2A2DE561E57B7A3001D8449 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 3EA05DC31ECA4D9D00B087D0 /* ObjectiveDropboxOfficial.xcodeproj */;
+			containerPortal = F2A2DE491E57B77A001D8449 /* ObjectiveDropboxOfficial.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = F26B75741D7F6AF700714F70;
 			remoteInfo = "ObjectiveDropboxOfficial iOS";
@@ -49,7 +49,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3EA05DD01ECA4E0E00B087D0 /* ObjectiveDropboxOfficial.framework in Embed Frameworks */,
+				F2A2DE551E57B7A3001D8449 /* ObjectiveDropboxOfficial.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -57,7 +57,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3EA05DC31ECA4D9D00B087D0 /* ObjectiveDropboxOfficial.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ObjectiveDropboxOfficial.xcodeproj; path = ../../../../../Source/ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.xcodeproj; sourceTree = "<group>"; };
 		F2350DFB1D88B64D00BC3308 /* DBRoulette.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DBRoulette.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2350DFF1D88B64D00BC3308 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F2350E011D88B64D00BC3308 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -70,6 +69,7 @@
 		F2350E0F1D88B64E00BC3308 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2350E231D88B6F600BC3308 /* PhotoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
 		F2350E241D88B70A00BC3308 /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
+		F2A2DE491E57B77A001D8449 /* ObjectiveDropboxOfficial.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ObjectiveDropboxOfficial.xcodeproj; path = "Carthage/Checkouts/dropbox-sdk-obj-c/Source/ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,26 +77,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EA05DCF1ECA4E0E00B087D0 /* ObjectiveDropboxOfficial.framework in Frameworks */,
+				F2A2DE541E57B7A3001D8449 /* ObjectiveDropboxOfficial.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3EA05DC41ECA4D9D00B087D0 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				3EA05DC91ECA4D9D00B087D0 /* ObjectiveDropboxOfficial.framework */,
-				3EA05DCB1ECA4D9D00B087D0 /* ObjectiveDropboxOfficial.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		F2350DF21D88B64D00BC3308 = {
 			isa = PBXGroup;
 			children = (
-				3EA05DC31ECA4D9D00B087D0 /* ObjectiveDropboxOfficial.xcodeproj */,
+				F2A2DE491E57B77A001D8449 /* ObjectiveDropboxOfficial.xcodeproj */,
 				F2350DFD1D88B64D00BC3308 /* DBRoulette */,
 				F2350DFC1D88B64D00BC3308 /* Products */,
 			);
@@ -136,6 +127,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		F2A2DE4A1E57B77A001D8449 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F2A2DE4F1E57B77A001D8449 /* ObjectiveDropboxOfficial.framework */,
+				F2A2DE511E57B77A001D8449 /* ObjectiveDropboxOfficial.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -152,7 +152,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				3EA05DD21ECA4E0E00B087D0 /* PBXTargetDependency */,
+				F2A2DE571E57B7A3001D8449 /* PBXTargetDependency */,
 			);
 			name = DBRoulette;
 			productName = DBRoulette;
@@ -170,7 +170,6 @@
 				TargetAttributes = {
 					F2350DFA1D88B64D00BC3308 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = TPMZGZXERR;
 					};
 				};
 			};
@@ -187,8 +186,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 3EA05DC41ECA4D9D00B087D0 /* Products */;
-					ProjectRef = 3EA05DC31ECA4D9D00B087D0 /* ObjectiveDropboxOfficial.xcodeproj */;
+					ProductGroup = F2A2DE4A1E57B77A001D8449 /* Products */;
+					ProjectRef = F2A2DE491E57B77A001D8449 /* ObjectiveDropboxOfficial.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -199,18 +198,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		3EA05DC91ECA4D9D00B087D0 /* ObjectiveDropboxOfficial.framework */ = {
+		F2A2DE4F1E57B77A001D8449 /* ObjectiveDropboxOfficial.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = ObjectiveDropboxOfficial.framework;
-			remoteRef = 3EA05DC81ECA4D9D00B087D0 /* PBXContainerItemProxy */;
+			remoteRef = F2A2DE4E1E57B77A001D8449 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		3EA05DCB1ECA4D9D00B087D0 /* ObjectiveDropboxOfficial.framework */ = {
+		F2A2DE511E57B77A001D8449 /* ObjectiveDropboxOfficial.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = ObjectiveDropboxOfficial.framework;
-			remoteRef = 3EA05DCA1ECA4D9D00B087D0 /* PBXContainerItemProxy */;
+			remoteRef = F2A2DE501E57B77A001D8449 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -259,10 +258,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		3EA05DD21ECA4E0E00B087D0 /* PBXTargetDependency */ = {
+		F2A2DE571E57B7A3001D8449 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "ObjectiveDropboxOfficial iOS";
-			targetProxy = 3EA05DD11ECA4E0E00B087D0 /* PBXContainerItemProxy */;
+			targetProxy = F2A2DE561E57B7A3001D8449 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -378,7 +377,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = TPMZGZXERR;
 				INFOPLIST_FILE = DBRoulette/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dropbox.DBRoulette;
@@ -390,7 +388,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = TPMZGZXERR;
 				INFOPLIST_FILE = DBRoulette/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dropbox.DBRoulette;

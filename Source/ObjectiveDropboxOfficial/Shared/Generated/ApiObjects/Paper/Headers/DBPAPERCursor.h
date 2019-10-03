@@ -45,15 +45,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param value The actual cursor value.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithValue:(NSString *)value;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param value The actual cursor value.
@@ -73,6 +64,16 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return An initialized instance.
 ///
 - (instancetype)initWithValue:(NSString *)value expiration:(nullable NSDate *)expiration;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param value The actual cursor value.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithValue:(NSString *)value;
 
 - (instancetype)init NS_UNAVAILABLE;
 

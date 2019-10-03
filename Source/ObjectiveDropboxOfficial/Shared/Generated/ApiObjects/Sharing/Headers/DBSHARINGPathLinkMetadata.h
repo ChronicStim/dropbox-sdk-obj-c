@@ -35,17 +35,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param url URL of the shared link.
-/// @param visibility Who can access the link.
-/// @param path Path in user's Dropbox.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithUrl:(NSString *)url visibility:(DBSHARINGVisibility *)visibility path:(NSString *)path;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param url URL of the shared link.
@@ -59,6 +48,18 @@ NS_ASSUME_NONNULL_BEGIN
                  visibility:(DBSHARINGVisibility *)visibility
                        path:(NSString *)path
                     expires:(nullable NSDate *)expires;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param url URL of the shared link.
+/// @param visibility Who can access the link.
+/// @param path Path in user's Dropbox.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithUrl:(NSString *)url visibility:(DBSHARINGVisibility *)visibility path:(NSString *)path;
 
 @end
 

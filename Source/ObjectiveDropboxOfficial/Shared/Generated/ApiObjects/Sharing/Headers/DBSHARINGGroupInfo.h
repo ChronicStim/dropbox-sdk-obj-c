@@ -46,51 +46,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param groupName (no description).
-/// @param groupId (no description).
-/// @param groupManagementType Who is allowed to manage the group.
-/// @param groupType The type of group.
-/// @param isMember If the current user is a member of the group.
-/// @param isOwner If the current user is an owner of the group.
-/// @param sameTeam If the group is owned by the current user's team.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithGroupName:(NSString *)groupName
-                          groupId:(NSString *)groupId
-              groupManagementType:(DBTEAMCOMMONGroupManagementType *)groupManagementType
-                        groupType:(DBTEAMCOMMONGroupType *)groupType
-                         isMember:(NSNumber *)isMember
-                          isOwner:(NSNumber *)isOwner
-                         sameTeam:(NSNumber *)sameTeam;
-
-///
-/// Convenience constructor.
-///
-/// @param groupName (no description).
-/// @param groupId (no description).
-/// @param groupManagementType Who is allowed to manage the group.
-/// @param groupType The type of group.
-/// @param isMember If the current user is a member of the group.
-/// @param isOwner If the current user is an owner of the group.
-/// @param sameTeam If the group is owned by the current user's team.
-/// @param groupExternalId External ID of group. This is an arbitrary ID that an
-/// admin can attach to a group.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithGroupName:(NSString *)groupName
-                          groupId:(NSString *)groupId
-              groupManagementType:(DBTEAMCOMMONGroupManagementType *)groupManagementType
-                        groupType:(DBTEAMCOMMONGroupType *)groupType
-                         isMember:(NSNumber *)isMember
-                          isOwner:(NSNumber *)isOwner
-                         sameTeam:(NSNumber *)sameTeam
-                  groupExternalId:(nullable NSString *)groupExternalId;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param groupName (no description).
@@ -115,6 +70,28 @@ NS_ASSUME_NONNULL_BEGIN
                          sameTeam:(NSNumber *)sameTeam
                   groupExternalId:(nullable NSString *)groupExternalId
                       memberCount:(nullable NSNumber *)memberCount;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param groupName (no description).
+/// @param groupId (no description).
+/// @param groupManagementType Who is allowed to manage the group.
+/// @param groupType The type of group.
+/// @param isMember If the current user is a member of the group.
+/// @param isOwner If the current user is an owner of the group.
+/// @param sameTeam If the group is owned by the current user's team.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithGroupName:(NSString *)groupName
+                          groupId:(NSString *)groupId
+              groupManagementType:(DBTEAMCOMMONGroupManagementType *)groupManagementType
+                        groupType:(DBTEAMCOMMONGroupType *)groupType
+                         isMember:(NSNumber *)isMember
+                          isOwner:(NSNumber *)isOwner
+                         sameTeam:(NSNumber *)sameTeam;
 
 @end
 

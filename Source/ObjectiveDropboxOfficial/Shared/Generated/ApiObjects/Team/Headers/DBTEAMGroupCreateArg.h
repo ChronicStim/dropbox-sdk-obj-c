@@ -38,26 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param groupName Group name.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithGroupName:(NSString *)groupName;
-
-///
-/// Convenience constructor.
-///
-/// @param groupName Group name.
-/// @param groupExternalId The creator of a team can associate an arbitrary
-/// external ID to the group.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithGroupName:(NSString *)groupName groupExternalId:(nullable NSString *)groupExternalId;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param groupName Group name.
@@ -71,6 +51,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithGroupName:(NSString *)groupName
                   groupExternalId:(nullable NSString *)groupExternalId
               groupManagementType:(nullable DBTEAMCOMMONGroupManagementType *)groupManagementType;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param groupName Group name.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithGroupName:(NSString *)groupName;
 
 - (instancetype)init NS_UNAVAILABLE;
 

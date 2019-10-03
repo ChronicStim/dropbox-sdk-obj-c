@@ -40,17 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param devices The devices of each member of the team.
-/// @param hasMore If true, then there are more devices available. Pass the
-/// cursor to `devicesListMembersDevices` to retrieve the rest.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithDevices:(NSArray<DBTEAMMemberDevices *> *)devices hasMore:(NSNumber *)hasMore;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param devices The devices of each member of the team.
@@ -64,6 +53,18 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithDevices:(NSArray<DBTEAMMemberDevices *> *)devices
                         hasMore:(NSNumber *)hasMore
                          cursor:(nullable NSString *)cursor;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param devices The devices of each member of the team.
+/// @param hasMore If true, then there are more devices available. Pass the
+/// cursor to `devicesListMembersDevices` to retrieve the rest.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithDevices:(NSArray<DBTEAMMemberDevices *> *)devices hasMore:(NSNumber *)hasMore;
 
 - (instancetype)init NS_UNAVAILABLE;
 

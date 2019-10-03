@@ -41,16 +41,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param teamInfo Information about the member's team.
-/// @param displayName The display name of the user.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithTeamInfo:(DBUSERSTeam *)teamInfo displayName:(NSString *)displayName;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param teamInfo Information about the member's team.
@@ -63,6 +53,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithTeamInfo:(DBUSERSTeam *)teamInfo
                      displayName:(NSString *)displayName
                         memberId:(nullable NSString *)memberId;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param teamInfo Information about the member's team.
+/// @param displayName The display name of the user.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithTeamInfo:(DBUSERSTeam *)teamInfo displayName:(NSString *)displayName;
 
 - (instancetype)init NS_UNAVAILABLE;
 

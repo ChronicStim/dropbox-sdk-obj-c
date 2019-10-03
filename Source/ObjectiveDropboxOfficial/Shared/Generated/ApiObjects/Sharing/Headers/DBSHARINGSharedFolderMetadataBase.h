@@ -58,38 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param accessType The current user's access level for this shared folder.
-/// @param isInsideTeamFolder Whether this folder is inside of a team folder.
-/// @param isTeamFolder Whether this folder is a team folder
-/// https://www.dropbox.com/en/help/986.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithAccessType:(DBSHARINGAccessLevel *)accessType
-                isInsideTeamFolder:(NSNumber *)isInsideTeamFolder
-                      isTeamFolder:(NSNumber *)isTeamFolder;
-
-///
-/// Convenience constructor.
-///
-/// @param accessType The current user's access level for this shared folder.
-/// @param isInsideTeamFolder Whether this folder is inside of a team folder.
-/// @param isTeamFolder Whether this folder is a team folder
-/// https://www.dropbox.com/en/help/986.
-/// @param ownerTeam The team that owns the folder. This field is not present if
-/// the folder is not owned by a team.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithAccessType:(DBSHARINGAccessLevel *)accessType
-                isInsideTeamFolder:(NSNumber *)isInsideTeamFolder
-                      isTeamFolder:(NSNumber *)isTeamFolder
-                         ownerTeam:(nullable DBUSERSTeam *)ownerTeam;
-
-///
-/// Convenience constructor.
+/// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param accessType The current user's access level for this shared folder.
 /// @param isInsideTeamFolder Whether this folder is inside of a team folder.
@@ -102,27 +71,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// the folder is not owned by a team.
 /// @param parentSharedFolderId The ID of the parent shared folder. This field
 /// is present only if the folder is contained within another shared folder.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithAccessType:(DBSHARINGAccessLevel *)accessType
-                isInsideTeamFolder:(NSNumber *)isInsideTeamFolder
-                      isTeamFolder:(NSNumber *)isTeamFolder
-                 ownerDisplayNames:(nullable NSArray<NSString *> *)ownerDisplayNames
-                         ownerTeam:(nullable DBUSERSTeam *)ownerTeam
-              parentSharedFolderId:(nullable NSString *)parentSharedFolderId;
-
-///
-/// Full constructor for the struct (exposes all instance variables).
-///
-/// @param accessType The current user's access level for this shared folder.
-/// @param isInsideTeamFolder Whether this folder is inside of a team folder.
-/// @param isTeamFolder Whether this folder is a team folder
-/// https://www.dropbox.com/en/help/986.
-/// @param ownerTeam The team that owns the folder. This field is not present if
-/// the folder is not owned by a team.
-/// @param parentSharedFolderId The ID of the parent shared folder. This field
-/// is present only if the folder is contained within another shared folder.
 /// @param pathLower The lower-cased full path of this shared folder. Absent for
 /// unmounted folders.
 ///
@@ -131,9 +79,25 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithAccessType:(DBSHARINGAccessLevel *)accessType
                 isInsideTeamFolder:(NSNumber *)isInsideTeamFolder
                       isTeamFolder:(NSNumber *)isTeamFolder
+                 ownerDisplayNames:(nullable NSArray<NSString *> *)ownerDisplayNames
                          ownerTeam:(nullable DBUSERSTeam *)ownerTeam
               parentSharedFolderId:(nullable NSString *)parentSharedFolderId
                          pathLower:(nullable NSString *)pathLower;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param accessType The current user's access level for this shared folder.
+/// @param isInsideTeamFolder Whether this folder is inside of a team folder.
+/// @param isTeamFolder Whether this folder is a team folder
+/// https://www.dropbox.com/en/help/986.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithAccessType:(DBSHARINGAccessLevel *)accessType
+                isInsideTeamFolder:(NSNumber *)isInsideTeamFolder
+                      isTeamFolder:(NSNumber *)isTeamFolder;
 
 - (instancetype)init NS_UNAVAILABLE;
 

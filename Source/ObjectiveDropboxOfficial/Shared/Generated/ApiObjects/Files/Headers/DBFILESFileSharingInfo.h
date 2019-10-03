@@ -38,17 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param readOnly True if the file or folder is inside a read-only shared
-/// folder.
-/// @param parentSharedFolderId ID of shared folder that holds this file.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithReadOnly:(NSNumber *)readOnly parentSharedFolderId:(NSString *)parentSharedFolderId;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param readOnly True if the file or folder is inside a read-only shared
@@ -62,6 +51,18 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithReadOnly:(NSNumber *)readOnly
             parentSharedFolderId:(NSString *)parentSharedFolderId
                       modifiedBy:(nullable NSString *)modifiedBy;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param readOnly True if the file or folder is inside a read-only shared
+/// folder.
+/// @param parentSharedFolderId ID of shared folder that holds this file.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithReadOnly:(NSNumber *)readOnly parentSharedFolderId:(NSString *)parentSharedFolderId;
 
 @end
 

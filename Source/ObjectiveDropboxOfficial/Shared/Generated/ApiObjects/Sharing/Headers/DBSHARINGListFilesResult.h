@@ -37,15 +37,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param entries Information about the files shared with current user.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithEntries:(NSArray<DBSHARINGSharedFileMetadata *> *)entries;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param entries Information about the files shared with current user.
@@ -54,6 +45,16 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return An initialized instance.
 ///
 - (instancetype)initWithEntries:(NSArray<DBSHARINGSharedFileMetadata *> *)entries cursor:(nullable NSString *)cursor;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param entries Information about the files shared with current user.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithEntries:(NSArray<DBSHARINGSharedFileMetadata *> *)entries;
 
 - (instancetype)init NS_UNAVAILABLE;
 

@@ -40,53 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param accountId The user's unique Dropbox ID.
-/// @param name Details of a user's name.
-/// @param email The user's e-mail address. Do not rely on this without checking
-/// the emailVerified field. Even then, it's possible that the user has since
-/// lost access to their e-mail.
-/// @param emailVerified Whether the user has verified their e-mail address.
-/// @param disabled Whether the user has been disabled.
-/// @param isTeammate Whether this user is a teammate of the current user. If
-/// this account is the current user's account, then this will be true.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithAccountId:(NSString *)accountId
-                             name:(DBUSERSName *)name
-                            email:(NSString *)email
-                    emailVerified:(NSNumber *)emailVerified
-                         disabled:(NSNumber *)disabled
-                       isTeammate:(NSNumber *)isTeammate;
-
-///
-/// Convenience constructor.
-///
-/// @param accountId The user's unique Dropbox ID.
-/// @param name Details of a user's name.
-/// @param email The user's e-mail address. Do not rely on this without checking
-/// the emailVerified field. Even then, it's possible that the user has since
-/// lost access to their e-mail.
-/// @param emailVerified Whether the user has verified their e-mail address.
-/// @param disabled Whether the user has been disabled.
-/// @param isTeammate Whether this user is a teammate of the current user. If
-/// this account is the current user's account, then this will be true.
-/// @param profilePhotoUrl URL for the photo representing the user, if one is
-/// set.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithAccountId:(NSString *)accountId
-                             name:(DBUSERSName *)name
-                            email:(NSString *)email
-                    emailVerified:(NSNumber *)emailVerified
-                         disabled:(NSNumber *)disabled
-                       isTeammate:(NSNumber *)isTeammate
-                  profilePhotoUrl:(nullable NSString *)profilePhotoUrl;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param accountId The user's unique Dropbox ID.
@@ -113,6 +66,29 @@ NS_ASSUME_NONNULL_BEGIN
                        isTeammate:(NSNumber *)isTeammate
                   profilePhotoUrl:(nullable NSString *)profilePhotoUrl
                      teamMemberId:(nullable NSString *)teamMemberId;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param accountId The user's unique Dropbox ID.
+/// @param name Details of a user's name.
+/// @param email The user's e-mail address. Do not rely on this without checking
+/// the emailVerified field. Even then, it's possible that the user has since
+/// lost access to their e-mail.
+/// @param emailVerified Whether the user has verified their e-mail address.
+/// @param disabled Whether the user has been disabled.
+/// @param isTeammate Whether this user is a teammate of the current user. If
+/// this account is the current user's account, then this will be true.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithAccountId:(NSString *)accountId
+                             name:(DBUSERSName *)name
+                            email:(NSString *)email
+                    emailVerified:(NSNumber *)emailVerified
+                         disabled:(NSNumber *)disabled
+                       isTeammate:(NSNumber *)isTeammate;
 
 @end
 

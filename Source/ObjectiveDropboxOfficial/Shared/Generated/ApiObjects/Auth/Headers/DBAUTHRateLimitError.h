@@ -38,15 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param reason The reason why the app is being rate limited.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithReason:(DBAUTHRateLimitReason *)reason;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param reason The reason why the app is being rate limited.
@@ -56,6 +47,16 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return An initialized instance.
 ///
 - (instancetype)initWithReason:(DBAUTHRateLimitReason *)reason retryAfter:(nullable NSNumber *)retryAfter;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param reason The reason why the app is being rate limited.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithReason:(DBAUTHRateLimitReason *)reason;
 
 - (instancetype)init NS_UNAVAILABLE;
 

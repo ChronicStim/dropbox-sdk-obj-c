@@ -43,32 +43,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param sharedFolderId The ID for the shared folder.
-/// @param members The intended list of members to add.  Added members will
-/// receive invites to join the shared folder.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithSharedFolderId:(NSString *)sharedFolderId members:(NSArray<DBSHARINGAddMember *> *)members;
-
-///
-/// Convenience constructor.
-///
-/// @param sharedFolderId The ID for the shared folder.
-/// @param members The intended list of members to add.  Added members will
-/// receive invites to join the shared folder.
-/// @param quiet Whether added members should be notified via email and device
-/// notifications of their invite.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithSharedFolderId:(NSString *)sharedFolderId
-                               members:(NSArray<DBSHARINGAddMember *> *)members
-                                 quiet:(nullable NSNumber *)quiet;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param sharedFolderId The ID for the shared folder.
@@ -85,6 +59,18 @@ NS_ASSUME_NONNULL_BEGIN
                                members:(NSArray<DBSHARINGAddMember *> *)members
                                  quiet:(nullable NSNumber *)quiet
                          customMessage:(nullable NSString *)customMessage;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param sharedFolderId The ID for the shared folder.
+/// @param members The intended list of members to add.  Added members will
+/// receive invites to join the shared folder.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithSharedFolderId:(NSString *)sharedFolderId members:(NSArray<DBSHARINGAddMember *> *)members;
 
 - (instancetype)init NS_UNAVAILABLE;
 
