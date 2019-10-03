@@ -30,31 +30,32 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) DBFILESUploadSessionCursor *cursor;
 
 /// If true, the current session will be closed, at which point you won't be
-/// able to call `uploadSessionAppendV2` anymore with the current session.
+/// able to call `uploadSessionAppend` anymore with the current session.
 @property (nonatomic, readonly) NSNumber *close;
 
 #pragma mark - Constructors
-
-///
-/// Convenience constructor.
-///
-/// @param cursor Contains the upload session ID and the offset.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithCursor:(DBFILESUploadSessionCursor *)cursor;
 
 ///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param cursor Contains the upload session ID and the offset.
 /// @param close If true, the current session will be closed, at which point you
-/// won't be able to call `uploadSessionAppendV2` anymore with the current
+/// won't be able to call `uploadSessionAppend` anymore with the current
 /// session.
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithCursor:(DBFILESUploadSessionCursor *)cursor close:(nullable NSNumber *)close;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param cursor Contains the upload session ID and the offset.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithCursor:(DBFILESUploadSessionCursor *)cursor;
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -76,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBFILESUploadSessionAppendArg` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILESUploadSessionAppendArg *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILESUploadSessionAppendArg *)instance;
 
 ///
 /// Deserializes `DBFILESUploadSessionAppendArg` instances.
@@ -86,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBFILESUploadSessionAppendArg` object.
 ///
-+ (DBFILESUploadSessionAppendArg *)deserialize:(NSDictionary *)dict;
++ (DBFILESUploadSessionAppendArg *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

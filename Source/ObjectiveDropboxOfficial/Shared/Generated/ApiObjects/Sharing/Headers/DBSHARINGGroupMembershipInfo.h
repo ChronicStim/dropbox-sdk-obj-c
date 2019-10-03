@@ -37,53 +37,14 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param accessType The access type for this member.
-/// @param group The information about the membership group.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithAccessType:(DBSHARINGAccessLevel *)accessType group:(DBSHARINGGroupInfo *)group;
-
-///
-/// Convenience constructor.
-///
-/// @param accessType The access type for this member.
-/// @param group The information about the membership group.
-/// @param permissions The permissions that requesting user has on this member.
-/// The set of permissions corresponds to the MemberActions in the request.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithAccessType:(DBSHARINGAccessLevel *)accessType
-                             group:(DBSHARINGGroupInfo *)group
-                       permissions:(nullable NSArray<DBSHARINGMemberPermission *> *)permissions;
-
-///
-/// Convenience constructor.
-///
-/// @param accessType The access type for this member.
-/// @param group The information about the membership group.
-/// @param permissions The permissions that requesting user has on this member.
-/// The set of permissions corresponds to the MemberActions in the request.
-/// @param initials Suggested name initials for a member.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithAccessType:(DBSHARINGAccessLevel *)accessType
-                             group:(DBSHARINGGroupInfo *)group
-                       permissions:(nullable NSArray<DBSHARINGMemberPermission *> *)permissions
-                          initials:(nullable NSString *)initials;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
-/// @param accessType The access type for this member.
+/// @param accessType The access type for this member. It contains inherited
+/// access type from parent folder, and acquired access type from this folder.
 /// @param group The information about the membership group.
 /// @param permissions The permissions that requesting user has on this member.
 /// The set of permissions corresponds to the MemberActions in the request.
-/// @param initials Suggested name initials for a member.
+/// @param initials Never set.
 /// @param isInherited True if the member has access from a parent folder.
 ///
 /// @return An initialized instance.
@@ -93,6 +54,18 @@ NS_ASSUME_NONNULL_BEGIN
                        permissions:(nullable NSArray<DBSHARINGMemberPermission *> *)permissions
                           initials:(nullable NSString *)initials
                        isInherited:(nullable NSNumber *)isInherited;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param accessType The access type for this member. It contains inherited
+/// access type from parent folder, and acquired access type from this folder.
+/// @param group The information about the membership group.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithAccessType:(DBSHARINGAccessLevel *)accessType group:(DBSHARINGGroupInfo *)group;
 
 @end
 
@@ -112,7 +85,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGGroupMembershipInfo` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGGroupMembershipInfo *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGGroupMembershipInfo *)instance;
 
 ///
 /// Deserializes `DBSHARINGGroupMembershipInfo` instances.
@@ -122,7 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBSHARINGGroupMembershipInfo` object.
 ///
-+ (DBSHARINGGroupMembershipInfo *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGGroupMembershipInfo *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

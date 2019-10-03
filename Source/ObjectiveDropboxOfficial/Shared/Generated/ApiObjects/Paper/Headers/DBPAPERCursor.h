@@ -93,7 +93,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the `DBPAPERCursor`
 /// API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBPAPERCursor *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBPAPERCursor *)instance;
 
 ///
 /// Deserializes `DBPAPERCursor` instances.
@@ -103,7 +103,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBPAPERCursor` object.
 ///
-+ (DBPAPERCursor *)deserialize:(NSDictionary *)dict;
++ (DBPAPERCursor *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

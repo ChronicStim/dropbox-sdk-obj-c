@@ -85,11 +85,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBTEAMCOMMONGroupManagementTypeSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBTEAMCOMMONGroupManagementTypeSerializer deserialize:dict];
 }
 
@@ -165,7 +165,7 @@
 
 @implementation DBTEAMCOMMONGroupManagementTypeSerializer
 
-+ (NSDictionary *)serialize:(DBTEAMCOMMONGroupManagementType *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMCOMMONGroupManagementType *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isUserManaged]) {
@@ -183,7 +183,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBTEAMCOMMONGroupManagementType *)deserialize:(NSDictionary *)valueDict {
++ (DBTEAMCOMMONGroupManagementType *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"user_managed"]) {
@@ -255,11 +255,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBTEAMCOMMONGroupSummarySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBTEAMCOMMONGroupSummarySerializer deserialize:dict];
 }
 
@@ -340,7 +340,7 @@
 
 @implementation DBTEAMCOMMONGroupSummarySerializer
 
-+ (NSDictionary *)serialize:(DBTEAMCOMMONGroupSummary *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMCOMMONGroupSummary *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"group_name"] = valueObj.groupName;
@@ -357,7 +357,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBTEAMCOMMONGroupSummary *)deserialize:(NSDictionary *)valueDict {
++ (DBTEAMCOMMONGroupSummary *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *groupName = valueDict[@"group_name"];
   NSString *groupId = valueDict[@"group_id"];
   DBTEAMCOMMONGroupManagementType *groupManagementType =
@@ -439,11 +439,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBTEAMCOMMONGroupTypeSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBTEAMCOMMONGroupTypeSerializer deserialize:dict];
 }
 
@@ -515,7 +515,7 @@
 
 @implementation DBTEAMCOMMONGroupTypeSerializer
 
-+ (NSDictionary *)serialize:(DBTEAMCOMMONGroupType *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMCOMMONGroupType *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isTeam]) {
@@ -531,7 +531,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBTEAMCOMMONGroupType *)deserialize:(NSDictionary *)valueDict {
++ (DBTEAMCOMMONGroupType *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"team"]) {
@@ -542,6 +542,201 @@
     return [[DBTEAMCOMMONGroupType alloc] initWithOther];
   } else {
     return [[DBTEAMCOMMONGroupType alloc] initWithOther];
+  }
+}
+
+@end
+
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+#import "DBTEAMCOMMONMemberSpaceLimitType.h"
+
+#pragma mark - API Object
+
+@implementation DBTEAMCOMMONMemberSpaceLimitType
+
+#pragma mark - Constructors
+
+- (instancetype)initWithOff {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMCOMMONMemberSpaceLimitTypeOff;
+  }
+  return self;
+}
+
+- (instancetype)initWithAlertOnly {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMCOMMONMemberSpaceLimitTypeAlertOnly;
+  }
+  return self;
+}
+
+- (instancetype)initWithStopSync {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMCOMMONMemberSpaceLimitTypeStopSync;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMCOMMONMemberSpaceLimitTypeOther;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isOff {
+  return _tag == DBTEAMCOMMONMemberSpaceLimitTypeOff;
+}
+
+- (BOOL)isAlertOnly {
+  return _tag == DBTEAMCOMMONMemberSpaceLimitTypeAlertOnly;
+}
+
+- (BOOL)isStopSync {
+  return _tag == DBTEAMCOMMONMemberSpaceLimitTypeStopSync;
+}
+
+- (BOOL)isOther {
+  return _tag == DBTEAMCOMMONMemberSpaceLimitTypeOther;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBTEAMCOMMONMemberSpaceLimitTypeOff:
+    return @"DBTEAMCOMMONMemberSpaceLimitTypeOff";
+  case DBTEAMCOMMONMemberSpaceLimitTypeAlertOnly:
+    return @"DBTEAMCOMMONMemberSpaceLimitTypeAlertOnly";
+  case DBTEAMCOMMONMemberSpaceLimitTypeStopSync:
+    return @"DBTEAMCOMMONMemberSpaceLimitTypeStopSync";
+  case DBTEAMCOMMONMemberSpaceLimitTypeOther:
+    return @"DBTEAMCOMMONMemberSpaceLimitTypeOther";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBTEAMCOMMONMemberSpaceLimitTypeSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBTEAMCOMMONMemberSpaceLimitTypeSerializer deserialize:dict];
+}
+
+#pragma mark - Description method
+
+- (NSString *)description {
+  return [[DBTEAMCOMMONMemberSpaceLimitTypeSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBTEAMCOMMONMemberSpaceLimitTypeOff:
+    result = prime * result + [[self tagName] hash];
+  case DBTEAMCOMMONMemberSpaceLimitTypeAlertOnly:
+    result = prime * result + [[self tagName] hash];
+  case DBTEAMCOMMONMemberSpaceLimitTypeStopSync:
+    result = prime * result + [[self tagName] hash];
+  case DBTEAMCOMMONMemberSpaceLimitTypeOther:
+    result = prime * result + [[self tagName] hash];
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToMemberSpaceLimitType:other];
+}
+
+- (BOOL)isEqualToMemberSpaceLimitType:(DBTEAMCOMMONMemberSpaceLimitType *)aMemberSpaceLimitType {
+  if (self == aMemberSpaceLimitType) {
+    return YES;
+  }
+  if (self.tag != aMemberSpaceLimitType.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBTEAMCOMMONMemberSpaceLimitTypeOff:
+    return [[self tagName] isEqual:[aMemberSpaceLimitType tagName]];
+  case DBTEAMCOMMONMemberSpaceLimitTypeAlertOnly:
+    return [[self tagName] isEqual:[aMemberSpaceLimitType tagName]];
+  case DBTEAMCOMMONMemberSpaceLimitTypeStopSync:
+    return [[self tagName] isEqual:[aMemberSpaceLimitType tagName]];
+  case DBTEAMCOMMONMemberSpaceLimitTypeOther:
+    return [[self tagName] isEqual:[aMemberSpaceLimitType tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBTEAMCOMMONMemberSpaceLimitTypeSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMCOMMONMemberSpaceLimitType *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isOff]) {
+    jsonDict[@".tag"] = @"off";
+  } else if ([valueObj isAlertOnly]) {
+    jsonDict[@".tag"] = @"alert_only";
+  } else if ([valueObj isStopSync]) {
+    jsonDict[@".tag"] = @"stop_sync";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return [jsonDict count] > 0 ? jsonDict : nil;
+}
+
++ (DBTEAMCOMMONMemberSpaceLimitType *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"off"]) {
+    return [[DBTEAMCOMMONMemberSpaceLimitType alloc] initWithOff];
+  } else if ([tag isEqualToString:@"alert_only"]) {
+    return [[DBTEAMCOMMONMemberSpaceLimitType alloc] initWithAlertOnly];
+  } else if ([tag isEqualToString:@"stop_sync"]) {
+    return [[DBTEAMCOMMONMemberSpaceLimitType alloc] initWithStopSync];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBTEAMCOMMONMemberSpaceLimitType alloc] initWithOther];
+  } else {
+    return [[DBTEAMCOMMONMemberSpaceLimitType alloc] initWithOther];
   }
 }
 
@@ -577,11 +772,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBTEAMCOMMONTimeRangeSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBTEAMCOMMONTimeRangeSerializer deserialize:dict];
 }
 
@@ -650,7 +845,7 @@
 
 @implementation DBTEAMCOMMONTimeRangeSerializer
 
-+ (NSDictionary *)serialize:(DBTEAMCOMMONTimeRange *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMCOMMONTimeRange *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if (valueObj.startTime) {
@@ -663,7 +858,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBTEAMCOMMONTimeRange *)deserialize:(NSDictionary *)valueDict {
++ (DBTEAMCOMMONTimeRange *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSDate *startTime = valueDict[@"start_time"]
                           ? [DBNSDateSerializer deserialize:valueDict[@"start_time"] dateFormat:@"%Y-%m-%dT%H:%M:%SZ"]
                           : nil;

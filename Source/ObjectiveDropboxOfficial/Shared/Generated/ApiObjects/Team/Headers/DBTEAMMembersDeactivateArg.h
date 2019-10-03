@@ -7,6 +7,7 @@
 #import <Foundation/Foundation.h>
 
 #import "DBSerializableProtocol.h"
+#import "DBTEAMMembersDeactivateBaseArg.h"
 
 @class DBTEAMMembersDeactivateArg;
 @class DBTEAMUserSelectorArg;
@@ -18,19 +19,13 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// The `MembersDeactivateArg` struct.
 ///
-/// Exactly one of team_member_id, email, or external_id must be provided to
-/// identify the user account.
-///
 /// This class implements the `DBSerializable` protocol (serialize and
 /// deserialize instance methods), which is required for all Obj-C SDK API route
 /// objects.
 ///
-@interface DBTEAMMembersDeactivateArg : NSObject <DBSerializable, NSCopying>
+@interface DBTEAMMembersDeactivateArg : DBTEAMMembersDeactivateBaseArg <DBSerializable, NSCopying>
 
 #pragma mark - Instance fields
-
-/// Identity of user to remove/suspend.
-@property (nonatomic, readonly) DBTEAMUserSelectorArg *user;
 
 /// If provided, controls if the user's data will be deleted on their linked
 /// devices.
@@ -39,18 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param user Identity of user to remove/suspend.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithUser:(DBTEAMUserSelectorArg *)user;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
-/// @param user Identity of user to remove/suspend.
+/// @param user Identity of user to remove/suspend/have their files moved.
 /// @param wipeData If provided, controls if the user's data will be deleted on
 /// their linked devices.
 ///
@@ -58,7 +44,15 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 - (instancetype)initWithUser:(DBTEAMUserSelectorArg *)user wipeData:(nullable NSNumber *)wipeData;
 
-- (instancetype)init NS_UNAVAILABLE;
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param user Identity of user to remove/suspend/have their files moved.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithUser:(DBTEAMUserSelectorArg *)user;
 
 @end
 
@@ -77,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMMembersDeactivateArg` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMMembersDeactivateArg *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMMembersDeactivateArg *)instance;
 
 ///
 /// Deserializes `DBTEAMMembersDeactivateArg` instances.
@@ -87,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBTEAMMembersDeactivateArg` object.
 ///
-+ (DBTEAMMembersDeactivateArg *)deserialize:(NSDictionary *)dict;
++ (DBTEAMMembersDeactivateArg *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

@@ -31,6 +31,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// The account ID of the user.
 @property (nonatomic, readonly, copy) NSString *accountId;
 
+/// Email address of user.
+@property (nonatomic, readonly, copy) NSString *email;
+
+/// The display name of the user.
+@property (nonatomic, readonly, copy) NSString *displayName;
+
 /// If the user is in the same team as current user.
 @property (nonatomic, readonly) NSNumber *sameTeam;
 
@@ -41,19 +47,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Constructors
 
 ///
-/// Convenience constructor.
-///
-/// @param accountId The account ID of the user.
-/// @param sameTeam If the user is in the same team as current user.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithAccountId:(NSString *)accountId sameTeam:(NSNumber *)sameTeam;
-
-///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param accountId The account ID of the user.
+/// @param email Email address of user.
+/// @param displayName The display name of the user.
 /// @param sameTeam If the user is in the same team as current user.
 /// @param teamMemberId The team member ID of the shared folder member. Only
 /// present if sameTeam is true.
@@ -61,8 +59,26 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return An initialized instance.
 ///
 - (instancetype)initWithAccountId:(NSString *)accountId
+                            email:(NSString *)email
+                      displayName:(NSString *)displayName
                          sameTeam:(NSNumber *)sameTeam
                      teamMemberId:(nullable NSString *)teamMemberId;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
+/// @param accountId The account ID of the user.
+/// @param email Email address of user.
+/// @param displayName The display name of the user.
+/// @param sameTeam If the user is in the same team as current user.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithAccountId:(NSString *)accountId
+                            email:(NSString *)email
+                      displayName:(NSString *)displayName
+                         sameTeam:(NSNumber *)sameTeam;
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -83,7 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGUserInfo` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGUserInfo *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGUserInfo *)instance;
 
 ///
 /// Deserializes `DBSHARINGUserInfo` instances.
@@ -93,7 +109,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBSHARINGUserInfo` object.
 ///
-+ (DBSHARINGUserInfo *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGUserInfo *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

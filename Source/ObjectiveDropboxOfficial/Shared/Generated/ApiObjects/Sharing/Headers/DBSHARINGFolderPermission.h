@@ -84,7 +84,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGFolderPermission` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGFolderPermission *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGFolderPermission *)instance;
 
 ///
 /// Deserializes `DBSHARINGFolderPermission` instances.
@@ -94,7 +94,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBSHARINGFolderPermission` object.
 ///
-+ (DBSHARINGFolderPermission *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGFolderPermission *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

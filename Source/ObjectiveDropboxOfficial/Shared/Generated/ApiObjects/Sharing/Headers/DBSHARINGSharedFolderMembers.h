@@ -96,7 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGSharedFolderMembers` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGSharedFolderMembers *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharedFolderMembers *)instance;
 
 ///
 /// Deserializes `DBSHARINGSharedFolderMembers` instances.
@@ -106,7 +106,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBSHARINGSharedFolderMembers` object.
 ///
-+ (DBSHARINGSharedFolderMembers *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGSharedFolderMembers *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

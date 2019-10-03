@@ -6,6 +6,179 @@
 
 /// Arguments, results, and errors for the `Sharing` namespace.
 
+#import "DBSHARINGAccessInheritance.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBSHARINGAccessInheritance
+
+#pragma mark - Constructors
+
+- (instancetype)initWithInherit {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGAccessInheritanceInherit;
+  }
+  return self;
+}
+
+- (instancetype)initWithNoInherit {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGAccessInheritanceNoInherit;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGAccessInheritanceOther;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isInherit {
+  return _tag == DBSHARINGAccessInheritanceInherit;
+}
+
+- (BOOL)isNoInherit {
+  return _tag == DBSHARINGAccessInheritanceNoInherit;
+}
+
+- (BOOL)isOther {
+  return _tag == DBSHARINGAccessInheritanceOther;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBSHARINGAccessInheritanceInherit:
+    return @"DBSHARINGAccessInheritanceInherit";
+  case DBSHARINGAccessInheritanceNoInherit:
+    return @"DBSHARINGAccessInheritanceNoInherit";
+  case DBSHARINGAccessInheritanceOther:
+    return @"DBSHARINGAccessInheritanceOther";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBSHARINGAccessInheritanceSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBSHARINGAccessInheritanceSerializer deserialize:dict];
+}
+
+#pragma mark - Description method
+
+- (NSString *)description {
+  return [[DBSHARINGAccessInheritanceSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBSHARINGAccessInheritanceInherit:
+    result = prime * result + [[self tagName] hash];
+  case DBSHARINGAccessInheritanceNoInherit:
+    result = prime * result + [[self tagName] hash];
+  case DBSHARINGAccessInheritanceOther:
+    result = prime * result + [[self tagName] hash];
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToAccessInheritance:other];
+}
+
+- (BOOL)isEqualToAccessInheritance:(DBSHARINGAccessInheritance *)anAccessInheritance {
+  if (self == anAccessInheritance) {
+    return YES;
+  }
+  if (self.tag != anAccessInheritance.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBSHARINGAccessInheritanceInherit:
+    return [[self tagName] isEqual:[anAccessInheritance tagName]];
+  case DBSHARINGAccessInheritanceNoInherit:
+    return [[self tagName] isEqual:[anAccessInheritance tagName]];
+  case DBSHARINGAccessInheritanceOther:
+    return [[self tagName] isEqual:[anAccessInheritance tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBSHARINGAccessInheritanceSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGAccessInheritance *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isInherit]) {
+    jsonDict[@".tag"] = @"inherit";
+  } else if ([valueObj isNoInherit]) {
+    jsonDict[@".tag"] = @"no_inherit";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return [jsonDict count] > 0 ? jsonDict : nil;
+}
+
++ (DBSHARINGAccessInheritance *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"inherit"]) {
+    return [[DBSHARINGAccessInheritance alloc] initWithInherit];
+  } else if ([tag isEqualToString:@"no_inherit"]) {
+    return [[DBSHARINGAccessInheritance alloc] initWithNoInherit];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBSHARINGAccessInheritance alloc] initWithOther];
+  } else {
+    return [[DBSHARINGAccessInheritance alloc] initWithOther];
+  }
+}
+
+@end
+
 #import "DBSHARINGAccessLevel.h"
 #import "DBStoneSerializers.h"
 #import "DBStoneValidators.h"
@@ -99,11 +272,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGAccessLevelSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGAccessLevelSerializer deserialize:dict];
 }
 
@@ -183,7 +356,7 @@
 
 @implementation DBSHARINGAccessLevelSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGAccessLevel *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGAccessLevel *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isOwner]) {
@@ -203,7 +376,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGAccessLevel *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGAccessLevel *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"owner"]) {
@@ -288,11 +461,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGAclUpdatePolicySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGAclUpdatePolicySerializer deserialize:dict];
 }
 
@@ -364,7 +537,7 @@
 
 @implementation DBSHARINGAclUpdatePolicySerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGAclUpdatePolicy *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGAclUpdatePolicy *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isOwner]) {
@@ -380,7 +553,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGAclUpdatePolicy *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGAclUpdatePolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"owner"]) {
@@ -441,11 +614,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGAddFileMemberArgsSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGAddFileMemberArgsSerializer deserialize:dict];
 }
 
@@ -526,7 +699,7 @@
 
 @implementation DBSHARINGAddFileMemberArgsSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGAddFileMemberArgs *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGAddFileMemberArgs *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"file"] = valueObj.file;
@@ -544,7 +717,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGAddFileMemberArgs *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGAddFileMemberArgs *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *file = valueDict[@"file"];
   NSArray<DBSHARINGMemberSelector *> *members =
       [DBArraySerializer deserialize:valueDict[@"members"]
@@ -684,11 +857,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGAddFileMemberErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGAddFileMemberErrorSerializer deserialize:dict];
 }
 
@@ -768,7 +941,7 @@
 
 @implementation DBSHARINGAddFileMemberErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGAddFileMemberError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGAddFileMemberError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isUserError]) {
@@ -791,7 +964,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGAddFileMemberError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGAddFileMemberError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"user_error"]) {
@@ -854,11 +1027,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGAddFolderMemberArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGAddFolderMemberArgSerializer deserialize:dict];
 }
 
@@ -931,7 +1104,7 @@
 
 @implementation DBSHARINGAddFolderMemberArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGAddFolderMemberArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGAddFolderMemberArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"shared_folder_id"] = valueObj.sharedFolderId;
@@ -947,7 +1120,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGAddFolderMemberArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGAddFolderMemberArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *sharedFolderId = valueDict[@"shared_folder_id"];
   NSArray<DBSHARINGAddMember *> *members =
       [DBArraySerializer deserialize:valueDict[@"members"]
@@ -995,6 +1168,14 @@
   self = [super init];
   if (self) {
     _tag = DBSHARINGAddFolderMemberErrorEmailUnverified;
+  }
+  return self;
+}
+
+- (instancetype)initWithBannedMember {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGAddFolderMemberErrorBannedMember;
   }
   return self;
 }
@@ -1128,6 +1309,10 @@
   return _tag == DBSHARINGAddFolderMemberErrorEmailUnverified;
 }
 
+- (BOOL)isBannedMember {
+  return _tag == DBSHARINGAddFolderMemberErrorBannedMember;
+}
+
 - (BOOL)isBadMember {
   return _tag == DBSHARINGAddFolderMemberErrorBadMember;
 }
@@ -1174,6 +1359,8 @@
     return @"DBSHARINGAddFolderMemberErrorAccessError";
   case DBSHARINGAddFolderMemberErrorEmailUnverified:
     return @"DBSHARINGAddFolderMemberErrorEmailUnverified";
+  case DBSHARINGAddFolderMemberErrorBannedMember:
+    return @"DBSHARINGAddFolderMemberErrorBannedMember";
   case DBSHARINGAddFolderMemberErrorBadMember:
     return @"DBSHARINGAddFolderMemberErrorBadMember";
   case DBSHARINGAddFolderMemberErrorCantShareOutsideTeam:
@@ -1201,11 +1388,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGAddFolderMemberErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGAddFolderMemberErrorSerializer deserialize:dict];
 }
 
@@ -1233,6 +1420,8 @@
   case DBSHARINGAddFolderMemberErrorAccessError:
     result = prime * result + [self.accessError hash];
   case DBSHARINGAddFolderMemberErrorEmailUnverified:
+    result = prime * result + [[self tagName] hash];
+  case DBSHARINGAddFolderMemberErrorBannedMember:
     result = prime * result + [[self tagName] hash];
   case DBSHARINGAddFolderMemberErrorBadMember:
     result = prime * result + [self.badMember hash];
@@ -1283,6 +1472,8 @@
     return [self.accessError isEqual:anAddFolderMemberError.accessError];
   case DBSHARINGAddFolderMemberErrorEmailUnverified:
     return [[self tagName] isEqual:[anAddFolderMemberError tagName]];
+  case DBSHARINGAddFolderMemberErrorBannedMember:
+    return [[self tagName] isEqual:[anAddFolderMemberError tagName]];
   case DBSHARINGAddFolderMemberErrorBadMember:
     return [self.badMember isEqual:anAddFolderMemberError.badMember];
   case DBSHARINGAddFolderMemberErrorCantShareOutsideTeam:
@@ -1313,7 +1504,7 @@
 
 @implementation DBSHARINGAddFolderMemberErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGAddFolderMemberError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGAddFolderMemberError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isAccessError]) {
@@ -1322,6 +1513,8 @@
     jsonDict[@".tag"] = @"access_error";
   } else if ([valueObj isEmailUnverified]) {
     jsonDict[@".tag"] = @"email_unverified";
+  } else if ([valueObj isBannedMember]) {
+    jsonDict[@".tag"] = @"banned_member";
   } else if ([valueObj isBadMember]) {
     jsonDict[@"bad_member"] = [[DBSHARINGAddMemberSelectorErrorSerializer serialize:valueObj.badMember] mutableCopy];
     jsonDict[@".tag"] = @"bad_member";
@@ -1352,7 +1545,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGAddFolderMemberError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGAddFolderMemberError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"access_error"]) {
@@ -1361,6 +1554,8 @@
     return [[DBSHARINGAddFolderMemberError alloc] initWithAccessError:accessError];
   } else if ([tag isEqualToString:@"email_unverified"]) {
     return [[DBSHARINGAddFolderMemberError alloc] initWithEmailUnverified];
+  } else if ([tag isEqualToString:@"banned_member"]) {
+    return [[DBSHARINGAddFolderMemberError alloc] initWithBannedMember];
   } else if ([tag isEqualToString:@"bad_member"]) {
     DBSHARINGAddMemberSelectorError *badMember =
         [DBSHARINGAddMemberSelectorErrorSerializer deserialize:valueDict[@"bad_member"]];
@@ -1421,11 +1616,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGAddMemberSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGAddMemberSerializer deserialize:dict];
 }
 
@@ -1486,7 +1681,7 @@
 
 @implementation DBSHARINGAddMemberSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGAddMember *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGAddMember *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"member"] = [DBSHARINGMemberSelectorSerializer serialize:valueObj.member];
@@ -1495,7 +1690,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGAddMember *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGAddMember *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBSHARINGMemberSelector *member = [DBSHARINGMemberSelectorSerializer deserialize:valueDict[@"member"]];
   DBSHARINGAccessLevel *accessLevel = valueDict[@"access_level"]
                                           ? [DBSHARINGAccessLevelSerializer deserialize:valueDict[@"access_level"]]
@@ -1661,11 +1856,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGAddMemberSelectorErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGAddMemberSelectorErrorSerializer deserialize:dict];
 }
 
@@ -1753,7 +1948,7 @@
 
 @implementation DBSHARINGAddMemberSelectorErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGAddMemberSelectorError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGAddMemberSelectorError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isAutomaticGroup]) {
@@ -1780,7 +1975,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGAddMemberSelectorError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGAddMemberSelectorError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"automatic_group"]) {
@@ -1829,11 +2024,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGAudienceExceptionContentInfoSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGAudienceExceptionContentInfoSerializer deserialize:dict];
 }
 
@@ -1890,7 +2085,7 @@
 
 @implementation DBSHARINGAudienceExceptionContentInfoSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGAudienceExceptionContentInfo *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGAudienceExceptionContentInfo *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"name"] = valueObj.name;
@@ -1898,7 +2093,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGAudienceExceptionContentInfo *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGAudienceExceptionContentInfo *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *name = valueDict[@"name"];
 
   return [[DBSHARINGAudienceExceptionContentInfo alloc] initWithName:name];
@@ -1935,11 +2130,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGAudienceExceptionsSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGAudienceExceptionsSerializer deserialize:dict];
 }
 
@@ -2000,7 +2195,7 @@
 
 @implementation DBSHARINGAudienceExceptionsSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGAudienceExceptions *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGAudienceExceptions *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"count"] = valueObj.count;
@@ -2013,7 +2208,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGAudienceExceptions *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGAudienceExceptions *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSNumber *count = valueDict[@"count"];
   NSArray<DBSHARINGAudienceExceptionContentInfo *> *exceptions =
       [DBArraySerializer deserialize:valueDict[@"exceptions"]
@@ -2056,11 +2251,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGAudienceRestrictingSharedFolderSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGAudienceRestrictingSharedFolderSerializer deserialize:dict];
 }
 
@@ -2126,7 +2321,7 @@
 
 @implementation DBSHARINGAudienceRestrictingSharedFolderSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGAudienceRestrictingSharedFolder *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGAudienceRestrictingSharedFolder *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"shared_folder_id"] = valueObj.sharedFolderId;
@@ -2136,7 +2331,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGAudienceRestrictingSharedFolder *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGAudienceRestrictingSharedFolder *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *sharedFolderId = valueDict[@"shared_folder_id"];
   NSString *name = valueDict[@"name"];
   DBSHARINGLinkAudience *audience = [DBSHARINGLinkAudienceSerializer deserialize:valueDict[@"audience"]];
@@ -2181,11 +2376,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGChangeFileMemberAccessArgsSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGChangeFileMemberAccessArgsSerializer deserialize:dict];
 }
 
@@ -2250,7 +2445,7 @@
 
 @implementation DBSHARINGChangeFileMemberAccessArgsSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGChangeFileMemberAccessArgs *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGChangeFileMemberAccessArgs *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"file"] = valueObj.file;
@@ -2260,7 +2455,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGChangeFileMemberAccessArgs *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGChangeFileMemberAccessArgs *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *file = valueDict[@"file"];
   DBSHARINGMemberSelector *member = [DBSHARINGMemberSelectorSerializer deserialize:valueDict[@"member"]];
   DBSHARINGAccessLevel *accessLevel = [DBSHARINGAccessLevelSerializer deserialize:valueDict[@"access_level"]];
@@ -2302,11 +2497,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGLinkMetadataSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGLinkMetadataSerializer deserialize:dict];
 }
 
@@ -2375,7 +2570,7 @@
 
 @implementation DBSHARINGLinkMetadataSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGLinkMetadata *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGLinkMetadata *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"url"] = valueObj.url;
@@ -2402,7 +2597,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGLinkMetadata *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGLinkMetadata *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   if ([valueDict[@".tag"] isEqualToString:@"path"]) {
     return [DBSHARINGPathLinkMetadataSerializer deserialize:valueDict];
   }
@@ -2410,10 +2605,13 @@
     return [DBSHARINGCollectionLinkMetadataSerializer deserialize:valueDict];
   }
 
-  @throw([NSException
-      exceptionWithName:@"InvalidTag"
-                 reason:[NSString stringWithFormat:@"Tag has an invalid value: \"%@\".", valueDict[@".tag"]]
-               userInfo:nil]);
+  NSString *url = valueDict[@"url"];
+  DBSHARINGVisibility *visibility = [DBSHARINGVisibilitySerializer deserialize:valueDict[@"visibility"]];
+  NSDate *expires = valueDict[@"expires"]
+                        ? [DBNSDateSerializer deserialize:valueDict[@"expires"] dateFormat:@"%Y-%m-%dT%H:%M:%SZ"]
+                        : nil;
+
+  return [[DBSHARINGLinkMetadata alloc] initWithUrl:url visibility:visibility expires:expires];
 }
 
 @end
@@ -2446,11 +2644,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGCollectionLinkMetadataSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGCollectionLinkMetadataSerializer deserialize:dict];
 }
 
@@ -2519,7 +2717,7 @@
 
 @implementation DBSHARINGCollectionLinkMetadataSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGCollectionLinkMetadata *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGCollectionLinkMetadata *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"url"] = valueObj.url;
@@ -2531,7 +2729,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGCollectionLinkMetadata *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGCollectionLinkMetadata *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *url = valueDict[@"url"];
   DBSHARINGVisibility *visibility = [DBSHARINGVisibilitySerializer deserialize:valueDict[@"visibility"]];
   NSDate *expires = valueDict[@"expires"]
@@ -2574,11 +2772,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGCreateSharedLinkArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGCreateSharedLinkArgSerializer deserialize:dict];
 }
 
@@ -2647,7 +2845,7 @@
 
 @implementation DBSHARINGCreateSharedLinkArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGCreateSharedLinkArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGCreateSharedLinkArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"path"] = valueObj.path;
@@ -2659,7 +2857,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGCreateSharedLinkArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGCreateSharedLinkArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *path = valueDict[@"path"];
   NSNumber *shortUrl = valueDict[@"short_url"] ?: @NO;
   DBSHARINGPendingUploadMode *pendingUpload =
@@ -2734,11 +2932,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGCreateSharedLinkErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGCreateSharedLinkErrorSerializer deserialize:dict];
 }
 
@@ -2806,7 +3004,7 @@
 
 @implementation DBSHARINGCreateSharedLinkErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGCreateSharedLinkError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGCreateSharedLinkError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isPath]) {
@@ -2821,7 +3019,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGCreateSharedLinkError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGCreateSharedLinkError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"path"]) {
@@ -2868,11 +3066,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGCreateSharedLinkWithSettingsArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGCreateSharedLinkWithSettingsArgSerializer deserialize:dict];
 }
 
@@ -2938,7 +3136,7 @@
 
 @implementation DBSHARINGCreateSharedLinkWithSettingsArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGCreateSharedLinkWithSettingsArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGCreateSharedLinkWithSettingsArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"path"] = valueObj.path;
@@ -2949,7 +3147,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGCreateSharedLinkWithSettingsArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGCreateSharedLinkWithSettingsArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *path = valueDict[@"path"];
   DBSHARINGSharedLinkSettings *settings =
       valueDict[@"settings"] ? [DBSHARINGSharedLinkSettingsSerializer deserialize:valueDict[@"settings"]] : nil;
@@ -2961,6 +3159,7 @@
 
 #import "DBFILESLookupError.h"
 #import "DBSHARINGCreateSharedLinkWithSettingsError.h"
+#import "DBSHARINGSharedLinkAlreadyExistsMetadata.h"
 #import "DBSHARINGSharedLinkSettingsError.h"
 #import "DBStoneSerializers.h"
 #import "DBStoneValidators.h"
@@ -2970,6 +3169,7 @@
 @implementation DBSHARINGCreateSharedLinkWithSettingsError
 
 @synthesize path = _path;
+@synthesize sharedLinkAlreadyExists = _sharedLinkAlreadyExists;
 @synthesize settingsError = _settingsError;
 
 #pragma mark - Constructors
@@ -2991,10 +3191,11 @@
   return self;
 }
 
-- (instancetype)initWithSharedLinkAlreadyExists {
+- (instancetype)initWithSharedLinkAlreadyExists:(DBSHARINGSharedLinkAlreadyExistsMetadata *)sharedLinkAlreadyExists {
   self = [super init];
   if (self) {
     _tag = DBSHARINGCreateSharedLinkWithSettingsErrorSharedLinkAlreadyExists;
+    _sharedLinkAlreadyExists = sharedLinkAlreadyExists;
   }
   return self;
 }
@@ -3025,6 +3226,16 @@
         format:@"Invalid tag: required DBSHARINGCreateSharedLinkWithSettingsErrorPath, but was %@.", [self tagName]];
   }
   return _path;
+}
+
+- (DBSHARINGSharedLinkAlreadyExistsMetadata *)sharedLinkAlreadyExists {
+  if (![self isSharedLinkAlreadyExists]) {
+    [NSException
+         raise:@"IllegalStateException"
+        format:@"Invalid tag: required DBSHARINGCreateSharedLinkWithSettingsErrorSharedLinkAlreadyExists, but was %@.",
+               [self tagName]];
+  }
+  return _sharedLinkAlreadyExists;
 }
 
 - (DBSHARINGSharedLinkSettingsError *)settingsError {
@@ -3077,11 +3288,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGCreateSharedLinkWithSettingsErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGCreateSharedLinkWithSettingsErrorSerializer deserialize:dict];
 }
 
@@ -3111,7 +3322,9 @@
   case DBSHARINGCreateSharedLinkWithSettingsErrorEmailNotVerified:
     result = prime * result + [[self tagName] hash];
   case DBSHARINGCreateSharedLinkWithSettingsErrorSharedLinkAlreadyExists:
-    result = prime * result + [[self tagName] hash];
+    if (self.sharedLinkAlreadyExists != nil) {
+      result = prime * result + [self.sharedLinkAlreadyExists hash];
+    }
   case DBSHARINGCreateSharedLinkWithSettingsErrorSettingsError:
     result = prime * result + [self.settingsError hash];
   case DBSHARINGCreateSharedLinkWithSettingsErrorAccessDenied:
@@ -3147,7 +3360,9 @@
   case DBSHARINGCreateSharedLinkWithSettingsErrorEmailNotVerified:
     return [[self tagName] isEqual:[aCreateSharedLinkWithSettingsError tagName]];
   case DBSHARINGCreateSharedLinkWithSettingsErrorSharedLinkAlreadyExists:
-    return [[self tagName] isEqual:[aCreateSharedLinkWithSettingsError tagName]];
+    if (self.sharedLinkAlreadyExists) {
+      return [self.sharedLinkAlreadyExists isEqual:aCreateSharedLinkWithSettingsError.sharedLinkAlreadyExists];
+    }
   case DBSHARINGCreateSharedLinkWithSettingsErrorSettingsError:
     return [self.settingsError isEqual:aCreateSharedLinkWithSettingsError.settingsError];
   case DBSHARINGCreateSharedLinkWithSettingsErrorAccessDenied:
@@ -3162,7 +3377,7 @@
 
 @implementation DBSHARINGCreateSharedLinkWithSettingsErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGCreateSharedLinkWithSettingsError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGCreateSharedLinkWithSettingsError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isPath]) {
@@ -3171,6 +3386,10 @@
   } else if ([valueObj isEmailNotVerified]) {
     jsonDict[@".tag"] = @"email_not_verified";
   } else if ([valueObj isSharedLinkAlreadyExists]) {
+    if (valueObj.sharedLinkAlreadyExists) {
+      jsonDict[@"shared_link_already_exists"] =
+          [[DBSHARINGSharedLinkAlreadyExistsMetadataSerializer serialize:valueObj.sharedLinkAlreadyExists] mutableCopy];
+    }
     jsonDict[@".tag"] = @"shared_link_already_exists";
   } else if ([valueObj isSettingsError]) {
     jsonDict[@"settings_error"] =
@@ -3187,7 +3406,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGCreateSharedLinkWithSettingsError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGCreateSharedLinkWithSettingsError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"path"]) {
@@ -3196,7 +3415,11 @@
   } else if ([tag isEqualToString:@"email_not_verified"]) {
     return [[DBSHARINGCreateSharedLinkWithSettingsError alloc] initWithEmailNotVerified];
   } else if ([tag isEqualToString:@"shared_link_already_exists"]) {
-    return [[DBSHARINGCreateSharedLinkWithSettingsError alloc] initWithSharedLinkAlreadyExists];
+    DBSHARINGSharedLinkAlreadyExistsMetadata *sharedLinkAlreadyExists =
+        valueDict[@"shared_link_already_exists"]
+            ? [DBSHARINGSharedLinkAlreadyExistsMetadataSerializer deserialize:valueDict[@"shared_link_already_exists"]]
+            : nil;
+    return [[DBSHARINGCreateSharedLinkWithSettingsError alloc] initWithSharedLinkAlreadyExists:sharedLinkAlreadyExists];
   } else if ([tag isEqualToString:@"settings_error"]) {
     DBSHARINGSharedLinkSettingsError *settingsError =
         [DBSHARINGSharedLinkSettingsErrorSerializer deserialize:valueDict[@"settings_error"]];
@@ -3273,11 +3496,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGSharedContentLinkMetadataBaseSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGSharedContentLinkMetadataBaseSerializer deserialize:dict];
 }
 
@@ -3372,7 +3595,7 @@
 
 @implementation DBSHARINGSharedContentLinkMetadataBaseSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGSharedContentLinkMetadataBase *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharedContentLinkMetadataBase *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"audience_options"] = [DBArraySerializer serialize:valueObj.audienceOptions
@@ -3399,7 +3622,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGSharedContentLinkMetadataBase *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGSharedContentLinkMetadataBase *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSArray<DBSHARINGLinkAudience *> *audienceOptions =
       [DBArraySerializer deserialize:valueDict[@"audience_options"]
                            withBlock:^id(id elem0) {
@@ -3494,11 +3717,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGExpectedSharedContentLinkMetadataSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGExpectedSharedContentLinkMetadataSerializer deserialize:dict];
 }
 
@@ -3593,7 +3816,7 @@
 
 @implementation DBSHARINGExpectedSharedContentLinkMetadataSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGExpectedSharedContentLinkMetadata *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGExpectedSharedContentLinkMetadata *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"audience_options"] = [DBArraySerializer serialize:valueObj.audienceOptions
@@ -3620,7 +3843,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGExpectedSharedContentLinkMetadata *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGExpectedSharedContentLinkMetadata *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSArray<DBSHARINGLinkAudience *> *audienceOptions =
       [DBArraySerializer deserialize:valueDict[@"audience_options"]
                            withBlock:^id(id elem0) {
@@ -3705,6 +3928,14 @@
   return self;
 }
 
+- (instancetype)initWithInviteEditor {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGFileActionInviteEditor;
+  }
+  return self;
+}
+
 - (instancetype)initWithUnshare {
   self = [super init];
   if (self) {
@@ -3733,6 +3964,22 @@
   self = [super init];
   if (self) {
     _tag = DBSHARINGFileActionCreateLink;
+  }
+  return self;
+}
+
+- (instancetype)initWithCreateViewLink {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGFileActionCreateViewLink;
+  }
+  return self;
+}
+
+- (instancetype)initWithCreateEditLink {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGFileActionCreateEditLink;
   }
   return self;
 }
@@ -3769,6 +4016,10 @@
   return _tag == DBSHARINGFileActionInviteViewerNoComment;
 }
 
+- (BOOL)isInviteEditor {
+  return _tag == DBSHARINGFileActionInviteEditor;
+}
+
 - (BOOL)isUnshare {
   return _tag == DBSHARINGFileActionUnshare;
 }
@@ -3783,6 +4034,14 @@
 
 - (BOOL)isCreateLink {
   return _tag == DBSHARINGFileActionCreateLink;
+}
+
+- (BOOL)isCreateViewLink {
+  return _tag == DBSHARINGFileActionCreateViewLink;
+}
+
+- (BOOL)isCreateEditLink {
+  return _tag == DBSHARINGFileActionCreateEditLink;
 }
 
 - (BOOL)isOther {
@@ -3801,6 +4060,8 @@
     return @"DBSHARINGFileActionInviteViewer";
   case DBSHARINGFileActionInviteViewerNoComment:
     return @"DBSHARINGFileActionInviteViewerNoComment";
+  case DBSHARINGFileActionInviteEditor:
+    return @"DBSHARINGFileActionInviteEditor";
   case DBSHARINGFileActionUnshare:
     return @"DBSHARINGFileActionUnshare";
   case DBSHARINGFileActionRelinquishMembership:
@@ -3809,6 +4070,10 @@
     return @"DBSHARINGFileActionShareLink";
   case DBSHARINGFileActionCreateLink:
     return @"DBSHARINGFileActionCreateLink";
+  case DBSHARINGFileActionCreateViewLink:
+    return @"DBSHARINGFileActionCreateViewLink";
+  case DBSHARINGFileActionCreateEditLink:
+    return @"DBSHARINGFileActionCreateEditLink";
   case DBSHARINGFileActionOther:
     return @"DBSHARINGFileActionOther";
   }
@@ -3818,11 +4083,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGFileActionSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGFileActionSerializer deserialize:dict];
 }
 
@@ -3857,6 +4122,8 @@
     result = prime * result + [[self tagName] hash];
   case DBSHARINGFileActionInviteViewerNoComment:
     result = prime * result + [[self tagName] hash];
+  case DBSHARINGFileActionInviteEditor:
+    result = prime * result + [[self tagName] hash];
   case DBSHARINGFileActionUnshare:
     result = prime * result + [[self tagName] hash];
   case DBSHARINGFileActionRelinquishMembership:
@@ -3864,6 +4131,10 @@
   case DBSHARINGFileActionShareLink:
     result = prime * result + [[self tagName] hash];
   case DBSHARINGFileActionCreateLink:
+    result = prime * result + [[self tagName] hash];
+  case DBSHARINGFileActionCreateViewLink:
+    result = prime * result + [[self tagName] hash];
+  case DBSHARINGFileActionCreateEditLink:
     result = prime * result + [[self tagName] hash];
   case DBSHARINGFileActionOther:
     result = prime * result + [[self tagName] hash];
@@ -3902,6 +4173,8 @@
     return [[self tagName] isEqual:[aFileAction tagName]];
   case DBSHARINGFileActionInviteViewerNoComment:
     return [[self tagName] isEqual:[aFileAction tagName]];
+  case DBSHARINGFileActionInviteEditor:
+    return [[self tagName] isEqual:[aFileAction tagName]];
   case DBSHARINGFileActionUnshare:
     return [[self tagName] isEqual:[aFileAction tagName]];
   case DBSHARINGFileActionRelinquishMembership:
@@ -3909,6 +4182,10 @@
   case DBSHARINGFileActionShareLink:
     return [[self tagName] isEqual:[aFileAction tagName]];
   case DBSHARINGFileActionCreateLink:
+    return [[self tagName] isEqual:[aFileAction tagName]];
+  case DBSHARINGFileActionCreateViewLink:
+    return [[self tagName] isEqual:[aFileAction tagName]];
+  case DBSHARINGFileActionCreateEditLink:
     return [[self tagName] isEqual:[aFileAction tagName]];
   case DBSHARINGFileActionOther:
     return [[self tagName] isEqual:[aFileAction tagName]];
@@ -3922,7 +4199,7 @@
 
 @implementation DBSHARINGFileActionSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGFileAction *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGFileAction *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isDisableViewerInfo]) {
@@ -3935,6 +4212,8 @@
     jsonDict[@".tag"] = @"invite_viewer";
   } else if ([valueObj isInviteViewerNoComment]) {
     jsonDict[@".tag"] = @"invite_viewer_no_comment";
+  } else if ([valueObj isInviteEditor]) {
+    jsonDict[@".tag"] = @"invite_editor";
   } else if ([valueObj isUnshare]) {
     jsonDict[@".tag"] = @"unshare";
   } else if ([valueObj isRelinquishMembership]) {
@@ -3943,6 +4222,10 @@
     jsonDict[@".tag"] = @"share_link";
   } else if ([valueObj isCreateLink]) {
     jsonDict[@".tag"] = @"create_link";
+  } else if ([valueObj isCreateViewLink]) {
+    jsonDict[@".tag"] = @"create_view_link";
+  } else if ([valueObj isCreateEditLink]) {
+    jsonDict[@".tag"] = @"create_edit_link";
   } else if ([valueObj isOther]) {
     jsonDict[@".tag"] = @"other";
   } else {
@@ -3952,7 +4235,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGFileAction *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGFileAction *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"disable_viewer_info"]) {
@@ -3965,6 +4248,8 @@
     return [[DBSHARINGFileAction alloc] initWithInviteViewer];
   } else if ([tag isEqualToString:@"invite_viewer_no_comment"]) {
     return [[DBSHARINGFileAction alloc] initWithInviteViewerNoComment];
+  } else if ([tag isEqualToString:@"invite_editor"]) {
+    return [[DBSHARINGFileAction alloc] initWithInviteEditor];
   } else if ([tag isEqualToString:@"unshare"]) {
     return [[DBSHARINGFileAction alloc] initWithUnshare];
   } else if ([tag isEqualToString:@"relinquish_membership"]) {
@@ -3973,6 +4258,10 @@
     return [[DBSHARINGFileAction alloc] initWithShareLink];
   } else if ([tag isEqualToString:@"create_link"]) {
     return [[DBSHARINGFileAction alloc] initWithCreateLink];
+  } else if ([tag isEqualToString:@"create_view_link"]) {
+    return [[DBSHARINGFileAction alloc] initWithCreateViewLink];
+  } else if ([tag isEqualToString:@"create_edit_link"]) {
+    return [[DBSHARINGFileAction alloc] initWithCreateEditLink];
   } else if ([tag isEqualToString:@"other"]) {
     return [[DBSHARINGFileAction alloc] initWithOther];
   } else {
@@ -4094,11 +4383,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGFileErrorResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGFileErrorResultSerializer deserialize:dict];
 }
 
@@ -4174,7 +4463,7 @@
 
 @implementation DBSHARINGFileErrorResultSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGFileErrorResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGFileErrorResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isFileNotFoundError]) {
@@ -4195,7 +4484,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGFileErrorResult *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGFileErrorResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"file_not_found_error"]) {
@@ -4273,11 +4562,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGSharedLinkMetadataSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGSharedLinkMetadataSerializer deserialize:dict];
 }
 
@@ -4382,7 +4671,7 @@
 
 @implementation DBSHARINGSharedLinkMetadataSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGSharedLinkMetadata *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharedLinkMetadata *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"url"] = valueObj.url;
@@ -4422,7 +4711,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGSharedLinkMetadata *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGSharedLinkMetadata *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   if ([valueDict[@".tag"] isEqualToString:@"file"]) {
     return [DBSHARINGFileLinkMetadataSerializer deserialize:valueDict];
   }
@@ -4430,10 +4719,30 @@
     return [DBSHARINGFolderLinkMetadataSerializer deserialize:valueDict];
   }
 
-  @throw([NSException
-      exceptionWithName:@"InvalidTag"
-                 reason:[NSString stringWithFormat:@"Tag has an invalid value: \"%@\".", valueDict[@".tag"]]
-               userInfo:nil]);
+  NSString *url = valueDict[@"url"];
+  NSString *name = valueDict[@"name"];
+  DBSHARINGLinkPermissions *linkPermissions =
+      [DBSHARINGLinkPermissionsSerializer deserialize:valueDict[@"link_permissions"]];
+  NSString *id_ = valueDict[@"id"] ?: nil;
+  NSDate *expires = valueDict[@"expires"]
+                        ? [DBNSDateSerializer deserialize:valueDict[@"expires"] dateFormat:@"%Y-%m-%dT%H:%M:%SZ"]
+                        : nil;
+  NSString *pathLower = valueDict[@"path_lower"] ?: nil;
+  DBSHARINGTeamMemberInfo *teamMemberInfo =
+      valueDict[@"team_member_info"] ? [DBSHARINGTeamMemberInfoSerializer deserialize:valueDict[@"team_member_info"]]
+                                     : nil;
+  DBUSERSTeam *contentOwnerTeamInfo = valueDict[@"content_owner_team_info"]
+                                          ? [DBUSERSTeamSerializer deserialize:valueDict[@"content_owner_team_info"]]
+                                          : nil;
+
+  return [[DBSHARINGSharedLinkMetadata alloc] initWithUrl:url
+                                                     name:name
+                                          linkPermissions:linkPermissions
+                                                      id_:id_
+                                                  expires:expires
+                                                pathLower:pathLower
+                                           teamMemberInfo:teamMemberInfo
+                                     contentOwnerTeamInfo:contentOwnerTeamInfo];
 }
 
 @end
@@ -4513,11 +4822,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGFileLinkMetadataSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGFileLinkMetadataSerializer deserialize:dict];
 }
 
@@ -4638,7 +4947,7 @@
 
 @implementation DBSHARINGFileLinkMetadataSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGFileLinkMetadata *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGFileLinkMetadata *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"url"] = valueObj.url;
@@ -4669,7 +4978,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGFileLinkMetadata *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGFileLinkMetadata *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *url = valueDict[@"url"];
   NSString *name = valueDict[@"name"];
   DBSHARINGLinkPermissions *linkPermissions =
@@ -4825,11 +5134,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGFileMemberActionErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGFileMemberActionErrorSerializer deserialize:dict];
 }
 
@@ -4909,7 +5218,7 @@
 
 @implementation DBSHARINGFileMemberActionErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGFileMemberActionError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGFileMemberActionError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isInvalidMember]) {
@@ -4921,8 +5230,7 @@
         [[DBSHARINGSharingFileAccessErrorSerializer serialize:valueObj.accessError] mutableCopy];
     jsonDict[@".tag"] = @"access_error";
   } else if ([valueObj isNoExplicitAccess]) {
-    jsonDict[@"no_explicit_access"] =
-        [[DBSHARINGMemberAccessLevelResultSerializer serialize:valueObj.noExplicitAccess] mutableCopy];
+    jsonDict = [[DBSHARINGMemberAccessLevelResultSerializer serialize:valueObj.noExplicitAccess] mutableCopy];
     jsonDict[@".tag"] = @"no_explicit_access";
   } else if ([valueObj isOther]) {
     jsonDict[@".tag"] = @"other";
@@ -4933,7 +5241,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGFileMemberActionError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGFileMemberActionError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"invalid_member"]) {
@@ -5033,11 +5341,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGFileMemberActionIndividualResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGFileMemberActionIndividualResultSerializer deserialize:dict];
 }
 
@@ -5110,12 +5418,12 @@
 
 @implementation DBSHARINGFileMemberActionIndividualResultSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGFileMemberActionIndividualResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGFileMemberActionIndividualResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isSuccess]) {
     if (valueObj.success) {
-      jsonDict = [[DBSHARINGAccessLevelSerializer serialize:valueObj.success] mutableCopy];
+      jsonDict[@"success"] = [[DBSHARINGAccessLevelSerializer serialize:valueObj.success] mutableCopy];
     }
     jsonDict[@".tag"] = @"success";
   } else if ([valueObj isMemberError]) {
@@ -5130,7 +5438,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGFileMemberActionIndividualResult *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGFileMemberActionIndividualResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"success"]) {
@@ -5178,11 +5486,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGFileMemberActionResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGFileMemberActionResultSerializer deserialize:dict];
 }
 
@@ -5243,7 +5551,7 @@
 
 @implementation DBSHARINGFileMemberActionResultSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGFileMemberActionResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGFileMemberActionResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"member"] = [DBSHARINGMemberSelectorSerializer serialize:valueObj.member];
@@ -5252,7 +5560,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGFileMemberActionResult *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGFileMemberActionResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBSHARINGMemberSelector *member = [DBSHARINGMemberSelectorSerializer deserialize:valueDict[@"member"]];
   DBSHARINGFileMemberActionIndividualResult *result =
       [DBSHARINGFileMemberActionIndividualResultSerializer deserialize:valueDict[@"result"]];
@@ -5352,11 +5660,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGFileMemberRemoveActionResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGFileMemberRemoveActionResultSerializer deserialize:dict];
 }
 
@@ -5428,11 +5736,11 @@
 
 @implementation DBSHARINGFileMemberRemoveActionResultSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGFileMemberRemoveActionResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGFileMemberRemoveActionResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isSuccess]) {
-    jsonDict[@"success"] = [[DBSHARINGMemberAccessLevelResultSerializer serialize:valueObj.success] mutableCopy];
+    jsonDict = [[DBSHARINGMemberAccessLevelResultSerializer serialize:valueObj.success] mutableCopy];
     jsonDict[@".tag"] = @"success";
   } else if ([valueObj isMemberError]) {
     jsonDict[@"member_error"] = [[DBSHARINGFileMemberActionErrorSerializer serialize:valueObj.memberError] mutableCopy];
@@ -5446,7 +5754,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGFileMemberRemoveActionResult *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGFileMemberRemoveActionResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"success"]) {
@@ -5498,11 +5806,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGFilePermissionSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGFilePermissionSerializer deserialize:dict];
 }
 
@@ -5571,7 +5879,7 @@
 
 @implementation DBSHARINGFilePermissionSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGFilePermission *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGFilePermission *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"action"] = [DBSHARINGFileActionSerializer serialize:valueObj.action];
@@ -5583,7 +5891,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGFilePermission *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGFilePermission *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBSHARINGFileAction *action = [DBSHARINGFileActionSerializer deserialize:valueDict[@"action"]];
   NSNumber *allow = valueDict[@"allow"];
   DBSHARINGPermissionDeniedReason *reason =
@@ -5708,6 +6016,14 @@
   return self;
 }
 
+- (instancetype)initWithSetAccessInheritance {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGFolderActionSetAccessInheritance;
+  }
+  return self;
+}
+
 - (instancetype)initWithOther {
   self = [super init];
   if (self) {
@@ -5772,6 +6088,10 @@
   return _tag == DBSHARINGFolderActionCreateLink;
 }
 
+- (BOOL)isSetAccessInheritance {
+  return _tag == DBSHARINGFolderActionSetAccessInheritance;
+}
+
 - (BOOL)isOther {
   return _tag == DBSHARINGFolderActionOther;
 }
@@ -5804,6 +6124,8 @@
     return @"DBSHARINGFolderActionShareLink";
   case DBSHARINGFolderActionCreateLink:
     return @"DBSHARINGFolderActionCreateLink";
+  case DBSHARINGFolderActionSetAccessInheritance:
+    return @"DBSHARINGFolderActionSetAccessInheritance";
   case DBSHARINGFolderActionOther:
     return @"DBSHARINGFolderActionOther";
   }
@@ -5813,11 +6135,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGFolderActionSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGFolderActionSerializer deserialize:dict];
 }
 
@@ -5867,6 +6189,8 @@
   case DBSHARINGFolderActionShareLink:
     result = prime * result + [[self tagName] hash];
   case DBSHARINGFolderActionCreateLink:
+    result = prime * result + [[self tagName] hash];
+  case DBSHARINGFolderActionSetAccessInheritance:
     result = prime * result + [[self tagName] hash];
   case DBSHARINGFolderActionOther:
     result = prime * result + [[self tagName] hash];
@@ -5921,6 +6245,8 @@
     return [[self tagName] isEqual:[aFolderAction tagName]];
   case DBSHARINGFolderActionCreateLink:
     return [[self tagName] isEqual:[aFolderAction tagName]];
+  case DBSHARINGFolderActionSetAccessInheritance:
+    return [[self tagName] isEqual:[aFolderAction tagName]];
   case DBSHARINGFolderActionOther:
     return [[self tagName] isEqual:[aFolderAction tagName]];
   }
@@ -5933,7 +6259,7 @@
 
 @implementation DBSHARINGFolderActionSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGFolderAction *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGFolderAction *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isChangeOptions]) {
@@ -5962,6 +6288,8 @@
     jsonDict[@".tag"] = @"share_link";
   } else if ([valueObj isCreateLink]) {
     jsonDict[@".tag"] = @"create_link";
+  } else if ([valueObj isSetAccessInheritance]) {
+    jsonDict[@".tag"] = @"set_access_inheritance";
   } else if ([valueObj isOther]) {
     jsonDict[@".tag"] = @"other";
   } else {
@@ -5971,7 +6299,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGFolderAction *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGFolderAction *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"change_options"]) {
@@ -6000,6 +6328,8 @@
     return [[DBSHARINGFolderAction alloc] initWithShareLink];
   } else if ([tag isEqualToString:@"create_link"]) {
     return [[DBSHARINGFolderAction alloc] initWithCreateLink];
+  } else if ([tag isEqualToString:@"set_access_inheritance"]) {
+    return [[DBSHARINGFolderAction alloc] initWithSetAccessInheritance];
   } else if ([tag isEqualToString:@"other"]) {
     return [[DBSHARINGFolderAction alloc] initWithOther];
   } else {
@@ -6064,11 +6394,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGFolderLinkMetadataSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGFolderLinkMetadataSerializer deserialize:dict];
 }
 
@@ -6173,7 +6503,7 @@
 
 @implementation DBSHARINGFolderLinkMetadataSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGFolderLinkMetadata *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGFolderLinkMetadata *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"url"] = valueObj.url;
@@ -6198,7 +6528,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGFolderLinkMetadata *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGFolderLinkMetadata *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *url = valueDict[@"url"];
   NSString *name = valueDict[@"name"];
   DBSHARINGLinkPermissions *linkPermissions =
@@ -6260,11 +6590,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGFolderPermissionSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGFolderPermissionSerializer deserialize:dict];
 }
 
@@ -6333,7 +6663,7 @@
 
 @implementation DBSHARINGFolderPermissionSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGFolderPermission *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGFolderPermission *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"action"] = [DBSHARINGFolderActionSerializer serialize:valueObj.action];
@@ -6345,7 +6675,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGFolderPermission *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGFolderPermission *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBSHARINGFolderAction *action = [DBSHARINGFolderActionSerializer deserialize:valueDict[@"action"]];
   NSNumber *allow = valueDict[@"allow"];
   DBSHARINGPermissionDeniedReason *reason =
@@ -6400,11 +6730,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGFolderPolicySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGFolderPolicySerializer deserialize:dict];
 }
 
@@ -6489,7 +6819,7 @@
 
 @implementation DBSHARINGFolderPolicySerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGFolderPolicy *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGFolderPolicy *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"acl_update_policy"] = [DBSHARINGAclUpdatePolicySerializer serialize:valueObj.aclUpdatePolicy];
@@ -6507,7 +6837,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGFolderPolicy *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGFolderPolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBSHARINGAclUpdatePolicy *aclUpdatePolicy =
       [DBSHARINGAclUpdatePolicySerializer deserialize:valueDict[@"acl_update_policy"]];
   DBSHARINGSharedLinkPolicy *sharedLinkPolicy =
@@ -6567,11 +6897,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGGetFileMetadataArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGGetFileMetadataArgSerializer deserialize:dict];
 }
 
@@ -6636,7 +6966,7 @@
 
 @implementation DBSHARINGGetFileMetadataArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGGetFileMetadataArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGGetFileMetadataArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"file"] = valueObj.file;
@@ -6650,7 +6980,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGGetFileMetadataArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGGetFileMetadataArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *file = valueDict[@"file"];
   NSArray<DBSHARINGFileAction *> *actions =
       valueDict[@"actions"] ? [DBArraySerializer deserialize:valueDict[@"actions"]
@@ -6706,11 +7036,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGGetFileMetadataBatchArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGGetFileMetadataBatchArgSerializer deserialize:dict];
 }
 
@@ -6775,7 +7105,7 @@
 
 @implementation DBSHARINGGetFileMetadataBatchArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGGetFileMetadataBatchArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGGetFileMetadataBatchArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"files"] = [DBArraySerializer serialize:valueObj.files
@@ -6792,7 +7122,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGGetFileMetadataBatchArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGGetFileMetadataBatchArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSArray<NSString *> *files = [DBArraySerializer deserialize:valueDict[@"files"]
                                                     withBlock:^id(id elem0) {
                                                       return elem0;
@@ -6837,11 +7167,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGGetFileMetadataBatchResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGGetFileMetadataBatchResultSerializer deserialize:dict];
 }
 
@@ -6902,7 +7232,7 @@
 
 @implementation DBSHARINGGetFileMetadataBatchResultSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGGetFileMetadataBatchResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGGetFileMetadataBatchResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"file"] = valueObj.file;
@@ -6911,7 +7241,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGGetFileMetadataBatchResult *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGGetFileMetadataBatchResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *file = valueDict[@"file"];
   DBSHARINGGetFileMetadataIndividualResult *result =
       [DBSHARINGGetFileMetadataIndividualResultSerializer deserialize:valueDict[@"result"]];
@@ -7009,11 +7339,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGGetFileMetadataErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGGetFileMetadataErrorSerializer deserialize:dict];
 }
 
@@ -7085,7 +7415,7 @@
 
 @implementation DBSHARINGGetFileMetadataErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGGetFileMetadataError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGGetFileMetadataError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isUserError]) {
@@ -7104,7 +7434,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGGetFileMetadataError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGGetFileMetadataError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"user_error"]) {
@@ -7213,11 +7543,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGGetFileMetadataIndividualResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGGetFileMetadataIndividualResultSerializer deserialize:dict];
 }
 
@@ -7290,11 +7620,11 @@
 
 @implementation DBSHARINGGetFileMetadataIndividualResultSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGGetFileMetadataIndividualResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGGetFileMetadataIndividualResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isMetadata]) {
-    jsonDict[@"metadata"] = [[DBSHARINGSharedFileMetadataSerializer serialize:valueObj.metadata] mutableCopy];
+    jsonDict = [[DBSHARINGSharedFileMetadataSerializer serialize:valueObj.metadata] mutableCopy];
     jsonDict[@".tag"] = @"metadata";
   } else if ([valueObj isAccessError]) {
     jsonDict[@"access_error"] =
@@ -7309,7 +7639,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGGetFileMetadataIndividualResult *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGGetFileMetadataIndividualResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"metadata"]) {
@@ -7361,11 +7691,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGGetMetadataArgsSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGGetMetadataArgsSerializer deserialize:dict];
 }
 
@@ -7430,7 +7760,7 @@
 
 @implementation DBSHARINGGetMetadataArgsSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGGetMetadataArgs *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGGetMetadataArgs *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"shared_folder_id"] = valueObj.sharedFolderId;
@@ -7444,7 +7774,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGGetMetadataArgs *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGGetMetadataArgs *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *sharedFolderId = valueDict[@"shared_folder_id"];
   NSArray<DBSHARINGFolderAction *> *actions =
       valueDict[@"actions"] ? [DBArraySerializer deserialize:valueDict[@"actions"]
@@ -7537,11 +7867,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGSharedLinkErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGSharedLinkErrorSerializer deserialize:dict];
 }
 
@@ -7617,7 +7947,7 @@
 
 @implementation DBSHARINGSharedLinkErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGSharedLinkError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharedLinkError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isSharedLinkNotFound]) {
@@ -7635,7 +7965,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGSharedLinkError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGSharedLinkError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"shared_link_not_found"]) {
@@ -7747,11 +8077,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGGetSharedLinkFileErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGGetSharedLinkFileErrorSerializer deserialize:dict];
 }
 
@@ -7831,7 +8161,7 @@
 
 @implementation DBSHARINGGetSharedLinkFileErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGGetSharedLinkFileError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGGetSharedLinkFileError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isSharedLinkNotFound]) {
@@ -7851,7 +8181,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGGetSharedLinkFileError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGGetSharedLinkFileError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"shared_link_not_found"]) {
@@ -7901,11 +8231,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGGetSharedLinkMetadataArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGGetSharedLinkMetadataArgSerializer deserialize:dict];
 }
 
@@ -7978,7 +8308,7 @@
 
 @implementation DBSHARINGGetSharedLinkMetadataArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGGetSharedLinkMetadataArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGGetSharedLinkMetadataArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"url"] = valueObj.url;
@@ -7992,7 +8322,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGGetSharedLinkMetadataArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGGetSharedLinkMetadataArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *url = valueDict[@"url"];
   NSString *path = valueDict[@"path"] ?: nil;
   NSString *linkPassword = valueDict[@"link_password"] ?: nil;
@@ -8027,11 +8357,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGGetSharedLinksArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGGetSharedLinksArgSerializer deserialize:dict];
 }
 
@@ -8092,7 +8422,7 @@
 
 @implementation DBSHARINGGetSharedLinksArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGGetSharedLinksArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGGetSharedLinksArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if (valueObj.path) {
@@ -8102,7 +8432,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGGetSharedLinksArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGGetSharedLinksArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *path = valueDict[@"path"] ?: nil;
 
   return [[DBSHARINGGetSharedLinksArg alloc] initWithPath:path];
@@ -8172,11 +8502,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGGetSharedLinksErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGGetSharedLinksErrorSerializer deserialize:dict];
 }
 
@@ -8248,7 +8578,7 @@
 
 @implementation DBSHARINGGetSharedLinksErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGGetSharedLinksError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGGetSharedLinksError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isPath]) {
@@ -8265,7 +8595,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGGetSharedLinksError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGGetSharedLinksError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"path"]) {
@@ -8306,11 +8636,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGGetSharedLinksResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGGetSharedLinksResultSerializer deserialize:dict];
 }
 
@@ -8367,7 +8697,7 @@
 
 @implementation DBSHARINGGetSharedLinksResultSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGGetSharedLinksResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGGetSharedLinksResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"links"] = [DBArraySerializer serialize:valueObj.links
@@ -8378,7 +8708,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGGetSharedLinksResult *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGGetSharedLinksResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSArray<DBSHARINGLinkMetadata *> *links =
       [DBArraySerializer deserialize:valueDict[@"links"]
                            withBlock:^id(id elem0) {
@@ -8454,11 +8784,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGGroupInfoSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGGroupInfoSerializer deserialize:dict];
 }
 
@@ -8555,7 +8885,7 @@
 
 @implementation DBSHARINGGroupInfoSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGGroupInfo *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGGroupInfo *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"group_name"] = valueObj.groupName;
@@ -8576,7 +8906,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGGroupInfo *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGGroupInfo *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *groupName = valueDict[@"group_name"];
   NSString *groupId = valueDict[@"group_id"];
   DBTEAMCOMMONGroupManagementType *groupManagementType =
@@ -8639,11 +8969,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGMembershipInfoSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGMembershipInfoSerializer deserialize:dict];
 }
 
@@ -8720,7 +9050,7 @@
 
 @implementation DBSHARINGMembershipInfoSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGMembershipInfo *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGMembershipInfo *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"access_type"] = [DBSHARINGAccessLevelSerializer serialize:valueObj.accessType];
@@ -8738,7 +9068,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGMembershipInfo *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGMembershipInfo *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBSHARINGAccessLevel *accessType = [DBSHARINGAccessLevelSerializer deserialize:valueDict[@"access_type"]];
   NSArray<DBSHARINGMemberPermission *> *permissions =
       valueDict[@"permissions"] ? [DBArraySerializer deserialize:valueDict[@"permissions"]
@@ -8796,11 +9126,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGGroupMembershipInfoSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGGroupMembershipInfoSerializer deserialize:dict];
 }
 
@@ -8881,7 +9211,7 @@
 
 @implementation DBSHARINGGroupMembershipInfoSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGGroupMembershipInfo *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGGroupMembershipInfo *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"access_type"] = [DBSHARINGAccessLevelSerializer serialize:valueObj.accessType];
@@ -8900,7 +9230,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGGroupMembershipInfo *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGGroupMembershipInfo *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBSHARINGAccessLevel *accessType = [DBSHARINGAccessLevelSerializer deserialize:valueDict[@"access_type"]];
   DBSHARINGGroupInfo *group = [DBSHARINGGroupInfoSerializer deserialize:valueDict[@"group"]];
   NSArray<DBSHARINGMemberPermission *> *permissions =
@@ -8948,11 +9278,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGInsufficientPlanSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGInsufficientPlanSerializer deserialize:dict];
 }
 
@@ -9017,7 +9347,7 @@
 
 @implementation DBSHARINGInsufficientPlanSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGInsufficientPlan *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGInsufficientPlan *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"message"] = valueObj.message;
@@ -9028,7 +9358,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGInsufficientPlan *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGInsufficientPlan *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *message = valueDict[@"message"];
   NSString *upsellUrl = valueDict[@"upsell_url"] ?: nil;
 
@@ -9065,11 +9395,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGInsufficientQuotaAmountsSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGInsufficientQuotaAmountsSerializer deserialize:dict];
 }
 
@@ -9134,7 +9464,7 @@
 
 @implementation DBSHARINGInsufficientQuotaAmountsSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGInsufficientQuotaAmounts *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGInsufficientQuotaAmounts *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"space_needed"] = valueObj.spaceNeeded;
@@ -9144,7 +9474,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGInsufficientQuotaAmounts *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGInsufficientQuotaAmounts *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSNumber *spaceNeeded = valueDict[@"space_needed"];
   NSNumber *spaceShortage = valueDict[@"space_shortage"];
   NSNumber *spaceLeft = valueDict[@"space_left"];
@@ -9218,11 +9548,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGInviteeInfoSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGInviteeInfoSerializer deserialize:dict];
 }
 
@@ -9290,7 +9620,7 @@
 
 @implementation DBSHARINGInviteeInfoSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGInviteeInfo *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGInviteeInfo *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isEmail]) {
@@ -9305,7 +9635,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGInviteeInfo *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGInviteeInfo *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"email"]) {
@@ -9362,11 +9692,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGInviteeMembershipInfoSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGInviteeMembershipInfoSerializer deserialize:dict];
 }
 
@@ -9455,7 +9785,7 @@
 
 @implementation DBSHARINGInviteeMembershipInfoSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGInviteeMembershipInfo *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGInviteeMembershipInfo *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"access_type"] = [DBSHARINGAccessLevelSerializer serialize:valueObj.accessType];
@@ -9477,7 +9807,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGInviteeMembershipInfo *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGInviteeMembershipInfo *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBSHARINGAccessLevel *accessType = [DBSHARINGAccessLevelSerializer deserialize:valueDict[@"access_type"]];
   DBSHARINGInviteeInfo *invitee = [DBSHARINGInviteeInfoSerializer deserialize:valueDict[@"invitee"]];
   NSArray<DBSHARINGMemberPermission *> *permissions =
@@ -9615,11 +9945,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGJobErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGJobErrorSerializer deserialize:dict];
 }
 
@@ -9695,7 +10025,7 @@
 
 @implementation DBSHARINGJobErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGJobError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGJobError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isUnshareFolderError]) {
@@ -9719,7 +10049,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGJobError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGJobError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"unshare_folder_error"]) {
@@ -9822,11 +10152,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGJobStatusSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGJobStatusSerializer deserialize:dict];
 }
 
@@ -9898,7 +10228,7 @@
 
 @implementation DBSHARINGJobStatusSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGJobStatus *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGJobStatus *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isInProgress]) {
@@ -9917,7 +10247,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGJobStatus *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGJobStatus *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"in_progress"]) {
@@ -9932,6 +10262,179 @@
         exceptionWithName:@"InvalidTag"
                    reason:[NSString stringWithFormat:@"Tag has an invalid value: \"%@\".", valueDict[@".tag"]]
                  userInfo:nil]);
+  }
+}
+
+@end
+
+#import "DBSHARINGLinkAccessLevel.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBSHARINGLinkAccessLevel
+
+#pragma mark - Constructors
+
+- (instancetype)initWithViewer {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGLinkAccessLevelViewer;
+  }
+  return self;
+}
+
+- (instancetype)initWithEditor {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGLinkAccessLevelEditor;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGLinkAccessLevelOther;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isViewer {
+  return _tag == DBSHARINGLinkAccessLevelViewer;
+}
+
+- (BOOL)isEditor {
+  return _tag == DBSHARINGLinkAccessLevelEditor;
+}
+
+- (BOOL)isOther {
+  return _tag == DBSHARINGLinkAccessLevelOther;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBSHARINGLinkAccessLevelViewer:
+    return @"DBSHARINGLinkAccessLevelViewer";
+  case DBSHARINGLinkAccessLevelEditor:
+    return @"DBSHARINGLinkAccessLevelEditor";
+  case DBSHARINGLinkAccessLevelOther:
+    return @"DBSHARINGLinkAccessLevelOther";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBSHARINGLinkAccessLevelSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBSHARINGLinkAccessLevelSerializer deserialize:dict];
+}
+
+#pragma mark - Description method
+
+- (NSString *)description {
+  return [[DBSHARINGLinkAccessLevelSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBSHARINGLinkAccessLevelViewer:
+    result = prime * result + [[self tagName] hash];
+  case DBSHARINGLinkAccessLevelEditor:
+    result = prime * result + [[self tagName] hash];
+  case DBSHARINGLinkAccessLevelOther:
+    result = prime * result + [[self tagName] hash];
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToLinkAccessLevel:other];
+}
+
+- (BOOL)isEqualToLinkAccessLevel:(DBSHARINGLinkAccessLevel *)aLinkAccessLevel {
+  if (self == aLinkAccessLevel) {
+    return YES;
+  }
+  if (self.tag != aLinkAccessLevel.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBSHARINGLinkAccessLevelViewer:
+    return [[self tagName] isEqual:[aLinkAccessLevel tagName]];
+  case DBSHARINGLinkAccessLevelEditor:
+    return [[self tagName] isEqual:[aLinkAccessLevel tagName]];
+  case DBSHARINGLinkAccessLevelOther:
+    return [[self tagName] isEqual:[aLinkAccessLevel tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBSHARINGLinkAccessLevelSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGLinkAccessLevel *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isViewer]) {
+    jsonDict[@".tag"] = @"viewer";
+  } else if ([valueObj isEditor]) {
+    jsonDict[@".tag"] = @"editor";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return [jsonDict count] > 0 ? jsonDict : nil;
+}
+
++ (DBSHARINGLinkAccessLevel *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"viewer"]) {
+    return [[DBSHARINGLinkAccessLevel alloc] initWithViewer];
+  } else if ([tag isEqualToString:@"editor"]) {
+    return [[DBSHARINGLinkAccessLevel alloc] initWithEditor];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBSHARINGLinkAccessLevel alloc] initWithOther];
+  } else {
+    return [[DBSHARINGLinkAccessLevel alloc] initWithOther];
   }
 }
 
@@ -10058,11 +10561,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGLinkActionSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGLinkActionSerializer deserialize:dict];
 }
 
@@ -10150,7 +10653,7 @@
 
 @implementation DBSHARINGLinkActionSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGLinkAction *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGLinkAction *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isChangeAccessLevel]) {
@@ -10174,7 +10677,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGLinkAction *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGLinkAction *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"change_access_level"]) {
@@ -10224,6 +10727,22 @@
   return self;
 }
 
+- (instancetype)initWithNoOne {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGLinkAudienceNoOne;
+  }
+  return self;
+}
+
+- (instancetype)initWithPassword {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGLinkAudiencePassword;
+  }
+  return self;
+}
+
 - (instancetype)initWithMembers {
   self = [super init];
   if (self) {
@@ -10252,6 +10771,14 @@
   return _tag == DBSHARINGLinkAudienceTeam;
 }
 
+- (BOOL)isNoOne {
+  return _tag == DBSHARINGLinkAudienceNoOne;
+}
+
+- (BOOL)isPassword {
+  return _tag == DBSHARINGLinkAudiencePassword;
+}
+
 - (BOOL)isMembers {
   return _tag == DBSHARINGLinkAudienceMembers;
 }
@@ -10266,6 +10793,10 @@
     return @"DBSHARINGLinkAudiencePublic";
   case DBSHARINGLinkAudienceTeam:
     return @"DBSHARINGLinkAudienceTeam";
+  case DBSHARINGLinkAudienceNoOne:
+    return @"DBSHARINGLinkAudienceNoOne";
+  case DBSHARINGLinkAudiencePassword:
+    return @"DBSHARINGLinkAudiencePassword";
   case DBSHARINGLinkAudienceMembers:
     return @"DBSHARINGLinkAudienceMembers";
   case DBSHARINGLinkAudienceOther:
@@ -10277,11 +10808,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGLinkAudienceSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGLinkAudienceSerializer deserialize:dict];
 }
 
@@ -10309,6 +10840,10 @@
   case DBSHARINGLinkAudiencePublic:
     result = prime * result + [[self tagName] hash];
   case DBSHARINGLinkAudienceTeam:
+    result = prime * result + [[self tagName] hash];
+  case DBSHARINGLinkAudienceNoOne:
+    result = prime * result + [[self tagName] hash];
+  case DBSHARINGLinkAudiencePassword:
     result = prime * result + [[self tagName] hash];
   case DBSHARINGLinkAudienceMembers:
     result = prime * result + [[self tagName] hash];
@@ -10343,6 +10878,10 @@
     return [[self tagName] isEqual:[aLinkAudience tagName]];
   case DBSHARINGLinkAudienceTeam:
     return [[self tagName] isEqual:[aLinkAudience tagName]];
+  case DBSHARINGLinkAudienceNoOne:
+    return [[self tagName] isEqual:[aLinkAudience tagName]];
+  case DBSHARINGLinkAudiencePassword:
+    return [[self tagName] isEqual:[aLinkAudience tagName]];
   case DBSHARINGLinkAudienceMembers:
     return [[self tagName] isEqual:[aLinkAudience tagName]];
   case DBSHARINGLinkAudienceOther:
@@ -10357,13 +10896,17 @@
 
 @implementation DBSHARINGLinkAudienceSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGLinkAudience *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGLinkAudience *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isPublic]) {
     jsonDict[@".tag"] = @"public";
   } else if ([valueObj isTeam]) {
     jsonDict[@".tag"] = @"team";
+  } else if ([valueObj isNoOne]) {
+    jsonDict[@".tag"] = @"no_one";
+  } else if ([valueObj isPassword]) {
+    jsonDict[@".tag"] = @"password";
   } else if ([valueObj isMembers]) {
     jsonDict[@".tag"] = @"members";
   } else if ([valueObj isOther]) {
@@ -10375,13 +10918,17 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGLinkAudience *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGLinkAudience *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"public"]) {
     return [[DBSHARINGLinkAudience alloc] initWithPublic];
   } else if ([tag isEqualToString:@"team"]) {
     return [[DBSHARINGLinkAudience alloc] initWithTeam];
+  } else if ([tag isEqualToString:@"no_one"]) {
+    return [[DBSHARINGLinkAudience alloc] initWithNoOne];
+  } else if ([tag isEqualToString:@"password"]) {
+    return [[DBSHARINGLinkAudience alloc] initWithPassword];
   } else if ([tag isEqualToString:@"members"]) {
     return [[DBSHARINGLinkAudience alloc] initWithMembers];
   } else if ([tag isEqualToString:@"other"]) {
@@ -10469,11 +11016,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGLinkExpirySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGLinkExpirySerializer deserialize:dict];
 }
 
@@ -10545,7 +11092,7 @@
 
 @implementation DBSHARINGLinkExpirySerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGLinkExpiry *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGLinkExpiry *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isRemoveExpiry]) {
@@ -10562,7 +11109,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGLinkExpiry *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGLinkExpiry *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"remove_expiry"]) {
@@ -10655,11 +11202,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGLinkPasswordSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGLinkPasswordSerializer deserialize:dict];
 }
 
@@ -10731,7 +11278,7 @@
 
 @implementation DBSHARINGLinkPasswordSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGLinkPassword *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGLinkPassword *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isRemovePassword]) {
@@ -10748,7 +11295,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGLinkPassword *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGLinkPassword *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"remove_password"]) {
@@ -10798,11 +11345,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGLinkPermissionSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGLinkPermissionSerializer deserialize:dict];
 }
 
@@ -10871,7 +11418,7 @@
 
 @implementation DBSHARINGLinkPermissionSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGLinkPermission *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGLinkPermission *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"action"] = [DBSHARINGLinkActionSerializer serialize:valueObj.action];
@@ -10883,7 +11430,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGLinkPermission *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGLinkPermission *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBSHARINGLinkAction *action = [DBSHARINGLinkActionSerializer deserialize:valueDict[@"action"]];
   NSNumber *allow = valueDict[@"allow"];
   DBSHARINGPermissionDeniedReason *reason =
@@ -10894,6 +11441,8 @@
 
 @end
 
+#import "DBSHARINGLinkAccessLevel.h"
+#import "DBSHARINGLinkAudience.h"
 #import "DBSHARINGLinkPermissions.h"
 #import "DBSHARINGRequestedVisibility.h"
 #import "DBSHARINGResolvedVisibility.h"
@@ -10910,7 +11459,9 @@
 - (instancetype)initWithCanRevoke:(NSNumber *)canRevoke
                resolvedVisibility:(DBSHARINGResolvedVisibility *)resolvedVisibility
               requestedVisibility:(DBSHARINGRequestedVisibility *)requestedVisibility
-              revokeFailureReason:(DBSHARINGSharedLinkAccessFailureReason *)revokeFailureReason {
+              revokeFailureReason:(DBSHARINGSharedLinkAccessFailureReason *)revokeFailureReason
+                effectiveAudience:(DBSHARINGLinkAudience *)effectiveAudience
+                  linkAccessLevel:(DBSHARINGLinkAccessLevel *)linkAccessLevel {
   [DBStoneValidators nonnullValidator:nil](canRevoke);
 
   self = [super init];
@@ -10919,21 +11470,28 @@
     _requestedVisibility = requestedVisibility;
     _canRevoke = canRevoke;
     _revokeFailureReason = revokeFailureReason;
+    _effectiveAudience = effectiveAudience;
+    _linkAccessLevel = linkAccessLevel;
   }
   return self;
 }
 
 - (instancetype)initWithCanRevoke:(NSNumber *)canRevoke {
-  return [self initWithCanRevoke:canRevoke resolvedVisibility:nil requestedVisibility:nil revokeFailureReason:nil];
+  return [self initWithCanRevoke:canRevoke
+              resolvedVisibility:nil
+             requestedVisibility:nil
+             revokeFailureReason:nil
+               effectiveAudience:nil
+                 linkAccessLevel:nil];
 }
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGLinkPermissionsSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGLinkPermissionsSerializer deserialize:dict];
 }
 
@@ -10966,6 +11524,12 @@
   }
   if (self.revokeFailureReason != nil) {
     result = prime * result + [self.revokeFailureReason hash];
+  }
+  if (self.effectiveAudience != nil) {
+    result = prime * result + [self.effectiveAudience hash];
+  }
+  if (self.linkAccessLevel != nil) {
+    result = prime * result + [self.linkAccessLevel hash];
   }
 
   return prime * result;
@@ -11005,6 +11569,16 @@
       return NO;
     }
   }
+  if (self.effectiveAudience) {
+    if (![self.effectiveAudience isEqual:aLinkPermissions.effectiveAudience]) {
+      return NO;
+    }
+  }
+  if (self.linkAccessLevel) {
+    if (![self.linkAccessLevel isEqual:aLinkPermissions.linkAccessLevel]) {
+      return NO;
+    }
+  }
   return YES;
 }
 
@@ -11014,7 +11588,7 @@
 
 @implementation DBSHARINGLinkPermissionsSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGLinkPermissions *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGLinkPermissions *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"can_revoke"] = valueObj.canRevoke;
@@ -11028,11 +11602,17 @@
     jsonDict[@"revoke_failure_reason"] =
         [DBSHARINGSharedLinkAccessFailureReasonSerializer serialize:valueObj.revokeFailureReason];
   }
+  if (valueObj.effectiveAudience) {
+    jsonDict[@"effective_audience"] = [DBSHARINGLinkAudienceSerializer serialize:valueObj.effectiveAudience];
+  }
+  if (valueObj.linkAccessLevel) {
+    jsonDict[@"link_access_level"] = [DBSHARINGLinkAccessLevelSerializer serialize:valueObj.linkAccessLevel];
+  }
 
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGLinkPermissions *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGLinkPermissions *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSNumber *canRevoke = valueDict[@"can_revoke"];
   DBSHARINGResolvedVisibility *resolvedVisibility =
       valueDict[@"resolved_visibility"]
@@ -11046,11 +11626,19 @@
       valueDict[@"revoke_failure_reason"]
           ? [DBSHARINGSharedLinkAccessFailureReasonSerializer deserialize:valueDict[@"revoke_failure_reason"]]
           : nil;
+  DBSHARINGLinkAudience *effectiveAudience =
+      valueDict[@"effective_audience"] ? [DBSHARINGLinkAudienceSerializer deserialize:valueDict[@"effective_audience"]]
+                                       : nil;
+  DBSHARINGLinkAccessLevel *linkAccessLevel =
+      valueDict[@"link_access_level"] ? [DBSHARINGLinkAccessLevelSerializer deserialize:valueDict[@"link_access_level"]]
+                                      : nil;
 
   return [[DBSHARINGLinkPermissions alloc] initWithCanRevoke:canRevoke
                                           resolvedVisibility:resolvedVisibility
                                          requestedVisibility:requestedVisibility
-                                         revokeFailureReason:revokeFailureReason];
+                                         revokeFailureReason:revokeFailureReason
+                                           effectiveAudience:effectiveAudience
+                                             linkAccessLevel:linkAccessLevel];
 }
 
 @end
@@ -11090,11 +11678,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGLinkSettingsSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGLinkSettingsSerializer deserialize:dict];
 }
 
@@ -11179,7 +11767,7 @@
 
 @implementation DBSHARINGLinkSettingsSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGLinkSettings *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGLinkSettings *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if (valueObj.accessLevel) {
@@ -11198,7 +11786,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGLinkSettings *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGLinkSettings *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBSHARINGAccessLevel *accessLevel =
       valueDict[@"access_level"] ? [DBSHARINGAccessLevelSerializer deserialize:valueDict[@"access_level"]] : nil;
   DBSHARINGLinkAudience *audience =
@@ -11254,11 +11842,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGListFileMembersArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGListFileMembersArgSerializer deserialize:dict];
 }
 
@@ -11331,7 +11919,7 @@
 
 @implementation DBSHARINGListFileMembersArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGListFileMembersArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGListFileMembersArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"file"] = valueObj.file;
@@ -11347,7 +11935,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGListFileMembersArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGListFileMembersArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *file = valueDict[@"file"];
   NSArray<DBSHARINGMemberAction *> *actions =
       valueDict[@"actions"] ? [DBArraySerializer deserialize:valueDict[@"actions"]
@@ -11403,11 +11991,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGListFileMembersBatchArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGListFileMembersBatchArgSerializer deserialize:dict];
 }
 
@@ -11468,7 +12056,7 @@
 
 @implementation DBSHARINGListFileMembersBatchArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGListFileMembersBatchArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGListFileMembersBatchArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"files"] = [DBArraySerializer serialize:valueObj.files
@@ -11480,7 +12068,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGListFileMembersBatchArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGListFileMembersBatchArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSArray<NSString *> *files = [DBArraySerializer deserialize:valueDict[@"files"]
                                                     withBlock:^id(id elem0) {
                                                       return elem0;
@@ -11520,11 +12108,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGListFileMembersBatchResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGListFileMembersBatchResultSerializer deserialize:dict];
 }
 
@@ -11585,7 +12173,7 @@
 
 @implementation DBSHARINGListFileMembersBatchResultSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGListFileMembersBatchResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGListFileMembersBatchResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"file"] = valueObj.file;
@@ -11594,7 +12182,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGListFileMembersBatchResult *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGListFileMembersBatchResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *file = valueDict[@"file"];
   DBSHARINGListFileMembersIndividualResult *result =
       [DBSHARINGListFileMembersIndividualResultSerializer deserialize:valueDict[@"result"]];
@@ -11626,11 +12214,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGListFileMembersContinueArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGListFileMembersContinueArgSerializer deserialize:dict];
 }
 
@@ -11687,7 +12275,7 @@
 
 @implementation DBSHARINGListFileMembersContinueArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGListFileMembersContinueArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGListFileMembersContinueArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"cursor"] = valueObj.cursor;
@@ -11695,7 +12283,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGListFileMembersContinueArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGListFileMembersContinueArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *cursor = valueDict[@"cursor"];
 
   return [[DBSHARINGListFileMembersContinueArg alloc] initWithCursor:cursor];
@@ -11807,11 +12395,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGListFileMembersContinueErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGListFileMembersContinueErrorSerializer deserialize:dict];
 }
 
@@ -11887,7 +12475,7 @@
 
 @implementation DBSHARINGListFileMembersContinueErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGListFileMembersContinueError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGListFileMembersContinueError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isUserError]) {
@@ -11908,7 +12496,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGListFileMembersContinueError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGListFileMembersContinueError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"user_error"]) {
@@ -11954,11 +12542,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGListFileMembersCountResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGListFileMembersCountResultSerializer deserialize:dict];
 }
 
@@ -12019,7 +12607,7 @@
 
 @implementation DBSHARINGListFileMembersCountResultSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGListFileMembersCountResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGListFileMembersCountResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"members"] = [DBSHARINGSharedFileMembersSerializer serialize:valueObj.members];
@@ -12028,7 +12616,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGListFileMembersCountResult *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGListFileMembersCountResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBSHARINGSharedFileMembers *members = [DBSHARINGSharedFileMembersSerializer deserialize:valueDict[@"members"]];
   NSNumber *memberCount = valueDict[@"member_count"];
 
@@ -12125,11 +12713,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGListFileMembersErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGListFileMembersErrorSerializer deserialize:dict];
 }
 
@@ -12201,7 +12789,7 @@
 
 @implementation DBSHARINGListFileMembersErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGListFileMembersError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGListFileMembersError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isUserError]) {
@@ -12220,7 +12808,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGListFileMembersError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGListFileMembersError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"user_error"]) {
@@ -12329,11 +12917,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGListFileMembersIndividualResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGListFileMembersIndividualResultSerializer deserialize:dict];
 }
 
@@ -12406,11 +12994,11 @@
 
 @implementation DBSHARINGListFileMembersIndividualResultSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGListFileMembersIndividualResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGListFileMembersIndividualResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isResult]) {
-    jsonDict[@"result"] = [[DBSHARINGListFileMembersCountResultSerializer serialize:valueObj.result] mutableCopy];
+    jsonDict = [[DBSHARINGListFileMembersCountResultSerializer serialize:valueObj.result] mutableCopy];
     jsonDict[@".tag"] = @"result";
   } else if ([valueObj isAccessError]) {
     jsonDict[@"access_error"] =
@@ -12425,7 +13013,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGListFileMembersIndividualResult *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGListFileMembersIndividualResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"result"]) {
@@ -12475,11 +13063,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGListFilesArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGListFilesArgSerializer deserialize:dict];
 }
 
@@ -12544,7 +13132,7 @@
 
 @implementation DBSHARINGListFilesArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGListFilesArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGListFilesArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"limit"] = valueObj.limit;
@@ -12558,7 +13146,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGListFilesArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGListFilesArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSNumber *limit = valueDict[@"limit"] ?: @(100);
   NSArray<DBSHARINGFileAction *> *actions =
       valueDict[@"actions"] ? [DBArraySerializer deserialize:valueDict[@"actions"]
@@ -12594,11 +13182,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGListFilesContinueArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGListFilesContinueArgSerializer deserialize:dict];
 }
 
@@ -12655,7 +13243,7 @@
 
 @implementation DBSHARINGListFilesContinueArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGListFilesContinueArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGListFilesContinueArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"cursor"] = valueObj.cursor;
@@ -12663,7 +13251,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGListFilesContinueArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGListFilesContinueArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *cursor = valueDict[@"cursor"];
 
   return [[DBSHARINGListFilesContinueArg alloc] initWithCursor:cursor];
@@ -12748,11 +13336,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGListFilesContinueErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGListFilesContinueErrorSerializer deserialize:dict];
 }
 
@@ -12824,7 +13412,7 @@
 
 @implementation DBSHARINGListFilesContinueErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGListFilesContinueError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGListFilesContinueError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isUserError]) {
@@ -12841,7 +13429,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGListFilesContinueError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGListFilesContinueError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"user_error"]) {
@@ -12889,11 +13477,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGListFilesResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGListFilesResultSerializer deserialize:dict];
 }
 
@@ -12958,7 +13546,7 @@
 
 @implementation DBSHARINGListFilesResultSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGListFilesResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGListFilesResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"entries"] = [DBArraySerializer serialize:valueObj.entries
@@ -12972,7 +13560,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGListFilesResult *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGListFilesResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSArray<DBSHARINGSharedFileMetadata *> *entries =
       [DBArraySerializer deserialize:valueDict[@"entries"]
                            withBlock:^id(id elem0) {
@@ -13016,11 +13604,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGListFolderMembersCursorArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGListFolderMembersCursorArgSerializer deserialize:dict];
 }
 
@@ -13085,7 +13673,7 @@
 
 @implementation DBSHARINGListFolderMembersCursorArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGListFolderMembersCursorArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGListFolderMembersCursorArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if (valueObj.actions) {
@@ -13099,7 +13687,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGListFolderMembersCursorArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGListFolderMembersCursorArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSArray<DBSHARINGMemberAction *> *actions =
       valueDict[@"actions"] ? [DBArraySerializer deserialize:valueDict[@"actions"]
                                                    withBlock:^id(id elem0) {
@@ -13148,11 +13736,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGListFolderMembersArgsSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGListFolderMembersArgsSerializer deserialize:dict];
 }
 
@@ -13221,7 +13809,7 @@
 
 @implementation DBSHARINGListFolderMembersArgsSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGListFolderMembersArgs *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGListFolderMembersArgs *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"shared_folder_id"] = valueObj.sharedFolderId;
@@ -13236,7 +13824,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGListFolderMembersArgs *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGListFolderMembersArgs *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *sharedFolderId = valueDict[@"shared_folder_id"];
   NSArray<DBSHARINGMemberAction *> *actions =
       valueDict[@"actions"] ? [DBArraySerializer deserialize:valueDict[@"actions"]
@@ -13273,11 +13861,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGListFolderMembersContinueArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGListFolderMembersContinueArgSerializer deserialize:dict];
 }
 
@@ -13334,7 +13922,7 @@
 
 @implementation DBSHARINGListFolderMembersContinueArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGListFolderMembersContinueArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGListFolderMembersContinueArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"cursor"] = valueObj.cursor;
@@ -13342,7 +13930,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGListFolderMembersContinueArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGListFolderMembersContinueArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *cursor = valueDict[@"cursor"];
 
   return [[DBSHARINGListFolderMembersContinueArg alloc] initWithCursor:cursor];
@@ -13428,11 +14016,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGListFolderMembersContinueErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGListFolderMembersContinueErrorSerializer deserialize:dict];
 }
 
@@ -13505,7 +14093,7 @@
 
 @implementation DBSHARINGListFolderMembersContinueErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGListFolderMembersContinueError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGListFolderMembersContinueError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isAccessError]) {
@@ -13523,7 +14111,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGListFolderMembersContinueError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGListFolderMembersContinueError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"access_error"]) {
@@ -13572,11 +14160,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGListFoldersArgsSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGListFoldersArgsSerializer deserialize:dict];
 }
 
@@ -13641,7 +14229,7 @@
 
 @implementation DBSHARINGListFoldersArgsSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGListFoldersArgs *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGListFoldersArgs *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"limit"] = valueObj.limit;
@@ -13655,7 +14243,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGListFoldersArgs *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGListFoldersArgs *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSNumber *limit = valueDict[@"limit"] ?: @(1000);
   NSArray<DBSHARINGFolderAction *> *actions =
       valueDict[@"actions"] ? [DBArraySerializer deserialize:valueDict[@"actions"]
@@ -13691,11 +14279,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGListFoldersContinueArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGListFoldersContinueArgSerializer deserialize:dict];
 }
 
@@ -13752,7 +14340,7 @@
 
 @implementation DBSHARINGListFoldersContinueArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGListFoldersContinueArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGListFoldersContinueArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"cursor"] = valueObj.cursor;
@@ -13760,7 +14348,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGListFoldersContinueArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGListFoldersContinueArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *cursor = valueDict[@"cursor"];
 
   return [[DBSHARINGListFoldersContinueArg alloc] initWithCursor:cursor];
@@ -13819,11 +14407,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGListFoldersContinueErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGListFoldersContinueErrorSerializer deserialize:dict];
 }
 
@@ -13891,7 +14479,7 @@
 
 @implementation DBSHARINGListFoldersContinueErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGListFoldersContinueError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGListFoldersContinueError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isInvalidCursor]) {
@@ -13905,7 +14493,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGListFoldersContinueError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGListFoldersContinueError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"invalid_cursor"]) {
@@ -13950,11 +14538,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGListFoldersResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGListFoldersResultSerializer deserialize:dict];
 }
 
@@ -14019,7 +14607,7 @@
 
 @implementation DBSHARINGListFoldersResultSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGListFoldersResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGListFoldersResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"entries"] = [DBArraySerializer serialize:valueObj.entries
@@ -14033,7 +14621,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGListFoldersResult *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGListFoldersResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSArray<DBSHARINGSharedFolderMetadata *> *entries =
       [DBArraySerializer deserialize:valueDict[@"entries"]
                            withBlock:^id(id elem0) {
@@ -14078,11 +14666,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGListSharedLinksArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGListSharedLinksArgSerializer deserialize:dict];
 }
 
@@ -14159,7 +14747,7 @@
 
 @implementation DBSHARINGListSharedLinksArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGListSharedLinksArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGListSharedLinksArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if (valueObj.path) {
@@ -14175,7 +14763,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGListSharedLinksArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGListSharedLinksArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *path = valueDict[@"path"] ?: nil;
   NSString *cursor = valueDict[@"cursor"] ?: nil;
   NSNumber *directOnly = valueDict[@"direct_only"] ?: nil;
@@ -14262,11 +14850,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGListSharedLinksErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGListSharedLinksErrorSerializer deserialize:dict];
 }
 
@@ -14338,7 +14926,7 @@
 
 @implementation DBSHARINGListSharedLinksErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGListSharedLinksError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGListSharedLinksError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isPath]) {
@@ -14355,7 +14943,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGListSharedLinksError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGListSharedLinksError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"path"]) {
@@ -14407,11 +14995,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGListSharedLinksResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGListSharedLinksResultSerializer deserialize:dict];
 }
 
@@ -14480,7 +15068,7 @@
 
 @implementation DBSHARINGListSharedLinksResultSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGListSharedLinksResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGListSharedLinksResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"links"] = [DBArraySerializer serialize:valueObj.links
@@ -14495,7 +15083,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGListSharedLinksResult *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGListSharedLinksResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSArray<DBSHARINGSharedLinkMetadata *> *links =
       [DBArraySerializer deserialize:valueDict[@"links"]
                            withBlock:^id(id elem0) {
@@ -14544,11 +15132,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGMemberAccessLevelResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGMemberAccessLevelResultSerializer deserialize:dict];
 }
 
@@ -14625,7 +15213,7 @@
 
 @implementation DBSHARINGMemberAccessLevelResultSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGMemberAccessLevelResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGMemberAccessLevelResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if (valueObj.accessLevel) {
@@ -14645,7 +15233,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGMemberAccessLevelResult *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGMemberAccessLevelResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBSHARINGAccessLevel *accessLevel =
       valueDict[@"access_level"] ? [DBSHARINGAccessLevelSerializer deserialize:valueDict[@"access_level"]] : nil;
   NSString *warning = valueDict[@"warning"] ?: nil;
@@ -14785,11 +15373,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGMemberActionSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGMemberActionSerializer deserialize:dict];
 }
 
@@ -14877,7 +15465,7 @@
 
 @implementation DBSHARINGMemberActionSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGMemberAction *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGMemberAction *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isLeaveACopy]) {
@@ -14901,7 +15489,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGMemberAction *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGMemberAction *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"leave_a_copy"]) {
@@ -14958,11 +15546,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGMemberPermissionSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGMemberPermissionSerializer deserialize:dict];
 }
 
@@ -15031,7 +15619,7 @@
 
 @implementation DBSHARINGMemberPermissionSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGMemberPermission *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGMemberPermission *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"action"] = [DBSHARINGMemberActionSerializer serialize:valueObj.action];
@@ -15043,7 +15631,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGMemberPermission *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGMemberPermission *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBSHARINGMemberAction *action = [DBSHARINGMemberActionSerializer deserialize:valueDict[@"action"]];
   NSNumber *allow = valueDict[@"allow"];
   DBSHARINGPermissionDeniedReason *reason =
@@ -15119,11 +15707,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGMemberPolicySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGMemberPolicySerializer deserialize:dict];
 }
 
@@ -15195,7 +15783,7 @@
 
 @implementation DBSHARINGMemberPolicySerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGMemberPolicy *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGMemberPolicy *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isTeam]) {
@@ -15211,7 +15799,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGMemberPolicy *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGMemberPolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"team"]) {
@@ -15313,11 +15901,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGMemberSelectorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGMemberSelectorSerializer deserialize:dict];
 }
 
@@ -15389,7 +15977,7 @@
 
 @implementation DBSHARINGMemberSelectorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGMemberSelector *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGMemberSelector *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isDropboxId]) {
@@ -15407,7 +15995,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGMemberSelector *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGMemberSelector *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"dropbox_id"]) {
@@ -15457,11 +16045,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGModifySharedLinkSettingsArgsSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGModifySharedLinkSettingsArgsSerializer deserialize:dict];
 }
 
@@ -15526,7 +16114,7 @@
 
 @implementation DBSHARINGModifySharedLinkSettingsArgsSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGModifySharedLinkSettingsArgs *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGModifySharedLinkSettingsArgs *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"url"] = valueObj.url;
@@ -15536,7 +16124,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGModifySharedLinkSettingsArgs *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGModifySharedLinkSettingsArgs *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *url = valueDict[@"url"];
   DBSHARINGSharedLinkSettings *settings = [DBSHARINGSharedLinkSettingsSerializer deserialize:valueDict[@"settings"]];
   NSNumber *removeExpiration = valueDict[@"remove_expiration"] ?: @NO;
@@ -15669,11 +16257,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGModifySharedLinkSettingsErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGModifySharedLinkSettingsErrorSerializer deserialize:dict];
 }
 
@@ -15758,7 +16346,7 @@
 
 @implementation DBSHARINGModifySharedLinkSettingsErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGModifySharedLinkSettingsError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGModifySharedLinkSettingsError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isSharedLinkNotFound]) {
@@ -15782,7 +16370,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGModifySharedLinkSettingsError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGModifySharedLinkSettingsError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"shared_link_not_found"]) {
@@ -15829,11 +16417,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGMountFolderArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGMountFolderArgSerializer deserialize:dict];
 }
 
@@ -15890,7 +16478,7 @@
 
 @implementation DBSHARINGMountFolderArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGMountFolderArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGMountFolderArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"shared_folder_id"] = valueObj.sharedFolderId;
@@ -15898,7 +16486,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGMountFolderArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGMountFolderArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *sharedFolderId = valueDict[@"shared_folder_id"];
 
   return [[DBSHARINGMountFolderArg alloc] initWithSharedFolderId:sharedFolderId];
@@ -16051,11 +16639,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGMountFolderErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGMountFolderErrorSerializer deserialize:dict];
 }
 
@@ -16143,7 +16731,7 @@
 
 @implementation DBSHARINGMountFolderErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGMountFolderError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGMountFolderError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isAccessError]) {
@@ -16153,8 +16741,7 @@
   } else if ([valueObj isInsideSharedFolder]) {
     jsonDict[@".tag"] = @"inside_shared_folder";
   } else if ([valueObj isInsufficientQuota]) {
-    jsonDict[@"insufficient_quota"] =
-        [[DBSHARINGInsufficientQuotaAmountsSerializer serialize:valueObj.insufficientQuota] mutableCopy];
+    jsonDict = [[DBSHARINGInsufficientQuotaAmountsSerializer serialize:valueObj.insufficientQuota] mutableCopy];
     jsonDict[@".tag"] = @"insufficient_quota";
   } else if ([valueObj isAlreadyMounted]) {
     jsonDict[@".tag"] = @"already_mounted";
@@ -16171,7 +16758,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGMountFolderError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGMountFolderError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"access_error"]) {
@@ -16235,11 +16822,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGParentFolderAccessInfoSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGParentFolderAccessInfoSerializer deserialize:dict];
 }
 
@@ -16308,7 +16895,7 @@
 
 @implementation DBSHARINGParentFolderAccessInfoSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGParentFolderAccessInfo *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGParentFolderAccessInfo *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"folder_name"] = valueObj.folderName;
@@ -16322,7 +16909,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGParentFolderAccessInfo *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGParentFolderAccessInfo *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *folderName = valueDict[@"folder_name"];
   NSString *sharedFolderId = valueDict[@"shared_folder_id"];
   NSArray<DBSHARINGMemberPermission *> *permissions =
@@ -16373,11 +16960,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGPathLinkMetadataSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGPathLinkMetadataSerializer deserialize:dict];
 }
 
@@ -16450,7 +17037,7 @@
 
 @implementation DBSHARINGPathLinkMetadataSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGPathLinkMetadata *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGPathLinkMetadata *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"url"] = valueObj.url;
@@ -16463,7 +17050,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGPathLinkMetadata *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGPathLinkMetadata *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *url = valueDict[@"url"];
   DBSHARINGVisibility *visibility = [DBSHARINGVisibilitySerializer deserialize:valueDict[@"visibility"]];
   NSString *path = valueDict[@"path"];
@@ -16527,11 +17114,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGPendingUploadModeSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGPendingUploadModeSerializer deserialize:dict];
 }
 
@@ -16599,7 +17186,7 @@
 
 @implementation DBSHARINGPendingUploadModeSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGPendingUploadMode *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGPendingUploadMode *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isFile]) {
@@ -16615,7 +17202,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGPendingUploadMode *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGPendingUploadMode *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"file"]) {
@@ -16892,11 +17479,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGPermissionDeniedReasonSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGPermissionDeniedReasonSerializer deserialize:dict];
 }
 
@@ -17020,7 +17607,7 @@
 
 @implementation DBSHARINGPermissionDeniedReasonSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGPermissionDeniedReason *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGPermissionDeniedReason *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isUserNotSameTeamAsOwner]) {
@@ -17052,8 +17639,7 @@
   } else if ([valueObj isRestrictedByParentFolder]) {
     jsonDict[@".tag"] = @"restricted_by_parent_folder";
   } else if ([valueObj isInsufficientPlan]) {
-    jsonDict[@"insufficient_plan"] =
-        [[DBSHARINGInsufficientPlanSerializer serialize:valueObj.insufficientPlan] mutableCopy];
+    jsonDict = [[DBSHARINGInsufficientPlanSerializer serialize:valueObj.insufficientPlan] mutableCopy];
     jsonDict[@".tag"] = @"insufficient_plan";
   } else if ([valueObj isOther]) {
     jsonDict[@".tag"] = @"other";
@@ -17064,7 +17650,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGPermissionDeniedReason *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGPermissionDeniedReason *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"user_not_same_team_as_owner"]) {
@@ -17132,11 +17718,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGRelinquishFileMembershipArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGRelinquishFileMembershipArgSerializer deserialize:dict];
 }
 
@@ -17193,7 +17779,7 @@
 
 @implementation DBSHARINGRelinquishFileMembershipArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGRelinquishFileMembershipArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGRelinquishFileMembershipArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"file"] = valueObj.file;
@@ -17201,7 +17787,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGRelinquishFileMembershipArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGRelinquishFileMembershipArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *file = valueDict[@"file"];
 
   return [[DBSHARINGRelinquishFileMembershipArg alloc] initWithFile:file];
@@ -17301,11 +17887,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGRelinquishFileMembershipErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGRelinquishFileMembershipErrorSerializer deserialize:dict];
 }
 
@@ -17382,7 +17968,7 @@
 
 @implementation DBSHARINGRelinquishFileMembershipErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGRelinquishFileMembershipError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGRelinquishFileMembershipError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isAccessError]) {
@@ -17402,7 +17988,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGRelinquishFileMembershipError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGRelinquishFileMembershipError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"access_error"]) {
@@ -17450,11 +18036,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGRelinquishFolderMembershipArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGRelinquishFolderMembershipArgSerializer deserialize:dict];
 }
 
@@ -17516,7 +18102,7 @@
 
 @implementation DBSHARINGRelinquishFolderMembershipArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGRelinquishFolderMembershipArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGRelinquishFolderMembershipArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"shared_folder_id"] = valueObj.sharedFolderId;
@@ -17525,7 +18111,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGRelinquishFolderMembershipArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGRelinquishFolderMembershipArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *sharedFolderId = valueDict[@"shared_folder_id"];
   NSNumber *leaveACopy = valueDict[@"leave_a_copy"] ?: @NO;
 
@@ -17682,11 +18268,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGRelinquishFolderMembershipErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGRelinquishFolderMembershipErrorSerializer deserialize:dict];
 }
 
@@ -17779,7 +18365,7 @@
 
 @implementation DBSHARINGRelinquishFolderMembershipErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGRelinquishFolderMembershipError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGRelinquishFolderMembershipError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isAccessError]) {
@@ -17807,7 +18393,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGRelinquishFolderMembershipError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGRelinquishFolderMembershipError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"access_error"]) {
@@ -17863,11 +18449,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGRemoveFileMemberArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGRemoveFileMemberArgSerializer deserialize:dict];
 }
 
@@ -17928,7 +18514,7 @@
 
 @implementation DBSHARINGRemoveFileMemberArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGRemoveFileMemberArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGRemoveFileMemberArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"file"] = valueObj.file;
@@ -17937,7 +18523,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGRemoveFileMemberArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGRemoveFileMemberArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *file = valueDict[@"file"];
   DBSHARINGMemberSelector *member = [DBSHARINGMemberSelectorSerializer deserialize:valueDict[@"member"]];
 
@@ -18060,11 +18646,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGRemoveFileMemberErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGRemoveFileMemberErrorSerializer deserialize:dict];
 }
 
@@ -18140,7 +18726,7 @@
 
 @implementation DBSHARINGRemoveFileMemberErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGRemoveFileMemberError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGRemoveFileMemberError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isUserError]) {
@@ -18151,8 +18737,7 @@
         [[DBSHARINGSharingFileAccessErrorSerializer serialize:valueObj.accessError] mutableCopy];
     jsonDict[@".tag"] = @"access_error";
   } else if ([valueObj isNoExplicitAccess]) {
-    jsonDict[@"no_explicit_access"] =
-        [[DBSHARINGMemberAccessLevelResultSerializer serialize:valueObj.noExplicitAccess] mutableCopy];
+    jsonDict = [[DBSHARINGMemberAccessLevelResultSerializer serialize:valueObj.noExplicitAccess] mutableCopy];
     jsonDict[@".tag"] = @"no_explicit_access";
   } else if ([valueObj isOther]) {
     jsonDict[@".tag"] = @"other";
@@ -18163,7 +18748,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGRemoveFileMemberError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGRemoveFileMemberError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"user_error"]) {
@@ -18216,11 +18801,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGRemoveFolderMemberArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGRemoveFolderMemberArgSerializer deserialize:dict];
 }
 
@@ -18285,7 +18870,7 @@
 
 @implementation DBSHARINGRemoveFolderMemberArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGRemoveFolderMemberArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGRemoveFolderMemberArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"shared_folder_id"] = valueObj.sharedFolderId;
@@ -18295,7 +18880,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGRemoveFolderMemberArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGRemoveFolderMemberArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *sharedFolderId = valueDict[@"shared_folder_id"];
   DBSHARINGMemberSelector *member = [DBSHARINGMemberSelectorSerializer deserialize:valueDict[@"member"]];
   NSNumber *leaveACopy = valueDict[@"leave_a_copy"];
@@ -18467,11 +19052,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGRemoveFolderMemberErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGRemoveFolderMemberErrorSerializer deserialize:dict];
 }
 
@@ -18563,7 +19148,7 @@
 
 @implementation DBSHARINGRemoveFolderMemberErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGRemoveFolderMemberError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGRemoveFolderMemberError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isAccessError]) {
@@ -18593,7 +19178,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGRemoveFolderMemberError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGRemoveFolderMemberError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"access_error"]) {
@@ -18712,11 +19297,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGRemoveMemberJobStatusSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGRemoveMemberJobStatusSerializer deserialize:dict];
 }
 
@@ -18788,13 +19373,13 @@
 
 @implementation DBSHARINGRemoveMemberJobStatusSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGRemoveMemberJobStatus *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGRemoveMemberJobStatus *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isInProgress]) {
     jsonDict[@".tag"] = @"in_progress";
   } else if ([valueObj isComplete]) {
-    jsonDict[@"complete"] = [[DBSHARINGMemberAccessLevelResultSerializer serialize:valueObj.complete] mutableCopy];
+    jsonDict = [[DBSHARINGMemberAccessLevelResultSerializer serialize:valueObj.complete] mutableCopy];
     jsonDict[@".tag"] = @"complete";
   } else if ([valueObj isFailed]) {
     jsonDict[@"failed"] = [[DBSHARINGRemoveFolderMemberErrorSerializer serialize:valueObj.failed] mutableCopy];
@@ -18808,7 +19393,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGRemoveMemberJobStatus *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGRemoveMemberJobStatus *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"in_progress"]) {
@@ -18825,6 +19410,201 @@
         exceptionWithName:@"InvalidTag"
                    reason:[NSString stringWithFormat:@"Tag has an invalid value: \"%@\".", valueDict[@".tag"]]
                  userInfo:nil]);
+  }
+}
+
+@end
+
+#import "DBSHARINGRequestedLinkAccessLevel.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBSHARINGRequestedLinkAccessLevel
+
+#pragma mark - Constructors
+
+- (instancetype)initWithViewer {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGRequestedLinkAccessLevelViewer;
+  }
+  return self;
+}
+
+- (instancetype)initWithEditor {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGRequestedLinkAccessLevelEditor;
+  }
+  return self;
+}
+
+- (instancetype)initWithMax {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGRequestedLinkAccessLevelMax;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGRequestedLinkAccessLevelOther;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isViewer {
+  return _tag == DBSHARINGRequestedLinkAccessLevelViewer;
+}
+
+- (BOOL)isEditor {
+  return _tag == DBSHARINGRequestedLinkAccessLevelEditor;
+}
+
+- (BOOL)isMax {
+  return _tag == DBSHARINGRequestedLinkAccessLevelMax;
+}
+
+- (BOOL)isOther {
+  return _tag == DBSHARINGRequestedLinkAccessLevelOther;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBSHARINGRequestedLinkAccessLevelViewer:
+    return @"DBSHARINGRequestedLinkAccessLevelViewer";
+  case DBSHARINGRequestedLinkAccessLevelEditor:
+    return @"DBSHARINGRequestedLinkAccessLevelEditor";
+  case DBSHARINGRequestedLinkAccessLevelMax:
+    return @"DBSHARINGRequestedLinkAccessLevelMax";
+  case DBSHARINGRequestedLinkAccessLevelOther:
+    return @"DBSHARINGRequestedLinkAccessLevelOther";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBSHARINGRequestedLinkAccessLevelSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBSHARINGRequestedLinkAccessLevelSerializer deserialize:dict];
+}
+
+#pragma mark - Description method
+
+- (NSString *)description {
+  return [[DBSHARINGRequestedLinkAccessLevelSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBSHARINGRequestedLinkAccessLevelViewer:
+    result = prime * result + [[self tagName] hash];
+  case DBSHARINGRequestedLinkAccessLevelEditor:
+    result = prime * result + [[self tagName] hash];
+  case DBSHARINGRequestedLinkAccessLevelMax:
+    result = prime * result + [[self tagName] hash];
+  case DBSHARINGRequestedLinkAccessLevelOther:
+    result = prime * result + [[self tagName] hash];
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToRequestedLinkAccessLevel:other];
+}
+
+- (BOOL)isEqualToRequestedLinkAccessLevel:(DBSHARINGRequestedLinkAccessLevel *)aRequestedLinkAccessLevel {
+  if (self == aRequestedLinkAccessLevel) {
+    return YES;
+  }
+  if (self.tag != aRequestedLinkAccessLevel.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBSHARINGRequestedLinkAccessLevelViewer:
+    return [[self tagName] isEqual:[aRequestedLinkAccessLevel tagName]];
+  case DBSHARINGRequestedLinkAccessLevelEditor:
+    return [[self tagName] isEqual:[aRequestedLinkAccessLevel tagName]];
+  case DBSHARINGRequestedLinkAccessLevelMax:
+    return [[self tagName] isEqual:[aRequestedLinkAccessLevel tagName]];
+  case DBSHARINGRequestedLinkAccessLevelOther:
+    return [[self tagName] isEqual:[aRequestedLinkAccessLevel tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBSHARINGRequestedLinkAccessLevelSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGRequestedLinkAccessLevel *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isViewer]) {
+    jsonDict[@".tag"] = @"viewer";
+  } else if ([valueObj isEditor]) {
+    jsonDict[@".tag"] = @"editor";
+  } else if ([valueObj isMax]) {
+    jsonDict[@".tag"] = @"max";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return [jsonDict count] > 0 ? jsonDict : nil;
+}
+
++ (DBSHARINGRequestedLinkAccessLevel *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"viewer"]) {
+    return [[DBSHARINGRequestedLinkAccessLevel alloc] initWithViewer];
+  } else if ([tag isEqualToString:@"editor"]) {
+    return [[DBSHARINGRequestedLinkAccessLevel alloc] initWithEditor];
+  } else if ([tag isEqualToString:@"max"]) {
+    return [[DBSHARINGRequestedLinkAccessLevel alloc] initWithMax];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBSHARINGRequestedLinkAccessLevel alloc] initWithOther];
+  } else {
+    return [[DBSHARINGRequestedLinkAccessLevel alloc] initWithOther];
   }
 }
 
@@ -18895,11 +19675,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGRequestedVisibilitySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGRequestedVisibilitySerializer deserialize:dict];
 }
 
@@ -18971,7 +19751,7 @@
 
 @implementation DBSHARINGRequestedVisibilitySerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGRequestedVisibility *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGRequestedVisibility *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isPublic]) {
@@ -18989,7 +19769,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGRequestedVisibility *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGRequestedVisibility *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"public"]) {
@@ -19116,11 +19896,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGResolvedVisibilitySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGResolvedVisibilitySerializer deserialize:dict];
 }
 
@@ -19204,7 +19984,7 @@
 
 @implementation DBSHARINGResolvedVisibilitySerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGResolvedVisibility *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGResolvedVisibility *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isPublic]) {
@@ -19226,7 +20006,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGResolvedVisibility *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGResolvedVisibility *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"public"]) {
@@ -19270,11 +20050,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGRevokeSharedLinkArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGRevokeSharedLinkArgSerializer deserialize:dict];
 }
 
@@ -19331,7 +20111,7 @@
 
 @implementation DBSHARINGRevokeSharedLinkArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGRevokeSharedLinkArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGRevokeSharedLinkArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"url"] = valueObj.url;
@@ -19339,7 +20119,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGRevokeSharedLinkArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGRevokeSharedLinkArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *url = valueDict[@"url"];
 
   return [[DBSHARINGRevokeSharedLinkArg alloc] initWithUrl:url];
@@ -19441,11 +20221,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGRevokeSharedLinkErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGRevokeSharedLinkErrorSerializer deserialize:dict];
 }
 
@@ -19525,7 +20305,7 @@
 
 @implementation DBSHARINGRevokeSharedLinkErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGRevokeSharedLinkError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGRevokeSharedLinkError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isSharedLinkNotFound]) {
@@ -19545,7 +20325,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGRevokeSharedLinkError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGRevokeSharedLinkError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"shared_link_not_found"]) {
@@ -19565,6 +20345,314 @@
 
 @end
 
+#import "DBSHARINGAccessInheritance.h"
+#import "DBSHARINGSetAccessInheritanceArg.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBSHARINGSetAccessInheritanceArg
+
+#pragma mark - Constructors
+
+- (instancetype)initWithSharedFolderId:(NSString *)sharedFolderId
+                     accessInheritance:(DBSHARINGAccessInheritance *)accessInheritance {
+  [DBStoneValidators
+   nonnullValidator:[DBStoneValidators stringValidator:nil maxLength:nil pattern:@"[-_0-9a-zA-Z:]+"]](sharedFolderId);
+
+  self = [super init];
+  if (self) {
+    _accessInheritance = accessInheritance ?: [[DBSHARINGAccessInheritance alloc] initWithInherit];
+    _sharedFolderId = sharedFolderId;
+  }
+  return self;
+}
+
+- (instancetype)initWithSharedFolderId:(NSString *)sharedFolderId {
+  return [self initWithSharedFolderId:sharedFolderId accessInheritance:nil];
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBSHARINGSetAccessInheritanceArgSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBSHARINGSetAccessInheritanceArgSerializer deserialize:dict];
+}
+
+#pragma mark - Description method
+
+- (NSString *)description {
+  return [[DBSHARINGSetAccessInheritanceArgSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  result = prime * result + [self.sharedFolderId hash];
+  result = prime * result + [self.accessInheritance hash];
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToSetAccessInheritanceArg:other];
+}
+
+- (BOOL)isEqualToSetAccessInheritanceArg:(DBSHARINGSetAccessInheritanceArg *)aSetAccessInheritanceArg {
+  if (self == aSetAccessInheritanceArg) {
+    return YES;
+  }
+  if (![self.sharedFolderId isEqual:aSetAccessInheritanceArg.sharedFolderId]) {
+    return NO;
+  }
+  if (![self.accessInheritance isEqual:aSetAccessInheritanceArg.accessInheritance]) {
+    return NO;
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBSHARINGSetAccessInheritanceArgSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGSetAccessInheritanceArg *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  jsonDict[@"shared_folder_id"] = valueObj.sharedFolderId;
+  jsonDict[@"access_inheritance"] = [DBSHARINGAccessInheritanceSerializer serialize:valueObj.accessInheritance];
+
+  return [jsonDict count] > 0 ? jsonDict : nil;
+}
+
++ (DBSHARINGSetAccessInheritanceArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *sharedFolderId = valueDict[@"shared_folder_id"];
+  DBSHARINGAccessInheritance *accessInheritance =
+      valueDict[@"access_inheritance"]
+          ? [DBSHARINGAccessInheritanceSerializer deserialize:valueDict[@"access_inheritance"]]
+          : [[DBSHARINGAccessInheritance alloc] initWithInherit];
+
+  return [[DBSHARINGSetAccessInheritanceArg alloc] initWithSharedFolderId:sharedFolderId
+                                                        accessInheritance:accessInheritance];
+}
+
+@end
+
+#import "DBSHARINGSetAccessInheritanceError.h"
+#import "DBSHARINGSharedFolderAccessError.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBSHARINGSetAccessInheritanceError
+
+@synthesize accessError = _accessError;
+
+#pragma mark - Constructors
+
+- (instancetype)initWithAccessError:(DBSHARINGSharedFolderAccessError *)accessError {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGSetAccessInheritanceErrorAccessError;
+    _accessError = accessError;
+  }
+  return self;
+}
+
+- (instancetype)initWithNoPermission {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGSetAccessInheritanceErrorNoPermission;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGSetAccessInheritanceErrorOther;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+- (DBSHARINGSharedFolderAccessError *)accessError {
+  if (![self isAccessError]) {
+    [NSException
+         raise:@"IllegalStateException"
+        format:@"Invalid tag: required DBSHARINGSetAccessInheritanceErrorAccessError, but was %@.", [self tagName]];
+  }
+  return _accessError;
+}
+
+#pragma mark - Tag state methods
+
+- (BOOL)isAccessError {
+  return _tag == DBSHARINGSetAccessInheritanceErrorAccessError;
+}
+
+- (BOOL)isNoPermission {
+  return _tag == DBSHARINGSetAccessInheritanceErrorNoPermission;
+}
+
+- (BOOL)isOther {
+  return _tag == DBSHARINGSetAccessInheritanceErrorOther;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBSHARINGSetAccessInheritanceErrorAccessError:
+    return @"DBSHARINGSetAccessInheritanceErrorAccessError";
+  case DBSHARINGSetAccessInheritanceErrorNoPermission:
+    return @"DBSHARINGSetAccessInheritanceErrorNoPermission";
+  case DBSHARINGSetAccessInheritanceErrorOther:
+    return @"DBSHARINGSetAccessInheritanceErrorOther";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBSHARINGSetAccessInheritanceErrorSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBSHARINGSetAccessInheritanceErrorSerializer deserialize:dict];
+}
+
+#pragma mark - Description method
+
+- (NSString *)description {
+  return [[DBSHARINGSetAccessInheritanceErrorSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBSHARINGSetAccessInheritanceErrorAccessError:
+    result = prime * result + [self.accessError hash];
+  case DBSHARINGSetAccessInheritanceErrorNoPermission:
+    result = prime * result + [[self tagName] hash];
+  case DBSHARINGSetAccessInheritanceErrorOther:
+    result = prime * result + [[self tagName] hash];
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToSetAccessInheritanceError:other];
+}
+
+- (BOOL)isEqualToSetAccessInheritanceError:(DBSHARINGSetAccessInheritanceError *)aSetAccessInheritanceError {
+  if (self == aSetAccessInheritanceError) {
+    return YES;
+  }
+  if (self.tag != aSetAccessInheritanceError.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBSHARINGSetAccessInheritanceErrorAccessError:
+    return [self.accessError isEqual:aSetAccessInheritanceError.accessError];
+  case DBSHARINGSetAccessInheritanceErrorNoPermission:
+    return [[self tagName] isEqual:[aSetAccessInheritanceError tagName]];
+  case DBSHARINGSetAccessInheritanceErrorOther:
+    return [[self tagName] isEqual:[aSetAccessInheritanceError tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBSHARINGSetAccessInheritanceErrorSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGSetAccessInheritanceError *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isAccessError]) {
+    jsonDict[@"access_error"] =
+        [[DBSHARINGSharedFolderAccessErrorSerializer serialize:valueObj.accessError] mutableCopy];
+    jsonDict[@".tag"] = @"access_error";
+  } else if ([valueObj isNoPermission]) {
+    jsonDict[@".tag"] = @"no_permission";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return [jsonDict count] > 0 ? jsonDict : nil;
+}
+
++ (DBSHARINGSetAccessInheritanceError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"access_error"]) {
+    DBSHARINGSharedFolderAccessError *accessError =
+        [DBSHARINGSharedFolderAccessErrorSerializer deserialize:valueDict[@"access_error"]];
+    return [[DBSHARINGSetAccessInheritanceError alloc] initWithAccessError:accessError];
+  } else if ([tag isEqualToString:@"no_permission"]) {
+    return [[DBSHARINGSetAccessInheritanceError alloc] initWithNoPermission];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBSHARINGSetAccessInheritanceError alloc] initWithOther];
+  } else {
+    return [[DBSHARINGSetAccessInheritanceError alloc] initWithOther];
+  }
+}
+
+@end
+
+#import "DBSHARINGAccessInheritance.h"
 #import "DBSHARINGAclUpdatePolicy.h"
 #import "DBSHARINGMemberPolicy.h"
 #import "DBSHARINGShareFolderArgBase.h"
@@ -19584,7 +20672,8 @@
                   forceAsync:(NSNumber *)forceAsync
                 memberPolicy:(DBSHARINGMemberPolicy *)memberPolicy
             sharedLinkPolicy:(DBSHARINGSharedLinkPolicy *)sharedLinkPolicy
-            viewerInfoPolicy:(DBSHARINGViewerInfoPolicy *)viewerInfoPolicy {
+            viewerInfoPolicy:(DBSHARINGViewerInfoPolicy *)viewerInfoPolicy
+           accessInheritance:(DBSHARINGAccessInheritance *)accessInheritance {
   [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:nil
                                                                maxLength:nil
                                                                  pattern:@"(/(.|[\\r\\n])*)|(ns:[0-9]+(/.*)?)"]](path);
@@ -19597,6 +20686,7 @@
     _path = path;
     _sharedLinkPolicy = sharedLinkPolicy;
     _viewerInfoPolicy = viewerInfoPolicy;
+    _accessInheritance = accessInheritance ?: [[DBSHARINGAccessInheritance alloc] initWithInherit];
   }
   return self;
 }
@@ -19607,16 +20697,17 @@
                  forceAsync:nil
                memberPolicy:nil
            sharedLinkPolicy:nil
-           viewerInfoPolicy:nil];
+           viewerInfoPolicy:nil
+          accessInheritance:nil];
 }
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGShareFolderArgBaseSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGShareFolderArgBaseSerializer deserialize:dict];
 }
 
@@ -19654,6 +20745,7 @@
   if (self.viewerInfoPolicy != nil) {
     result = prime * result + [self.viewerInfoPolicy hash];
   }
+  result = prime * result + [self.accessInheritance hash];
 
   return prime * result;
 }
@@ -19700,6 +20792,9 @@
       return NO;
     }
   }
+  if (![self.accessInheritance isEqual:aShareFolderArgBase.accessInheritance]) {
+    return NO;
+  }
   return YES;
 }
 
@@ -19709,7 +20804,7 @@
 
 @implementation DBSHARINGShareFolderArgBaseSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGShareFolderArgBase *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGShareFolderArgBase *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"path"] = valueObj.path;
@@ -19726,11 +20821,12 @@
   if (valueObj.viewerInfoPolicy) {
     jsonDict[@"viewer_info_policy"] = [DBSHARINGViewerInfoPolicySerializer serialize:valueObj.viewerInfoPolicy];
   }
+  jsonDict[@"access_inheritance"] = [DBSHARINGAccessInheritanceSerializer serialize:valueObj.accessInheritance];
 
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGShareFolderArgBase *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGShareFolderArgBase *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *path = valueDict[@"path"];
   DBSHARINGAclUpdatePolicy *aclUpdatePolicy =
       valueDict[@"acl_update_policy"] ? [DBSHARINGAclUpdatePolicySerializer deserialize:valueDict[@"acl_update_policy"]]
@@ -19746,17 +20842,23 @@
       valueDict[@"viewer_info_policy"]
           ? [DBSHARINGViewerInfoPolicySerializer deserialize:valueDict[@"viewer_info_policy"]]
           : nil;
+  DBSHARINGAccessInheritance *accessInheritance =
+      valueDict[@"access_inheritance"]
+          ? [DBSHARINGAccessInheritanceSerializer deserialize:valueDict[@"access_inheritance"]]
+          : [[DBSHARINGAccessInheritance alloc] initWithInherit];
 
   return [[DBSHARINGShareFolderArgBase alloc] initWithPath:path
                                            aclUpdatePolicy:aclUpdatePolicy
                                                 forceAsync:forceAsync
                                               memberPolicy:memberPolicy
                                           sharedLinkPolicy:sharedLinkPolicy
-                                          viewerInfoPolicy:viewerInfoPolicy];
+                                          viewerInfoPolicy:viewerInfoPolicy
+                                         accessInheritance:accessInheritance];
 }
 
 @end
 
+#import "DBSHARINGAccessInheritance.h"
 #import "DBSHARINGAclUpdatePolicy.h"
 #import "DBSHARINGFolderAction.h"
 #import "DBSHARINGLinkSettings.h"
@@ -19780,6 +20882,7 @@
                 memberPolicy:(DBSHARINGMemberPolicy *)memberPolicy
             sharedLinkPolicy:(DBSHARINGSharedLinkPolicy *)sharedLinkPolicy
             viewerInfoPolicy:(DBSHARINGViewerInfoPolicy *)viewerInfoPolicy
+           accessInheritance:(DBSHARINGAccessInheritance *)accessInheritance
                      actions:(NSArray<DBSHARINGFolderAction *> *)actions
                 linkSettings:(DBSHARINGLinkSettings *)linkSettings {
   [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:nil
@@ -19795,7 +20898,8 @@
                   forceAsync:forceAsync
                 memberPolicy:memberPolicy
             sharedLinkPolicy:sharedLinkPolicy
-            viewerInfoPolicy:viewerInfoPolicy];
+            viewerInfoPolicy:viewerInfoPolicy
+           accessInheritance:accessInheritance];
   if (self) {
     _actions = actions;
     _linkSettings = linkSettings;
@@ -19810,17 +20914,18 @@
                memberPolicy:nil
            sharedLinkPolicy:nil
            viewerInfoPolicy:nil
+          accessInheritance:nil
                     actions:nil
                linkSettings:nil];
 }
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGShareFolderArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGShareFolderArgSerializer deserialize:dict];
 }
 
@@ -19858,6 +20963,7 @@
   if (self.viewerInfoPolicy != nil) {
     result = prime * result + [self.viewerInfoPolicy hash];
   }
+  result = prime * result + [self.accessInheritance hash];
   if (self.actions != nil) {
     result = prime * result + [self.actions hash];
   }
@@ -19910,6 +21016,9 @@
       return NO;
     }
   }
+  if (![self.accessInheritance isEqual:aShareFolderArg.accessInheritance]) {
+    return NO;
+  }
   if (self.actions) {
     if (![self.actions isEqual:aShareFolderArg.actions]) {
       return NO;
@@ -19929,7 +21038,7 @@
 
 @implementation DBSHARINGShareFolderArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGShareFolderArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGShareFolderArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"path"] = valueObj.path;
@@ -19946,6 +21055,7 @@
   if (valueObj.viewerInfoPolicy) {
     jsonDict[@"viewer_info_policy"] = [DBSHARINGViewerInfoPolicySerializer serialize:valueObj.viewerInfoPolicy];
   }
+  jsonDict[@"access_inheritance"] = [DBSHARINGAccessInheritanceSerializer serialize:valueObj.accessInheritance];
   if (valueObj.actions) {
     jsonDict[@"actions"] = [DBArraySerializer serialize:valueObj.actions
                                               withBlock:^id(id elem0) {
@@ -19959,7 +21069,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGShareFolderArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGShareFolderArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *path = valueDict[@"path"];
   DBSHARINGAclUpdatePolicy *aclUpdatePolicy =
       valueDict[@"acl_update_policy"] ? [DBSHARINGAclUpdatePolicySerializer deserialize:valueDict[@"acl_update_policy"]]
@@ -19975,6 +21085,10 @@
       valueDict[@"viewer_info_policy"]
           ? [DBSHARINGViewerInfoPolicySerializer deserialize:valueDict[@"viewer_info_policy"]]
           : nil;
+  DBSHARINGAccessInheritance *accessInheritance =
+      valueDict[@"access_inheritance"]
+          ? [DBSHARINGAccessInheritanceSerializer deserialize:valueDict[@"access_inheritance"]]
+          : [[DBSHARINGAccessInheritance alloc] initWithInherit];
   NSArray<DBSHARINGFolderAction *> *actions =
       valueDict[@"actions"] ? [DBArraySerializer deserialize:valueDict[@"actions"]
                                                    withBlock:^id(id elem0) {
@@ -19990,6 +21104,7 @@
                                           memberPolicy:memberPolicy
                                       sharedLinkPolicy:sharedLinkPolicy
                                       viewerInfoPolicy:viewerInfoPolicy
+                                     accessInheritance:accessInheritance
                                                actions:actions
                                           linkSettings:linkSettings];
 }
@@ -20101,11 +21216,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGShareFolderErrorBaseSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGShareFolderErrorBaseSerializer deserialize:dict];
 }
 
@@ -20185,7 +21300,7 @@
 
 @implementation DBSHARINGShareFolderErrorBaseSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGShareFolderErrorBase *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGShareFolderErrorBase *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isEmailUnverified]) {
@@ -20206,7 +21321,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGShareFolderErrorBase *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGShareFolderErrorBase *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"email_unverified"]) {
@@ -20347,11 +21462,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGShareFolderErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGShareFolderErrorSerializer deserialize:dict];
 }
 
@@ -20435,7 +21550,7 @@
 
 @implementation DBSHARINGShareFolderErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGShareFolderError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGShareFolderError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isEmailUnverified]) {
@@ -20458,7 +21573,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGShareFolderError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGShareFolderError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"email_unverified"]) {
@@ -20570,11 +21685,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGShareFolderJobStatusSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGShareFolderJobStatusSerializer deserialize:dict];
 }
 
@@ -20646,13 +21761,13 @@
 
 @implementation DBSHARINGShareFolderJobStatusSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGShareFolderJobStatus *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGShareFolderJobStatus *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isInProgress]) {
     jsonDict[@".tag"] = @"in_progress";
   } else if ([valueObj isComplete]) {
-    jsonDict[@"complete"] = [[DBSHARINGSharedFolderMetadataSerializer serialize:valueObj.complete] mutableCopy];
+    jsonDict = [[DBSHARINGSharedFolderMetadataSerializer serialize:valueObj.complete] mutableCopy];
     jsonDict[@".tag"] = @"complete";
   } else if ([valueObj isFailed]) {
     jsonDict[@"failed"] = [[DBSHARINGShareFolderErrorSerializer serialize:valueObj.failed] mutableCopy];
@@ -20666,7 +21781,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGShareFolderJobStatus *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGShareFolderJobStatus *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"in_progress"]) {
@@ -20761,11 +21876,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGShareFolderLaunchSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGShareFolderLaunchSerializer deserialize:dict];
 }
 
@@ -20833,14 +21948,14 @@
 
 @implementation DBSHARINGShareFolderLaunchSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGShareFolderLaunch *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGShareFolderLaunch *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isAsyncJobId]) {
     jsonDict[@"async_job_id"] = valueObj.asyncJobId;
     jsonDict[@".tag"] = @"async_job_id";
   } else if ([valueObj isComplete]) {
-    jsonDict[@"complete"] = [[DBSHARINGSharedFolderMetadataSerializer serialize:valueObj.complete] mutableCopy];
+    jsonDict = [[DBSHARINGSharedFolderMetadataSerializer serialize:valueObj.complete] mutableCopy];
     jsonDict[@".tag"] = @"complete";
   } else {
     @throw([NSException exceptionWithName:@"InvalidTag"
@@ -20851,7 +21966,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGShareFolderLaunch *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGShareFolderLaunch *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"async_job_id"]) {
@@ -21101,11 +22216,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGSharePathErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGSharePathErrorSerializer deserialize:dict];
 }
 
@@ -21221,7 +22336,7 @@
 
 @implementation DBSHARINGSharePathErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGSharePathError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharePathError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isIsFile]) {
@@ -21243,8 +22358,7 @@
   } else if ([valueObj isInsidePublicFolder]) {
     jsonDict[@".tag"] = @"inside_public_folder";
   } else if ([valueObj isAlreadyShared]) {
-    jsonDict[@"already_shared"] =
-        [[DBSHARINGSharedFolderMetadataSerializer serialize:valueObj.alreadyShared] mutableCopy];
+    jsonDict = [[DBSHARINGSharedFolderMetadataSerializer serialize:valueObj.alreadyShared] mutableCopy];
     jsonDict[@".tag"] = @"already_shared";
   } else if ([valueObj isInvalidPath]) {
     jsonDict[@".tag"] = @"invalid_path";
@@ -21261,7 +22375,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGSharePathError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGSharePathError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"is_file"]) {
@@ -21369,11 +22483,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGSharedContentLinkMetadataSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGSharedContentLinkMetadataSerializer deserialize:dict];
 }
 
@@ -21478,7 +22592,7 @@
 
 @implementation DBSHARINGSharedContentLinkMetadataSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGSharedContentLinkMetadata *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharedContentLinkMetadata *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"audience_options"] = [DBArraySerializer serialize:valueObj.audienceOptions
@@ -21509,7 +22623,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGSharedContentLinkMetadata *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGSharedContentLinkMetadata *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSArray<DBSHARINGLinkAudience *> *audienceOptions =
       [DBArraySerializer deserialize:valueDict[@"audience_options"]
                            withBlock:^id(id elem0) {
@@ -21599,11 +22713,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGSharedFileMembersSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGSharedFileMembersSerializer deserialize:dict];
 }
 
@@ -21676,7 +22790,7 @@
 
 @implementation DBSHARINGSharedFileMembersSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGSharedFileMembers *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharedFileMembers *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"users"] = [DBArraySerializer serialize:valueObj.users
@@ -21698,7 +22812,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGSharedFileMembers *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGSharedFileMembers *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSArray<DBSHARINGUserFileMembershipInfo *> *users =
       [DBArraySerializer deserialize:valueDict[@"users"]
                            withBlock:^id(id elem0) {
@@ -21751,7 +22865,7 @@
                   pathLower:(NSString *)pathLower
                 permissions:(NSArray<DBSHARINGFilePermission *> *)permissions
                 timeInvited:(NSDate *)timeInvited {
-  [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil pattern:@"id:.*"]](id_);
+  [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:@(4) maxLength:nil pattern:@"id:.+"]](id_);
   [DBStoneValidators nonnullValidator:nil](name);
   [DBStoneValidators nonnullValidator:nil](policy);
   [DBStoneValidators nonnullValidator:nil](previewUrl);
@@ -21809,11 +22923,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGSharedFileMetadataSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGSharedFileMetadataSerializer deserialize:dict];
 }
 
@@ -21962,7 +23076,7 @@
 
 @implementation DBSHARINGSharedFileMetadataSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGSharedFileMetadata *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharedFileMetadata *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"id"] = valueObj.id_;
@@ -22010,7 +23124,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGSharedFileMetadata *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGSharedFileMetadata *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *id_ = valueDict[@"id"];
   NSString *name = valueDict[@"name"];
   DBSHARINGFolderPolicy *policy = [DBSHARINGFolderPolicySerializer deserialize:valueDict[@"policy"]];
@@ -22157,11 +23271,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGSharedFolderAccessErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGSharedFolderAccessErrorSerializer deserialize:dict];
 }
 
@@ -22241,7 +23355,7 @@
 
 @implementation DBSHARINGSharedFolderAccessErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGSharedFolderAccessError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharedFolderAccessError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isInvalidId]) {
@@ -22261,7 +23375,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGSharedFolderAccessError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGSharedFolderAccessError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"invalid_id"]) {
@@ -22373,11 +23487,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGSharedFolderMemberErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGSharedFolderMemberErrorSerializer deserialize:dict];
 }
 
@@ -22453,7 +23567,7 @@
 
 @implementation DBSHARINGSharedFolderMemberErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGSharedFolderMemberError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharedFolderMemberError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isInvalidDropboxId]) {
@@ -22461,8 +23575,7 @@
   } else if ([valueObj isNotAMember]) {
     jsonDict[@".tag"] = @"not_a_member";
   } else if ([valueObj isNoExplicitAccess]) {
-    jsonDict[@"no_explicit_access"] =
-        [[DBSHARINGMemberAccessLevelResultSerializer serialize:valueObj.noExplicitAccess] mutableCopy];
+    jsonDict = [[DBSHARINGMemberAccessLevelResultSerializer serialize:valueObj.noExplicitAccess] mutableCopy];
     jsonDict[@".tag"] = @"no_explicit_access";
   } else if ([valueObj isOther]) {
     jsonDict[@".tag"] = @"other";
@@ -22473,7 +23586,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGSharedFolderMemberError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGSharedFolderMemberError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"invalid_dropbox_id"]) {
@@ -22541,11 +23654,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGSharedFolderMembersSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGSharedFolderMembersSerializer deserialize:dict];
 }
 
@@ -22618,7 +23731,7 @@
 
 @implementation DBSHARINGSharedFolderMembersSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGSharedFolderMembers *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharedFolderMembers *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"users"] = [DBArraySerializer serialize:valueObj.users
@@ -22640,7 +23753,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGSharedFolderMembers *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGSharedFolderMembers *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSArray<DBSHARINGUserMembershipInfo *> *users =
       [DBArraySerializer deserialize:valueDict[@"users"]
                            withBlock:^id(id elem0) {
@@ -22720,11 +23833,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGSharedFolderMetadataBaseSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGSharedFolderMetadataBaseSerializer deserialize:dict];
 }
 
@@ -22821,7 +23934,7 @@
 
 @implementation DBSHARINGSharedFolderMetadataBaseSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGSharedFolderMetadataBase *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharedFolderMetadataBase *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"access_type"] = [DBSHARINGAccessLevelSerializer serialize:valueObj.accessType];
@@ -22846,7 +23959,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGSharedFolderMetadataBase *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGSharedFolderMetadataBase *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBSHARINGAccessLevel *accessType = [DBSHARINGAccessLevelSerializer deserialize:valueDict[@"access_type"]];
   NSNumber *isInsideTeamFolder = valueDict[@"is_inside_team_folder"];
   NSNumber *isTeamFolder = valueDict[@"is_team_folder"];
@@ -22872,6 +23985,7 @@
 
 @end
 
+#import "DBSHARINGAccessInheritance.h"
 #import "DBSHARINGAccessLevel.h"
 #import "DBSHARINGFolderPermission.h"
 #import "DBSHARINGFolderPolicy.h"
@@ -22901,7 +24015,8 @@
               parentSharedFolderId:(NSString *)parentSharedFolderId
                          pathLower:(NSString *)pathLower
                       linkMetadata:(DBSHARINGSharedContentLinkMetadata *)linkMetadata
-                       permissions:(NSArray<DBSHARINGFolderPermission *> *)permissions {
+                       permissions:(NSArray<DBSHARINGFolderPermission *> *)permissions
+                 accessInheritance:(DBSHARINGAccessInheritance *)accessInheritance {
   [DBStoneValidators nonnullValidator:nil](accessType);
   [DBStoneValidators nonnullValidator:nil](isInsideTeamFolder);
   [DBStoneValidators nonnullValidator:nil](isTeamFolder);
@@ -22938,6 +24053,7 @@
     _previewUrl = previewUrl;
     _sharedFolderId = sharedFolderId;
     _timeInvited = timeInvited;
+    _accessInheritance = accessInheritance ?: [[DBSHARINGAccessInheritance alloc] initWithInherit];
   }
   return self;
 }
@@ -22963,16 +24079,17 @@
              parentSharedFolderId:nil
                         pathLower:nil
                      linkMetadata:nil
-                      permissions:nil];
+                      permissions:nil
+                accessInheritance:nil];
 }
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGSharedFolderMetadataSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGSharedFolderMetadataSerializer deserialize:dict];
 }
 
@@ -23022,6 +24139,7 @@
   if (self.permissions != nil) {
     result = prime * result + [self.permissions hash];
   }
+  result = prime * result + [self.accessInheritance hash];
 
   return prime * result;
 }
@@ -23096,6 +24214,9 @@
       return NO;
     }
   }
+  if (![self.accessInheritance isEqual:aSharedFolderMetadata.accessInheritance]) {
+    return NO;
+  }
   return YES;
 }
 
@@ -23105,7 +24226,7 @@
 
 @implementation DBSHARINGSharedFolderMetadataSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGSharedFolderMetadata *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharedFolderMetadata *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"access_type"] = [DBSHARINGAccessLevelSerializer serialize:valueObj.accessType];
@@ -23140,11 +24261,12 @@
                                                     return [DBSHARINGFolderPermissionSerializer serialize:elem0];
                                                   }];
   }
+  jsonDict[@"access_inheritance"] = [DBSHARINGAccessInheritanceSerializer serialize:valueObj.accessInheritance];
 
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGSharedFolderMetadata *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGSharedFolderMetadata *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBSHARINGAccessLevel *accessType = [DBSHARINGAccessLevelSerializer deserialize:valueDict[@"access_type"]];
   NSNumber *isInsideTeamFolder = valueDict[@"is_inside_team_folder"];
   NSNumber *isTeamFolder = valueDict[@"is_team_folder"];
@@ -23173,6 +24295,10 @@
                                                          return [DBSHARINGFolderPermissionSerializer deserialize:elem0];
                                                        }]
                                 : nil;
+  DBSHARINGAccessInheritance *accessInheritance =
+      valueDict[@"access_inheritance"]
+          ? [DBSHARINGAccessInheritanceSerializer deserialize:valueDict[@"access_inheritance"]]
+          : [[DBSHARINGAccessInheritance alloc] initWithInherit];
 
   return [[DBSHARINGSharedFolderMetadata alloc] initWithAccessType:accessType
                                                 isInsideTeamFolder:isInsideTeamFolder
@@ -23187,7 +24313,8 @@
                                               parentSharedFolderId:parentSharedFolderId
                                                          pathLower:pathLower
                                                       linkMetadata:linkMetadata
-                                                       permissions:permissions];
+                                                       permissions:permissions
+                                                 accessInheritance:accessInheritance];
 }
 
 @end
@@ -23299,11 +24426,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGSharedLinkAccessFailureReasonSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGSharedLinkAccessFailureReasonSerializer deserialize:dict];
 }
 
@@ -23388,7 +24515,7 @@
 
 @implementation DBSHARINGSharedLinkAccessFailureReasonSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGSharedLinkAccessFailureReason *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharedLinkAccessFailureReason *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isLoginRequired]) {
@@ -23410,7 +24537,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGSharedLinkAccessFailureReason *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGSharedLinkAccessFailureReason *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"login_required"]) {
@@ -23427,6 +24554,173 @@
     return [[DBSHARINGSharedLinkAccessFailureReason alloc] initWithOther];
   } else {
     return [[DBSHARINGSharedLinkAccessFailureReason alloc] initWithOther];
+  }
+}
+
+@end
+
+#import "DBSHARINGSharedLinkAlreadyExistsMetadata.h"
+#import "DBSHARINGSharedLinkMetadata.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBSHARINGSharedLinkAlreadyExistsMetadata
+
+@synthesize metadata = _metadata;
+
+#pragma mark - Constructors
+
+- (instancetype)initWithMetadata:(DBSHARINGSharedLinkMetadata *)metadata {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGSharedLinkAlreadyExistsMetadataMetadata;
+    _metadata = metadata;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGSharedLinkAlreadyExistsMetadataOther;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+- (DBSHARINGSharedLinkMetadata *)metadata {
+  if (![self isMetadata]) {
+    [NSException
+         raise:@"IllegalStateException"
+        format:@"Invalid tag: required DBSHARINGSharedLinkAlreadyExistsMetadataMetadata, but was %@.", [self tagName]];
+  }
+  return _metadata;
+}
+
+#pragma mark - Tag state methods
+
+- (BOOL)isMetadata {
+  return _tag == DBSHARINGSharedLinkAlreadyExistsMetadataMetadata;
+}
+
+- (BOOL)isOther {
+  return _tag == DBSHARINGSharedLinkAlreadyExistsMetadataOther;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBSHARINGSharedLinkAlreadyExistsMetadataMetadata:
+    return @"DBSHARINGSharedLinkAlreadyExistsMetadataMetadata";
+  case DBSHARINGSharedLinkAlreadyExistsMetadataOther:
+    return @"DBSHARINGSharedLinkAlreadyExistsMetadataOther";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBSHARINGSharedLinkAlreadyExistsMetadataSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBSHARINGSharedLinkAlreadyExistsMetadataSerializer deserialize:dict];
+}
+
+#pragma mark - Description method
+
+- (NSString *)description {
+  return [[DBSHARINGSharedLinkAlreadyExistsMetadataSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBSHARINGSharedLinkAlreadyExistsMetadataMetadata:
+    result = prime * result + [self.metadata hash];
+  case DBSHARINGSharedLinkAlreadyExistsMetadataOther:
+    result = prime * result + [[self tagName] hash];
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToSharedLinkAlreadyExistsMetadata:other];
+}
+
+- (BOOL)isEqualToSharedLinkAlreadyExistsMetadata:
+    (DBSHARINGSharedLinkAlreadyExistsMetadata *)aSharedLinkAlreadyExistsMetadata {
+  if (self == aSharedLinkAlreadyExistsMetadata) {
+    return YES;
+  }
+  if (self.tag != aSharedLinkAlreadyExistsMetadata.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBSHARINGSharedLinkAlreadyExistsMetadataMetadata:
+    return [self.metadata isEqual:aSharedLinkAlreadyExistsMetadata.metadata];
+  case DBSHARINGSharedLinkAlreadyExistsMetadataOther:
+    return [[self tagName] isEqual:[aSharedLinkAlreadyExistsMetadata tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBSHARINGSharedLinkAlreadyExistsMetadataSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharedLinkAlreadyExistsMetadata *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isMetadata]) {
+    jsonDict[@"metadata"] = [[DBSHARINGSharedLinkMetadataSerializer serialize:valueObj.metadata] mutableCopy];
+    jsonDict[@".tag"] = @"metadata";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return [jsonDict count] > 0 ? jsonDict : nil;
+}
+
++ (DBSHARINGSharedLinkAlreadyExistsMetadata *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"metadata"]) {
+    DBSHARINGSharedLinkMetadata *metadata = [DBSHARINGSharedLinkMetadataSerializer deserialize:valueDict[@"metadata"]];
+    return [[DBSHARINGSharedLinkAlreadyExistsMetadata alloc] initWithMetadata:metadata];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBSHARINGSharedLinkAlreadyExistsMetadata alloc] initWithOther];
+  } else {
+    return [[DBSHARINGSharedLinkAlreadyExistsMetadata alloc] initWithOther];
   }
 }
 
@@ -23511,11 +24805,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGSharedLinkPolicySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGSharedLinkPolicySerializer deserialize:dict];
 }
 
@@ -23591,7 +24885,7 @@
 
 @implementation DBSHARINGSharedLinkPolicySerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGSharedLinkPolicy *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharedLinkPolicy *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isAnyone]) {
@@ -23609,7 +24903,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGSharedLinkPolicy *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGSharedLinkPolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"anyone"]) {
@@ -23627,6 +24921,8 @@
 
 @end
 
+#import "DBSHARINGLinkAudience.h"
+#import "DBSHARINGRequestedLinkAccessLevel.h"
 #import "DBSHARINGRequestedVisibility.h"
 #import "DBSHARINGSharedLinkSettings.h"
 #import "DBStoneSerializers.h"
@@ -23640,28 +24936,32 @@
 
 - (instancetype)initWithRequestedVisibility:(DBSHARINGRequestedVisibility *)requestedVisibility
                                linkPassword:(NSString *)linkPassword
-                                    expires:(NSDate *)expires {
+                                    expires:(NSDate *)expires
+                                   audience:(DBSHARINGLinkAudience *)audience
+                                     access:(DBSHARINGRequestedLinkAccessLevel *)access {
 
   self = [super init];
   if (self) {
     _requestedVisibility = requestedVisibility;
     _linkPassword = linkPassword;
     _expires = expires;
+    _audience = audience;
+    _access = access;
   }
   return self;
 }
 
 - (instancetype)initDefault {
-  return [self initWithRequestedVisibility:nil linkPassword:nil expires:nil];
+  return [self initWithRequestedVisibility:nil linkPassword:nil expires:nil audience:nil access:nil];
 }
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGSharedLinkSettingsSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGSharedLinkSettingsSerializer deserialize:dict];
 }
 
@@ -23693,6 +24993,12 @@
   }
   if (self.expires != nil) {
     result = prime * result + [self.expires hash];
+  }
+  if (self.audience != nil) {
+    result = prime * result + [self.audience hash];
+  }
+  if (self.access != nil) {
+    result = prime * result + [self.access hash];
   }
 
   return prime * result;
@@ -23729,6 +25035,16 @@
       return NO;
     }
   }
+  if (self.audience) {
+    if (![self.audience isEqual:aSharedLinkSettings.audience]) {
+      return NO;
+    }
+  }
+  if (self.access) {
+    if (![self.access isEqual:aSharedLinkSettings.access]) {
+      return NO;
+    }
+  }
   return YES;
 }
 
@@ -23738,7 +25054,7 @@
 
 @implementation DBSHARINGSharedLinkSettingsSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGSharedLinkSettings *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharedLinkSettings *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if (valueObj.requestedVisibility) {
@@ -23750,11 +25066,17 @@
   if (valueObj.expires) {
     jsonDict[@"expires"] = [DBNSDateSerializer serialize:valueObj.expires dateFormat:@"%Y-%m-%dT%H:%M:%SZ"];
   }
+  if (valueObj.audience) {
+    jsonDict[@"audience"] = [DBSHARINGLinkAudienceSerializer serialize:valueObj.audience];
+  }
+  if (valueObj.access) {
+    jsonDict[@"access"] = [DBSHARINGRequestedLinkAccessLevelSerializer serialize:valueObj.access];
+  }
 
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGSharedLinkSettings *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGSharedLinkSettings *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBSHARINGRequestedVisibility *requestedVisibility =
       valueDict[@"requested_visibility"]
           ? [DBSHARINGRequestedVisibilitySerializer deserialize:valueDict[@"requested_visibility"]]
@@ -23763,10 +25085,16 @@
   NSDate *expires = valueDict[@"expires"]
                         ? [DBNSDateSerializer deserialize:valueDict[@"expires"] dateFormat:@"%Y-%m-%dT%H:%M:%SZ"]
                         : nil;
+  DBSHARINGLinkAudience *audience =
+      valueDict[@"audience"] ? [DBSHARINGLinkAudienceSerializer deserialize:valueDict[@"audience"]] : nil;
+  DBSHARINGRequestedLinkAccessLevel *access =
+      valueDict[@"access"] ? [DBSHARINGRequestedLinkAccessLevelSerializer deserialize:valueDict[@"access"]] : nil;
 
   return [[DBSHARINGSharedLinkSettings alloc] initWithRequestedVisibility:requestedVisibility
                                                              linkPassword:linkPassword
-                                                                  expires:expires];
+                                                                  expires:expires
+                                                                 audience:audience
+                                                                   access:access];
 }
 
 @end
@@ -23822,11 +25150,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGSharedLinkSettingsErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGSharedLinkSettingsErrorSerializer deserialize:dict];
 }
 
@@ -23894,7 +25222,7 @@
 
 @implementation DBSHARINGSharedLinkSettingsErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGSharedLinkSettingsError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharedLinkSettingsError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isInvalidSettings]) {
@@ -23910,7 +25238,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGSharedLinkSettingsError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGSharedLinkSettingsError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"invalid_settings"]) {
@@ -24034,11 +25362,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGSharingFileAccessErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGSharingFileAccessErrorSerializer deserialize:dict];
 }
 
@@ -24122,7 +25450,7 @@
 
 @implementation DBSHARINGSharingFileAccessErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGSharingFileAccessError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharingFileAccessError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isNoPermission]) {
@@ -24144,7 +25472,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGSharingFileAccessError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGSharingFileAccessError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"no_permission"]) {
@@ -24217,11 +25545,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGSharingUserErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGSharingUserErrorSerializer deserialize:dict];
 }
 
@@ -24289,7 +25617,7 @@
 
 @implementation DBSHARINGSharingUserErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGSharingUserError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharingUserError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isEmailUnverified]) {
@@ -24303,7 +25631,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGSharingUserError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGSharingUserError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"email_unverified"]) {
@@ -24349,11 +25677,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGTeamMemberInfoSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGTeamMemberInfoSerializer deserialize:dict];
 }
 
@@ -24422,7 +25750,7 @@
 
 @implementation DBSHARINGTeamMemberInfoSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGTeamMemberInfo *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGTeamMemberInfo *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"team_info"] = [DBUSERSTeamSerializer serialize:valueObj.teamInfo];
@@ -24434,7 +25762,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGTeamMemberInfo *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGTeamMemberInfo *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBUSERSTeam *teamInfo = [DBUSERSTeamSerializer deserialize:valueDict[@"team_info"]];
   NSString *displayName = valueDict[@"display_name"];
   NSString *memberId = valueDict[@"member_id"] ?: nil;
@@ -24469,11 +25797,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGTransferFolderArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGTransferFolderArgSerializer deserialize:dict];
 }
 
@@ -24534,7 +25862,7 @@
 
 @implementation DBSHARINGTransferFolderArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGTransferFolderArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGTransferFolderArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"shared_folder_id"] = valueObj.sharedFolderId;
@@ -24543,7 +25871,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGTransferFolderArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGTransferFolderArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *sharedFolderId = valueDict[@"shared_folder_id"];
   NSString *toDropboxId = valueDict[@"to_dropbox_id"];
 
@@ -24699,11 +26027,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGTransferFolderErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGTransferFolderErrorSerializer deserialize:dict];
 }
 
@@ -24795,7 +26123,7 @@
 
 @implementation DBSHARINGTransferFolderErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGTransferFolderError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGTransferFolderError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isAccessError]) {
@@ -24823,7 +26151,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGTransferFolderError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGTransferFolderError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"access_error"]) {
@@ -24874,11 +26202,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGUnmountFolderArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGUnmountFolderArgSerializer deserialize:dict];
 }
 
@@ -24935,7 +26263,7 @@
 
 @implementation DBSHARINGUnmountFolderArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGUnmountFolderArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGUnmountFolderArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"shared_folder_id"] = valueObj.sharedFolderId;
@@ -24943,7 +26271,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGUnmountFolderArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGUnmountFolderArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *sharedFolderId = valueDict[@"shared_folder_id"];
 
   return [[DBSHARINGUnmountFolderArg alloc] initWithSharedFolderId:sharedFolderId];
@@ -25042,11 +26370,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGUnmountFolderErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGUnmountFolderErrorSerializer deserialize:dict];
 }
 
@@ -25122,7 +26450,7 @@
 
 @implementation DBSHARINGUnmountFolderErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGUnmountFolderError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGUnmountFolderError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isAccessError]) {
@@ -25142,7 +26470,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGUnmountFolderError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGUnmountFolderError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"access_error"]) {
@@ -25187,11 +26515,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGUnshareFileArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGUnshareFileArgSerializer deserialize:dict];
 }
 
@@ -25248,7 +26576,7 @@
 
 @implementation DBSHARINGUnshareFileArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGUnshareFileArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGUnshareFileArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"file"] = valueObj.file;
@@ -25256,7 +26584,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGUnshareFileArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGUnshareFileArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *file = valueDict[@"file"];
 
   return [[DBSHARINGUnshareFileArg alloc] initWithFile:file];
@@ -25352,11 +26680,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGUnshareFileErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGUnshareFileErrorSerializer deserialize:dict];
 }
 
@@ -25428,7 +26756,7 @@
 
 @implementation DBSHARINGUnshareFileErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGUnshareFileError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGUnshareFileError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isUserError]) {
@@ -25447,7 +26775,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGUnshareFileError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGUnshareFileError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"user_error"]) {
@@ -25494,11 +26822,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGUnshareFolderArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGUnshareFolderArgSerializer deserialize:dict];
 }
 
@@ -25559,7 +26887,7 @@
 
 @implementation DBSHARINGUnshareFolderArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGUnshareFolderArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGUnshareFolderArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"shared_folder_id"] = valueObj.sharedFolderId;
@@ -25568,7 +26896,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGUnshareFolderArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGUnshareFolderArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *sharedFolderId = valueDict[@"shared_folder_id"];
   NSNumber *leaveACopy = valueDict[@"leave_a_copy"] ?: @NO;
 
@@ -25682,11 +27010,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGUnshareFolderErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGUnshareFolderErrorSerializer deserialize:dict];
 }
 
@@ -25766,7 +27094,7 @@
 
 @implementation DBSHARINGUnshareFolderErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGUnshareFolderError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGUnshareFolderError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isAccessError]) {
@@ -25788,7 +27116,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGUnshareFolderError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGUnshareFolderError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"access_error"]) {
@@ -25841,11 +27169,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGUpdateFileMemberArgsSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGUpdateFileMemberArgsSerializer deserialize:dict];
 }
 
@@ -25910,7 +27238,7 @@
 
 @implementation DBSHARINGUpdateFileMemberArgsSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGUpdateFileMemberArgs *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGUpdateFileMemberArgs *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"file"] = valueObj.file;
@@ -25920,7 +27248,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGUpdateFileMemberArgs *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGUpdateFileMemberArgs *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *file = valueDict[@"file"];
   DBSHARINGMemberSelector *member = [DBSHARINGMemberSelectorSerializer deserialize:valueDict[@"member"]];
   DBSHARINGAccessLevel *accessLevel = [DBSHARINGAccessLevelSerializer deserialize:valueDict[@"access_level"]];
@@ -25961,11 +27289,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGUpdateFolderMemberArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGUpdateFolderMemberArgSerializer deserialize:dict];
 }
 
@@ -26030,7 +27358,7 @@
 
 @implementation DBSHARINGUpdateFolderMemberArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGUpdateFolderMemberArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGUpdateFolderMemberArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"shared_folder_id"] = valueObj.sharedFolderId;
@@ -26040,7 +27368,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGUpdateFolderMemberArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGUpdateFolderMemberArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *sharedFolderId = valueDict[@"shared_folder_id"];
   DBSHARINGMemberSelector *member = [DBSHARINGMemberSelectorSerializer deserialize:valueDict[@"member"]];
   DBSHARINGAccessLevel *accessLevel = [DBSHARINGAccessLevelSerializer deserialize:valueDict[@"access_level"]];
@@ -26196,11 +27524,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGUpdateFolderMemberErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGUpdateFolderMemberErrorSerializer deserialize:dict];
 }
 
@@ -26284,7 +27612,7 @@
 
 @implementation DBSHARINGUpdateFolderMemberErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGUpdateFolderMemberError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGUpdateFolderMemberError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isAccessError]) {
@@ -26312,7 +27640,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGUpdateFolderMemberError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGUpdateFolderMemberError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"access_error"]) {
@@ -26395,11 +27723,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGUpdateFolderPolicyArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGUpdateFolderPolicyArgSerializer deserialize:dict];
 }
 
@@ -26504,7 +27832,7 @@
 
 @implementation DBSHARINGUpdateFolderPolicyArgSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGUpdateFolderPolicyArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGUpdateFolderPolicyArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"shared_folder_id"] = valueObj.sharedFolderId;
@@ -26533,7 +27861,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGUpdateFolderPolicyArg *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGUpdateFolderPolicyArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *sharedFolderId = valueDict[@"shared_folder_id"];
   DBSHARINGMemberPolicy *memberPolicy =
       valueDict[@"member_policy"] ? [DBSHARINGMemberPolicySerializer deserialize:valueDict[@"member_policy"]] : nil;
@@ -26702,11 +28030,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGUpdateFolderPolicyErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGUpdateFolderPolicyErrorSerializer deserialize:dict];
 }
 
@@ -26794,7 +28122,7 @@
 
 @implementation DBSHARINGUpdateFolderPolicyErrorSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGUpdateFolderPolicyError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGUpdateFolderPolicyError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isAccessError]) {
@@ -26820,7 +28148,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGUpdateFolderPolicyError *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGUpdateFolderPolicyError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"access_error"]) {
@@ -26885,11 +28213,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGUserMembershipInfoSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGUserMembershipInfoSerializer deserialize:dict];
 }
 
@@ -26970,7 +28298,7 @@
 
 @implementation DBSHARINGUserMembershipInfoSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGUserMembershipInfo *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGUserMembershipInfo *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"access_type"] = [DBSHARINGAccessLevelSerializer serialize:valueObj.accessType];
@@ -26989,7 +28317,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGUserMembershipInfo *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGUserMembershipInfo *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBSHARINGAccessLevel *accessType = [DBSHARINGAccessLevelSerializer deserialize:valueDict[@"access_type"]];
   DBSHARINGUserInfo *user = [DBSHARINGUserInfoSerializer deserialize:valueDict[@"user"]];
   NSArray<DBSHARINGMemberPermission *> *permissions =
@@ -27010,6 +28338,7 @@
 
 @end
 
+#import "DBSEENSTATEPlatformType.h"
 #import "DBSHARINGAccessLevel.h"
 #import "DBSHARINGMemberPermission.h"
 #import "DBSHARINGUserFileMembershipInfo.h"
@@ -27029,7 +28358,8 @@
                        permissions:(NSArray<DBSHARINGMemberPermission *> *)permissions
                           initials:(NSString *)initials
                        isInherited:(NSNumber *)isInherited
-                      timeLastSeen:(NSDate *)timeLastSeen {
+                      timeLastSeen:(NSDate *)timeLastSeen
+                      platformType:(DBSEENSTATEPlatformType *)platformType {
   [DBStoneValidators nonnullValidator:nil](accessType);
   [DBStoneValidators nonnullValidator:nil](user);
   [DBStoneValidators
@@ -27041,21 +28371,28 @@
       [super initWithAccessType:accessType user:user permissions:permissions initials:initials isInherited:isInherited];
   if (self) {
     _timeLastSeen = timeLastSeen;
+    _platformType = platformType;
   }
   return self;
 }
 
 - (instancetype)initWithAccessType:(DBSHARINGAccessLevel *)accessType user:(DBSHARINGUserInfo *)user {
-  return [self initWithAccessType:accessType user:user permissions:nil initials:nil isInherited:nil timeLastSeen:nil];
+  return [self initWithAccessType:accessType
+                             user:user
+                      permissions:nil
+                         initials:nil
+                      isInherited:nil
+                     timeLastSeen:nil
+                     platformType:nil];
 }
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGUserFileMembershipInfoSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGUserFileMembershipInfoSerializer deserialize:dict];
 }
 
@@ -27090,6 +28427,9 @@
   result = prime * result + [self.isInherited hash];
   if (self.timeLastSeen != nil) {
     result = prime * result + [self.timeLastSeen hash];
+  }
+  if (self.platformType != nil) {
+    result = prime * result + [self.platformType hash];
   }
 
   return prime * result;
@@ -27135,6 +28475,11 @@
       return NO;
     }
   }
+  if (self.platformType) {
+    if (![self.platformType isEqual:anUserFileMembershipInfo.platformType]) {
+      return NO;
+    }
+  }
   return YES;
 }
 
@@ -27144,7 +28489,7 @@
 
 @implementation DBSHARINGUserFileMembershipInfoSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGUserFileMembershipInfo *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGUserFileMembershipInfo *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"access_type"] = [DBSHARINGAccessLevelSerializer serialize:valueObj.accessType];
@@ -27162,11 +28507,14 @@
   if (valueObj.timeLastSeen) {
     jsonDict[@"time_last_seen"] = [DBNSDateSerializer serialize:valueObj.timeLastSeen dateFormat:@"%Y-%m-%dT%H:%M:%SZ"];
   }
+  if (valueObj.platformType) {
+    jsonDict[@"platform_type"] = [DBSEENSTATEPlatformTypeSerializer serialize:valueObj.platformType];
+  }
 
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGUserFileMembershipInfo *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGUserFileMembershipInfo *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBSHARINGAccessLevel *accessType = [DBSHARINGAccessLevelSerializer deserialize:valueDict[@"access_type"]];
   DBSHARINGUserInfo *user = [DBSHARINGUserInfoSerializer deserialize:valueDict[@"user"]];
   NSArray<DBSHARINGMemberPermission *> *permissions =
@@ -27180,13 +28528,16 @@
   NSDate *timeLastSeen = valueDict[@"time_last_seen"] ? [DBNSDateSerializer deserialize:valueDict[@"time_last_seen"]
                                                                              dateFormat:@"%Y-%m-%dT%H:%M:%SZ"]
                                                       : nil;
+  DBSEENSTATEPlatformType *platformType =
+      valueDict[@"platform_type"] ? [DBSEENSTATEPlatformTypeSerializer deserialize:valueDict[@"platform_type"]] : nil;
 
   return [[DBSHARINGUserFileMembershipInfo alloc] initWithAccessType:accessType
                                                                 user:user
                                                          permissions:permissions
                                                             initials:initials
                                                          isInherited:isInherited
-                                                        timeLastSeen:timeLastSeen];
+                                                        timeLastSeen:timeLastSeen
+                                                        platformType:platformType];
 }
 
 @end
@@ -27202,31 +28553,40 @@
 #pragma mark - Constructors
 
 - (instancetype)initWithAccountId:(NSString *)accountId
+                            email:(NSString *)email
+                      displayName:(NSString *)displayName
                          sameTeam:(NSNumber *)sameTeam
                      teamMemberId:(NSString *)teamMemberId {
   [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:@(40) maxLength:@(40) pattern:nil]](accountId);
+  [DBStoneValidators nonnullValidator:nil](email);
+  [DBStoneValidators nonnullValidator:nil](displayName);
   [DBStoneValidators nonnullValidator:nil](sameTeam);
 
   self = [super init];
   if (self) {
     _accountId = accountId;
+    _email = email;
+    _displayName = displayName;
     _sameTeam = sameTeam;
     _teamMemberId = teamMemberId;
   }
   return self;
 }
 
-- (instancetype)initWithAccountId:(NSString *)accountId sameTeam:(NSNumber *)sameTeam {
-  return [self initWithAccountId:accountId sameTeam:sameTeam teamMemberId:nil];
+- (instancetype)initWithAccountId:(NSString *)accountId
+                            email:(NSString *)email
+                      displayName:(NSString *)displayName
+                         sameTeam:(NSNumber *)sameTeam {
+  return [self initWithAccountId:accountId email:email displayName:displayName sameTeam:sameTeam teamMemberId:nil];
 }
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGUserInfoSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGUserInfoSerializer deserialize:dict];
 }
 
@@ -27251,6 +28611,8 @@
   NSUInteger result = 1;
 
   result = prime * result + [self.accountId hash];
+  result = prime * result + [self.email hash];
+  result = prime * result + [self.displayName hash];
   result = prime * result + [self.sameTeam hash];
   if (self.teamMemberId != nil) {
     result = prime * result + [self.teamMemberId hash];
@@ -27278,6 +28640,12 @@
   if (![self.accountId isEqual:anUserInfo.accountId]) {
     return NO;
   }
+  if (![self.email isEqual:anUserInfo.email]) {
+    return NO;
+  }
+  if (![self.displayName isEqual:anUserInfo.displayName]) {
+    return NO;
+  }
   if (![self.sameTeam isEqual:anUserInfo.sameTeam]) {
     return NO;
   }
@@ -27295,10 +28663,12 @@
 
 @implementation DBSHARINGUserInfoSerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGUserInfo *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGUserInfo *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"account_id"] = valueObj.accountId;
+  jsonDict[@"email"] = valueObj.email;
+  jsonDict[@"display_name"] = valueObj.displayName;
   jsonDict[@"same_team"] = valueObj.sameTeam;
   if (valueObj.teamMemberId) {
     jsonDict[@"team_member_id"] = valueObj.teamMemberId;
@@ -27307,12 +28677,18 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGUserInfo *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGUserInfo *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *accountId = valueDict[@"account_id"];
+  NSString *email = valueDict[@"email"];
+  NSString *displayName = valueDict[@"display_name"];
   NSNumber *sameTeam = valueDict[@"same_team"];
   NSString *teamMemberId = valueDict[@"team_member_id"] ?: nil;
 
-  return [[DBSHARINGUserInfo alloc] initWithAccountId:accountId sameTeam:sameTeam teamMemberId:teamMemberId];
+  return [[DBSHARINGUserInfo alloc] initWithAccountId:accountId
+                                                email:email
+                                          displayName:displayName
+                                             sameTeam:sameTeam
+                                         teamMemberId:teamMemberId];
 }
 
 @end
@@ -27382,11 +28758,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGViewerInfoPolicySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGViewerInfoPolicySerializer deserialize:dict];
 }
 
@@ -27458,7 +28834,7 @@
 
 @implementation DBSHARINGViewerInfoPolicySerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGViewerInfoPolicy *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGViewerInfoPolicy *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isEnabled]) {
@@ -27474,7 +28850,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGViewerInfoPolicy *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGViewerInfoPolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"enabled"]) {
@@ -27597,11 +28973,11 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBSHARINGVisibilitySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBSHARINGVisibilitySerializer deserialize:dict];
 }
 
@@ -27685,7 +29061,7 @@
 
 @implementation DBSHARINGVisibilitySerializer
 
-+ (NSDictionary *)serialize:(DBSHARINGVisibility *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBSHARINGVisibility *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isPublic]) {
@@ -27707,7 +29083,7 @@
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
 
-+ (DBSHARINGVisibility *)deserialize:(NSDictionary *)valueDict {
++ (DBSHARINGVisibility *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"public"]) {

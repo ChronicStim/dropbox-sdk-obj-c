@@ -13,6 +13,7 @@
 #import "DBStoneBase.h"
 #import "DBTransportBaseClient.h"
 #import "DBTransportBaseConfig.h"
+#import "DBTransportBaseHostnameConfig.h"
 
 #pragma mark - Internal serialization helpers
 
@@ -36,6 +37,7 @@
                                                  stringByAppendingString:defaultUserAgent]
                                            : defaultUserAgent;
     _asMemberId = transportConfig.asMemberId;
+    _pathRoot = transportConfig.pathRoot;
     _additionalHeaders = transportConfig.additionalHeaders;
   }
   return self;
@@ -62,6 +64,11 @@
   if (!noauth) {
     if (_asMemberId) {
       [headers setObject:_asMemberId forKey:@"Dropbox-Api-Select-User"];
+    }
+
+    if (_pathRoot) {
+      NSString *pathRootStr = [[self class] serializeStringWithRoute:nil routeArg:_pathRoot];
+      [headers setObject:pathRootStr forKey:@"Dropbox-Api-Path-Root"];
     }
 
     if (routeAuth && [routeAuth isEqualToString:@"app"]) {
@@ -124,7 +131,7 @@
 }
 
 - (NSURL *)urlWithRoute:(DBRoute *)route {
-  NSString *routePrefix = [_hostnameConfig apiV2PrefixWithRouteType:route.attrs[@"host"]];
+  NSString *routePrefix = [_hostnameConfig apiV2PrefixWithRoute:route];
   return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@", routePrefix, route.namespace_, route.name]];
 }
 
@@ -133,7 +140,7 @@
     return nil;
   }
 
-  if (route.dataStructSerialBlock) {
+  if (route != nil && route.dataStructSerialBlock) {
     return [[self class] jsonDataWithJsonObj:route.dataStructSerialBlock(arg)];
   }
 
@@ -220,7 +227,15 @@
   } else {
     errorContent = errorData ? [[NSString alloc] initWithData:errorData encoding:NSUTF8StringEncoding] : nil;
   }
-  NSString *userMessage = deserializedData[@"user_message"];
+  DBLocalizedUserMessage *userMessage = nil;
+  NSDictionary *userMessageDict = deserializedData[@"user_message"];
+  if ([userMessageDict isKindOfClass:[NSDictionary class]]) {
+    NSString *text = userMessageDict[@"text"];
+    NSString *locale = userMessageDict[@"locale"];
+    if ([text isKindOfClass:[NSString class]] && [locale isKindOfClass:[NSString class]]) {
+      userMessage = [[DBLocalizedUserMessage alloc] initWithText:text locale:locale];
+    }
+  }
 
   if (statusCode >= 500 && statusCode < 600) {
     dbxError = [[DBRequestError alloc] initAsInternalServerError:requestId

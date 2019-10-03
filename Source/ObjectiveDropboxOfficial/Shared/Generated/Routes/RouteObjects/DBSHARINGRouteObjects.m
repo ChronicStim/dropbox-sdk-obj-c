@@ -11,6 +11,7 @@
 #import "DBASYNCPollResultBase.h"
 #import "DBFILESLookupError.h"
 #import "DBRequestErrors.h"
+#import "DBSHARINGAccessInheritance.h"
 #import "DBSHARINGAccessLevel.h"
 #import "DBSHARINGAddFileMemberError.h"
 #import "DBSHARINGAddFolderMemberError.h"
@@ -63,6 +64,7 @@
 #import "DBSHARINGRemoveFolderMemberError.h"
 #import "DBSHARINGRemoveMemberJobStatus.h"
 #import "DBSHARINGRevokeSharedLinkError.h"
+#import "DBSHARINGSetAccessInheritanceError.h"
 #import "DBSHARINGShareFolderError.h"
 #import "DBSHARINGShareFolderErrorBase.h"
 #import "DBSHARINGShareFolderJobStatus.h"
@@ -76,6 +78,7 @@
 #import "DBSHARINGSharedFolderMembers.h"
 #import "DBSHARINGSharedFolderMetadata.h"
 #import "DBSHARINGSharedFolderMetadataBase.h"
+#import "DBSHARINGSharedLinkAlreadyExistsMetadata.h"
 #import "DBSHARINGSharedLinkError.h"
 #import "DBSHARINGSharedLinkMetadata.h"
 #import "DBSHARINGSharedLinkSettingsError.h"
@@ -131,6 +134,7 @@ static DBRoute *DBSHARINGRemoveFileMember;
 static DBRoute *DBSHARINGRemoveFileMember2;
 static DBRoute *DBSHARINGRemoveFolderMember;
 static DBRoute *DBSHARINGRevokeSharedLink;
+static DBRoute *DBSHARINGSetAccessInheritance;
 static DBRoute *DBSHARINGShareFolder;
 static DBRoute *DBSHARINGTransferFolder;
 static DBRoute *DBSHARINGUnmountFolder;
@@ -765,6 +769,24 @@ static DBRoute *DBSHARINGUpdateFolderPolicy;
                               dataStructDeserialBlock:nil];
   }
   return DBSHARINGRevokeSharedLink;
+}
+
++ (DBRoute *)DBSHARINGSetAccessInheritance {
+  if (!DBSHARINGSetAccessInheritance) {
+    DBSHARINGSetAccessInheritance = [[DBRoute alloc] init:@"set_access_inheritance"
+                                               namespace_:@"sharing"
+                                               deprecated:@NO
+                                               resultType:[DBSHARINGShareFolderLaunch class]
+                                                errorType:[DBSHARINGSetAccessInheritanceError class]
+                                                    attrs:@{
+                                                      @"auth" : @"user",
+                                                      @"host" : @"api",
+                                                      @"style" : @"rpc"
+                                                    }
+                                    dataStructSerialBlock:nil
+                                  dataStructDeserialBlock:nil];
+  }
+  return DBSHARINGSetAccessInheritance;
 }
 
 + (DBRoute *)DBSHARINGShareFolder {
